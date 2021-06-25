@@ -27,7 +27,7 @@ class CreateJobPostsTable extends Migration
             $table->date('expire');
             $table->longText('description');
             $table->integer('employee_quantity');
-            $table->unsignedBigInteger('gender_id')->nullable();
+            $table->unsignedBigInteger('gender_id');
             $table->boolean('is_active')->default(1);
             $table->string('job_code');
             $table->timestamps();

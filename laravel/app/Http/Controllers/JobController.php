@@ -2,13 +2,35 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\EmployeePosition;
+use App\Models\Gender;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\JobPost;
+use App\Models\JobType;
+use App\Models\TypeOfEmployment;
 use Exception;
 
 class JobController extends Controller
 {
+    public function getJobInfo()
+    {
+        try {
+            $jobTypes = JobType::all();
+            $employeePositions = EmployeePosition::all();
+            $typeOfEmployments = TypeOfEmployment::all();
+            $genders = Gender::all();
+            return response()->json([
+                'jobTypes' => $jobTypes,
+                'employeePositions' => $employeePositions,
+                'typeOfEmployments' => $typeOfEmployments,
+                'genders' => $genders,
+                'status' => 200
+            ]);
+        } catch (Exception $e) {
+            return response()->json(['message' => $e->getMessage(), 'status' => 400]);
+        }
+    }
     public function store(Request $request)
     {
         try {
@@ -17,10 +39,6 @@ class JobController extends Controller
             $jobPost = new JobPost();
             $jobPost->fill($request->all());
             $jobPost->user_id = 1;
-            $jobPost->job_code = 'CODE' . '1';
-            $jobPost->save();
-
-            $jobPost->job_code = $jobPost->job_code . $jobPost->id;
             $jobPost->save();
 
             DB::commit();

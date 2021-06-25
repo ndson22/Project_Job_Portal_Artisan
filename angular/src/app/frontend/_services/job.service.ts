@@ -6,7 +6,7 @@ import { environment } from 'src/environments/environment.prod';
 
 import { Job } from '../_models/job';
 
-const baseUrl = `${environment.backendUrl}/brand`;
+const baseUrl = `${environment.frontendUrl}/jobs`;
 
 @Injectable({
   providedIn: 'root',
@@ -23,7 +23,7 @@ export class JobService {
   }
 
   store(data: any): Observable<any> {
-    return this.http.post(baseUrl, data);
+    return this.http.post(`${baseUrl}/store`, data);
   }
 
   update(id: number, data: any): Observable<any> {
@@ -32,5 +32,9 @@ export class JobService {
 
   delete(id: number): Observable<any> {
     return this.http.delete(`${baseUrl}/${id}`);
+  }
+
+  getJobInfor(): Observable<any> {
+    return this.http.get(`${baseUrl}/info`);
   }
 }
