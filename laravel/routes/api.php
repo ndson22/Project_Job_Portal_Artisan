@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\Auth\AuthController;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\JobController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -26,4 +26,8 @@ Route::prefix('backend')->group(function () {
         Route::post('/logout', [AuthController::class, 'logout']);
         Route::get('/profile', [AuthController::class, 'profile']);
     });
+});
+
+Route::prefix('/jobs')->group(function() {
+    Route::post('/store', [JobController::class, 'store'])->name('jobs.store');
 });
