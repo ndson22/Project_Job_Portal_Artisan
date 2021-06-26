@@ -15,12 +15,11 @@ class CreateJobLocationsTable extends Migration
     {
         Schema::create('job_locations', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('provice_id');
+            $table->unsignedBigInteger('province_id');
             $table->longText('address');
             $table->timestamps();
 
             $table->foreign('id')->references('id')->on('job_posts');
-            $table->foreign('provice_id')->references('id')->on('provinces');
         });
     }
 

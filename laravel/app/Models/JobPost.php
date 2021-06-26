@@ -23,12 +23,6 @@ class JobPost extends Model
         'description', 'employee_quantity', 'gender_id',
     ];
 
-    public function setIdAttribute()
-    {
-
-        $this->attributes['job_code'] = 'CODE' . $this->attributes['company_id'] . $this->attributes['id'];
-    }
-
     public function jobAddress()
     {
         return $this->hasOne(JobAddress::class);

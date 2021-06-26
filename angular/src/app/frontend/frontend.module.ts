@@ -7,6 +7,7 @@ import { FrontendRoutingModule } from './frontend-routing.module';
 // Extra
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TimeagoModule } from 'ngx-timeago';
+import { EditorModule } from "@tinymce/tinymce-angular";
 
 // Partials
 import { HeaderComponent } from './_partials/header/header.component';
@@ -56,6 +57,7 @@ import { HomeComponent } from './_layouts/home/home.component';
 
     // Extra
     NgbModule,
+    EditorModule,
     TimeagoModule.forChild(),
   ],
 })

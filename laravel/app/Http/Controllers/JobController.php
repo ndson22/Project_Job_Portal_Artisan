@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\JobPost;
 use App\Models\JobType;
 use App\Models\TypeOfEmployment;
+use Vanthao03596\HCVN\Models\Province;
 use Exception;
 
 class JobController extends Controller
@@ -20,11 +21,13 @@ class JobController extends Controller
             $employeePositions = EmployeePosition::all();
             $typeOfEmployments = TypeOfEmployment::all();
             $genders = Gender::all();
+            $provinces = Province::all();
             return response()->json([
                 'jobTypes' => $jobTypes,
                 'employeePositions' => $employeePositions,
                 'typeOfEmployments' => $typeOfEmployments,
                 'genders' => $genders,
+                'provinces' => $provinces,
                 'status' => 200
             ]);
         } catch (Exception $e) {
@@ -39,6 +42,10 @@ class JobController extends Controller
             $jobPost = new JobPost();
             $jobPost->fill($request->all());
             $jobPost->user_id = 1;
+            $jobPost->job_code = "CODE" . $jobPost->company_id;
+            $jobPost->save();
+
+            $jobPost->job_code = $jobPost->job_code . $jobPost->id;
             $jobPost->save();
 
             DB::commit();
