@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { JobService } from './../../_services/job.service';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
@@ -17,24 +18,26 @@ export class JobCreateComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private jobService: JobService
+    private jobService: JobService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
     this.getJobData();
     this.createForm = this.formBuilder.group({
       title: ['', [Validators.required, Validators.maxLength(255)]],
-      job_type_id: ['Job Type', [Validators.required]],
+      job_type_id: ['', [Validators.required]],
       from_salary: ['', [Validators.required]],
       to_salary: ['', [Validators.required]],
-      employee_position_id: ['Job position', [Validators.required]],
+      employee_position_id: ['', [Validators.required]],
       experience: ['', [Validators.required]],
-      type_of_employment_id: ['Type of Employment', [Validators.required]],
+      type_of_employment_id: ['', [Validators.required]],
       expire: ['', [Validators.required]],
       description: ['', [Validators.required]],
       employee_quantity: ['', [Validators.required]],
-      gender_id: ['Gender'],
-      province_id: ['Province', [Validators.required]],
+      gender_id: ['', [Validators.required]],
+      province_id: ['', [Validators.required]],
+      address: ['', [Validators.required]],
     });
   }
 
@@ -54,10 +57,28 @@ export class JobCreateComponent implements OnInit {
   }
 
   onSubmit() {
+    if (this.createForm.invalid) {
+      return;
+    }
 
+    this.jobService.store(this.createForm.value).subscribe({
+      next: (res) => {
+        // thong bao thanh cong
+
+        //reset form
+        // Object.keys(this.createForm.controls).forEach((key) => {
+        //   this.createForm.get(key)?.setValue('');
+        // });
+        this.createForm.reset();
+        return;
+      },
+      error: (res) => {
+
+      }
+    });;
   }
 
-  get getControl(){
+  get getControl() {
     return this.createForm.controls;
   }
 }

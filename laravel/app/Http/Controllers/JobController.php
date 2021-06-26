@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\EmployeePosition;
 use App\Models\Gender;
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreJobPostRequest;
 use Illuminate\Support\Facades\DB;
 use App\Models\JobPost;
 use App\Models\JobType;
@@ -34,7 +35,7 @@ class JobController extends Controller
             return response()->json(['message' => $e->getMessage(), 'status' => 400]);
         }
     }
-    public function store(Request $request)
+    public function store(StoreJobPostRequest $request)
     {
         try {
             DB::beginTransaction();
@@ -42,6 +43,7 @@ class JobController extends Controller
             $jobPost = new JobPost();
             $jobPost->fill($request->all());
             $jobPost->user_id = 1;
+            $jobPost->company_id = 1;
             $jobPost->job_code = "CODE" . $jobPost->company_id;
             $jobPost->save();
 
