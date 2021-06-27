@@ -1,0 +1,110 @@
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <div class="userccount">
+      <div class="userbtns">
+        <ul class="nav nav-tabs">
+          <li class="active">
+            <a data-toggle="tab" href="#candidate">Candidate</a>
+          </li>
+          <li><a data-toggle="tab" href="#employer">Employer</a></li>
+        </ul>
+      </div>
+      <div class="tab-content">
+        <form
+          id="candidate"
+          class="formpanel tab-pane fade in active"
+          [formGroup]="candidateForm"
+          (ngSubmit)="onSubmitCandidate()"
+        >
+          <div class="formrow">
+            <input
+              class="form-control"
+              type="text"
+              formControlName="name"
+              placeholder="Full Name"
+            />
+          </div>
+          <div class="formrow">
+            <input
+              class="form-control"
+              type="email"
+              formControlName="email"
+              placeholder="Email"
+            />
+          </div>
+          <div class="formrow">
+            <input
+              class="form-control"
+              type="password"
+              formControlName="password"
+              placeholder="Password"
+            />
+          </div>
+          <div class="formrow">
+            <input
+              class="form-control"
+              type="password"
+              formControlName="password_confirmation"
+              placeholder="Confirm Password"
+            />
+          </div>
+          <div class="formrow">
+            <input formControlName="agree" type="checkbox" value="agree text" />
+            There are many variations of passages of Lorem Ipsum available
+          </div>
+          <input
+            class="btn"
+            type="submit"
+            value="Register"
+            [disabled]="!candidateForm.valid"
+          />
+        </form>
+
+        <!-- Employer / Company Form -->
+        <div id="employer" class="formpanel tab-pane fade in">
+          <div class="formrow">
+            <input
+              class="form-control"
+              name="cname"
+              type="text"
+              placeholder="Company Name"
+            />
+          </div>
+          <div class="formrow">
+            <input
+              class="form-control"
+              name="cemail"
+              type="text"
+              placeholder="Email"
+            />
+          </div>
+          <div class="formrow">
+            <input
+              class="form-control"
+              name="cpass"
+              type="text"
+              placeholder="Password"
+            />
+          </div>
+          <div class="formrow">
+            <input
+              class="form-control"
+              name="cpass"
+              type="text"
+              placeholder="Confirm Password"
+            />
+          </div>
+          <div class="formrow">
+            <input name="cagree" type="checkbox" value="agree text c" />
+            There are many variations of passages of Lorem Ipsum available
+          </div>
+          <input class="btn" type="submit" value="Register" />
+        </div>
+      </div>
+      <div class="newuser">
+        <i class="fa fa-user" aria-hidden="true"></i> Already a Member?
+        <a routerLink="/login">Login Here</a>
+      </div>
+    </div>
+  </div>
+</div>
