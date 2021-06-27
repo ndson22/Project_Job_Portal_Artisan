@@ -27,3 +27,5 @@ php artisan migrate --seed
 php artisan storage:link
 php artisan hcvn:install
 ```
+Installed packages:
++ https://github.com/vanthao03596/laravel-hanhchinhvn
