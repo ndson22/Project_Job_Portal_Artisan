@@ -18,7 +18,7 @@ Installed packages:
 + https://www.npmjs.com/package/ngx-validators
 + https://www.npmjs.com/package/ngx-timeago
 
-# Larvel
+# Laravel
 ```
 composer install
 copy .env.example .env \\ Database nen dat ten la codegym_jobportal
