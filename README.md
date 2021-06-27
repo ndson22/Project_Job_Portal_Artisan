@@ -9,8 +9,8 @@ git clone -b <branch-name> https://github.com/ndson22/Project_Job_Portal_Artisan
 npm install
 
 Tạo component: ng g c frontend/<component-group>/<specific-component-name>
-Tạo service: ng g s frontend/_services/<service-name>
-Tạo model: ng g class frontend/_models/<model-name>
+Tạo service: ng g s shared/services/<service-name>
+Tạo model: ng g class shared/models/<model-name>
 ```
 Installed packages:
 + https://www.npmjs.com/package/ngx-toastr
