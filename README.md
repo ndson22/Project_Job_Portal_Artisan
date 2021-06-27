@@ -3,6 +3,14 @@
 git checkout <branch-name>
 git clone -b <branch-name> https://github.com/ndson22/Project_Job_Portal_Artisan.git
 ```
+```
+git init -b <branch-name>
+git add .
+git commit -m "First commit"
+git remote add origin https://github.com/ndson22/Project_Job_Portal_Artisan.git
+git remote -v
+git push origin main <branch-name>
+```
 
 # Angular
 ```
