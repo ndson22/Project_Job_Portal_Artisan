@@ -6,16 +6,16 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\JobPost;
 
-class JobAddress extends Model
+class JobLocation extends Model
 {
     use HasFactory;
 
-    protected $table = 'job_addresses';
+    protected $table = 'job_locations';
 
-    protected $fillable = ['city', 'address_detail'];
+    protected $fillable = ['province_id', 'address'];
 
     public function jobPost()
     {
-        return $this->belongsTo(JobPost::class);
+        return $this->belongsTo(JobPost::class, 'id');
     }
 }

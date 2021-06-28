@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\JobAddress;
+use App\Models\JobLocation;
 use App\Models\JobType;
 use App\Models\EmployeePosition;
 use App\Models\TypeOfEmployment;
@@ -23,9 +23,9 @@ class JobPost extends Model
         'description', 'employee_quantity', 'gender_id',
     ];
 
-    public function jobAddress()
+    public function jobLocation()
     {
-        return $this->hasOne(JobAddress::class);
+        return $this->hasOne(JobLocation::class, 'id');
     }
 
     public function jobType()

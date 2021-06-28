@@ -18,7 +18,7 @@ export class JobService {
     return this.http.get<Job[]>(baseUrl);
   }
 
-  get(id: any): Observable<Job> {
+  get(id: number): Observable<Job> {
     return this.http.get<Job>(`${baseUrl}/${id}`);
   }
 

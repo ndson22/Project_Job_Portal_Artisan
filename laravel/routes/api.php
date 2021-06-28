@@ -31,4 +31,5 @@ Route::prefix('backend')->group(function () {
 Route::prefix('/jobs')->group(function() {
     Route::get('/info', [JobController::class, 'getJobInfo'])->name('jobs.getJobInfo');
     Route::post('/store', [JobController::class, 'store'])->name('jobs.store');
+    Route::get('/{id}', [JobController::class, 'get'])->name('jobs.get');
 });
