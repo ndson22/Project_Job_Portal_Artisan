@@ -40,12 +40,12 @@ const routes: Routes = [
         component: JobListComponent,
       },
       {
-        path: 'create',
-        component: JobCreateComponent,
-      },
-      {
         path: ':id',
         component: JobDetailComponent,
+      },
+      {
+        path: 'create',
+        component: JobCreateComponent,
       },
       {
         path: 'edit/id',
