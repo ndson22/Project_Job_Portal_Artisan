@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class UpdateJobLocationsTable extends Migration
+class CreateRolesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,12 @@ class UpdateJobLocationsTable extends Migration
      */
     public function up()
     {
-        Schema::table('job_locations', function (Blueprint $table) {
-            $table->foreign('province_id')->references('id')->on('provinces');
+        Schema::create('roles', function (Blueprint $table) {
+            $table->id();
+            $table->string('name')->unique();
+            $table->string('slug')->unique()->index();
+            $table->longText('description')->nullable();
+            $table->timestamps();
         });
     }
 
@@ -25,6 +29,6 @@ class UpdateJobLocationsTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('roles');
     }
 }

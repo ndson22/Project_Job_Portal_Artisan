@@ -3,6 +3,8 @@
 use App\Http\Controllers\Auth\AuthController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\JobController;
+use App\Http\Controllers\Backend;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -23,8 +25,9 @@ Route::prefix('backend')->group(function () {
     Route::post('/login', [AuthController::class, 'login']);
 
     Route::middleware('auth:sanctum')->group(function () {
+        Route::get('/is-authenticated', [AuthController::class, 'isAuthenticated']);
         Route::post('/logout', [AuthController::class, 'logout']);
-        Route::get('/profile', [AuthController::class, 'profile']);
+        Route::get('/users/current', [AuthController::class, 'getCurrentUser']);
     });
 });
 

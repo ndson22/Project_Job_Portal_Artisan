@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -49,7 +50,8 @@ class AuthController extends Controller
         }
 
         $user->tokens()->delete();
-        $token = $user->createToken($request->email)->plainTextToken;
+        $tokenAbility = 'role: ' . $user->role->slug;
+        $token = $user->createToken($request->email, [$tokenAbility])->plainTextToken;
         $cookie = cookie('sanctum_token', $token, 30);
 
         return response()->json([
@@ -58,6 +60,7 @@ class AuthController extends Controller
             'access' => [
                 'token' => $token,
                 'token_type' => 'bearer',
+                'token_can' => $tokenAbility
             ],
         ])->withCookie($cookie);
     }
@@ -65,15 +68,21 @@ class AuthController extends Controller
     public function logout()
     {
         $cookie = Cookie::forget('sanctum_token');
-        auth()->user()->tokens()->delete();
+        auth('sanctum')->user()->tokens()->delete();
 
         return response()->json([
             'message' => 'User successfully logged out'
         ])->withCookie($cookie);
     }
 
-    public function profile()
+    public function getCurrentUser()
     {
-        return response()->json(auth()->user());
+        $user = auth()->user();
+        return response()->json(auth('sanctum')->user());
+    }
+
+    public function isAuthenticated()
+    {
+        return auth('sanctum')->check();
     }
 }

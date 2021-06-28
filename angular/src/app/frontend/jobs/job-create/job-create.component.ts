@@ -1,7 +1,8 @@
+import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
-import { JobService } from './../../_services/job.service';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
+import { JobService } from 'src/app/shared/services/job.service';
 
 @Component({
   selector: 'app-job-create',
@@ -19,7 +20,8 @@ export class JobCreateComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private jobService: JobService,
-    private router: Router
+    private router: Router,
+    private toastr: ToastrService
   ) { }
 
   ngOnInit(): void {
@@ -64,7 +66,7 @@ export class JobCreateComponent implements OnInit {
     this.jobService.store(this.createForm.value).subscribe({
       next: (res) => {
         // thong bao thanh cong
-
+        this.toastr.success('Success', 'Created Successfully!');
         //reset form
         // Object.keys(this.createForm.controls).forEach((key) => {
         //   this.createForm.get(key)?.setValue('');

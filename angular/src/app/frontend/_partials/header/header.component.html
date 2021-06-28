@@ -77,7 +77,40 @@
           <li><a href="contact-us.html">Contact</a></li>
           <li class="postjob"><a routerLink="/jobs/create">Post a job</a></li>
           <li class="jobseeker">
-            <a href="candidate-listing.html">Job Seeker</a>
+            <a routerLink="/profile">Job seeker</a>
+          </li>
+          <li class="dropdown userbtn">
+            <a href="#"
+              ><img
+                src="assets/frontend/images/candidates/01.jpg"
+                alt=""
+                class="userimg"
+            /></a>
+            <ul class="dropdown-menu">
+              <li routerLinkActive="active">
+                <a routerLink="/profile"
+                  ><i class="fa fa-tachometer" aria-hidden="true"></i>
+                  Dashboard</a
+                >
+              </li>
+              <li routerLinkActive="active">
+                <a href="#"
+                  ><i class="fa fa-pencil" aria-hidden="true"></i> Edit
+                  Profilt</a
+                >
+              </li>
+              <li routerLinkActive="active">
+                <a href="#"
+                  ><i class="fa fa-briefcase" aria-hidden="true"></i> My Jobs</a
+                >
+              </li>
+              <li role="separator" class="divider"></li>
+              <li (click)="onLogout()">
+                <a href="javascript:void(0)"
+                  ><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a
+                >
+              </li>
+            </ul>
           </li>
         </ul>
         <!-- Nav collapes end -->

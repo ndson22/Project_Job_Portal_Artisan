@@ -3,15 +3,25 @@
     <div class="userccount">
       <h3 class="text-center">User Login</h3>
       <!-- login form -->
-      <div class="formpanel">
+      <form class="formpanel" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
         <div class="formrow">
-          <input type="text" class="form-control" placeholder="Username" />
+          <input
+            class="form-control"
+            type="email"
+            formControlName="email"
+            placeholder="Email"
+          />
         </div>
         <div class="formrow">
-          <input type="text" class="form-control" placeholder="Password" />
+          <input
+            class="form-control"
+            type="password"
+            formControlName="password"
+            placeholder="Password"
+          />
         </div>
-        <input type="submit" class="btn" value="Login" />
-      </div>
+        <input class="btn" type="submit" value="Login" />
+      </form>
       <!-- login form  end-->
 
       <!-- sign up form -->

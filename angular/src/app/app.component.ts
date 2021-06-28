@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { resolve } from '@angular/compiler-cli/src/ngtsc/file_system';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 
 @Component({
@@ -6,8 +7,10 @@ import { NavigationEnd, Router } from '@angular/router';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
-export class AppComponent {
+export class AppComponent implements OnInit, AfterViewInit {
   title = 'angular';
+  // isLoading: boolean = true;
+  completeLoading!: Promise<boolean>;
 
   // Backend
   backendStyles = [];
@@ -29,7 +32,9 @@ export class AppComponent {
 
   constructor(private router: Router) {}
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
+
+  ngAfterViewInit(): void {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         const CustomJsList = document.querySelectorAll('script.custom_js');
@@ -43,17 +48,18 @@ export class AppComponent {
     });
   }
 
-  loadAssets() {
+  async loadAssets() {
     if (window.location.pathname.startsWith('/backend')) {
-      this.loadStyles(this.backendStyles);
-      this.loadScripts(this.backendScripts);
+      await this.loadStyles(this.backendStyles);
+      await this.loadScripts(this.backendScripts);
     } else {
-      this.loadStyles(this.frontendStyles);
-      this.loadScripts(this.frontendScripts);
+      await this.loadStyles(this.frontendStyles);
+      await this.loadScripts(this.frontendScripts);
     }
+    this.completeLoading = Promise.resolve(true);
   }
 
-  loadStyles(styles: string[]) {
+  loadStyles(styles: string[]): Promise<boolean> {
     for (let i = 0; i < styles.length; i++) {
       const node = document.createElement('link');
       node.type = 'text/css';
@@ -61,9 +67,11 @@ export class AppComponent {
       node.href = styles[i];
       document.querySelector('head')?.appendChild(node);
     }
+
+    return Promise.resolve(true);
   }
 
-  loadScripts(scripts: string[]) {
+  loadScripts(scripts: string[]): Promise<boolean> {
     for (let i = 0; i < scripts.length; i++) {
       const node = document.createElement('script');
       node.type = 'text/javascript';
@@ -72,5 +80,7 @@ export class AppComponent {
       node.src = scripts[i];
       document.querySelector('body')?.appendChild(node);
     }
+
+    return Promise.resolve(true);
   }
 }

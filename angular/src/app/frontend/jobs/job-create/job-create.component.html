@@ -25,10 +25,10 @@
                   <option value="">Job Type</option>
                   <option *ngFor="let jobType of jobTypes" value="{{ jobType.id }}">{{ jobType.name }}</option>
                 </select>
-              </div>
-              <div *ngIf="getControl.job_type_id.invalid && (getControl.job_type_id.dirty || getControl.job_type_id.touched)" class="text-danger">
-                <div *ngIf="getControl.job_type_id.errors?.required">
-                  Job type is required.
+                <div *ngIf="getControl.job_type_id.invalid && (getControl.job_type_id.dirty || getControl.job_type_id.touched)" class="text-danger">
+                  <div *ngIf="getControl.job_type_id.errors?.required">
+                    Job type is required.
+                  </div>
                 </div>
               </div>
             </div>

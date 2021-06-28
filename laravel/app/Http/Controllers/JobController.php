@@ -68,17 +68,13 @@ class JobController extends Controller
 
     public function get($id)
     {
-        try {
-            $jobPost = JobPost::find($id);
-            $jobPost->location = Province::find($jobPost->jobLocation->province_id)->name;
-            $jobPost->address = $jobPost->jobLocation->address;
-            $jobPost->jobTypes = $jobPost->jobType->name;
-            $jobPost->employeePositions = $jobPost->employeePosition->name;
-            $jobPost->typeOfEmployments = $jobPost->typeOfEmployment->name;
-            $jobPost->genders = $jobPost->gender->name;
-            return response()->json($jobPost);
-        } catch(Exception $e) {
-            return response()->json(['message' => $e->getMessage(), 'status' => 404]);
-        }
+        $jobPost = JobPost::find($id);
+        $jobPost->location = Province::find($jobPost->jobLocation->province_id)->name;
+        $jobPost->address = $jobPost->jobLocation->address;
+        $jobPost->jobTypes = $jobPost->jobType->name;
+        $jobPost->employeePositions = $jobPost->employeePosition->name;
+        $jobPost->typeOfEmployments = $jobPost->typeOfEmployment->name;
+        $jobPost->genders = $jobPost->gender->name;
+        return response()->json($jobPost);
     }
 }

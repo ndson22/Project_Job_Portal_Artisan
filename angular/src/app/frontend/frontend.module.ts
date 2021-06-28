@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { FrontendRoutingModule } from './frontend-routing.module';
 
@@ -13,9 +13,12 @@ import { EditorModule } from "@tinymce/tinymce-angular";
 import { HeaderComponent } from './_partials/header/header.component';
 import { BreadcrumbComponent } from './_partials/breadcrumb/breadcrumb.component';
 import { FooterComponent } from './_partials/footer/footer.component';
+import { ProfileSidebarComponent } from './_partials/profile-sidebar/profile-sidebar.component';
 
 // Layouts
 import { MainComponent } from './_layouts/main/main.component';
+import { ProfileComponent } from './_layouts/profile/profile.component';
+import { HomeComponent } from './_layouts/home/home.component';
 
 // Sepcific
 import { JobListComponent } from './jobs/job-list/job-list.component';
@@ -26,7 +29,7 @@ import { CopyrightComponent } from './_partials/copyright/copyright.component';
 import { JobCreateComponent } from './jobs/job-create/job-create.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { LoginComponent } from './auth/login/login.component';
-import { HomeComponent } from './_layouts/home/home.component';
+import { ProfileUserDetailComponent } from './profiles/profile-user-detail/profile-user-detail.component';
 
 @NgModule({
   declarations: [
@@ -35,10 +38,13 @@ import { HomeComponent } from './_layouts/home/home.component';
     BreadcrumbComponent,
     FooterComponent,
     CopyrightComponent,
+    ProfileSidebarComponent,
 
     // Layouts
-    MainComponent,
     ErrorsComponent,
+    HomeComponent,
+    MainComponent,
+    ProfileComponent,
 
     // Sepcific
     JobListComponent,
@@ -47,7 +53,7 @@ import { HomeComponent } from './_layouts/home/home.component';
     JobCreateComponent,
     RegisterComponent,
     LoginComponent,
-    HomeComponent,
+    ProfileUserDetailComponent,
   ],
   imports: [
     CommonModule,

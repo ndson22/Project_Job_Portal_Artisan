@@ -37,6 +37,7 @@ class CreateJobPostsTable extends Migration
             $table->foreign('employee_position_id')->references('id')->on('employee_positions');
             $table->foreign('type_of_employment_id')->references('id')->on('type_of_employments');
             $table->foreign('gender_id')->references('id')->on('genders');
+            $table->foreign('company_id')->references('id')->on('companies');
         });
     }
 

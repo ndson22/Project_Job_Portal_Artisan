@@ -19,6 +19,10 @@ class DatabaseSeeder extends Seeder
             GenderSeeder::class,
             JobTypeSeeder::class,
             TypeOfEmploymentSeeder::class,
+            RoleSeeder::class,
+            UserSeeder::class,
+            CompanySeeder::class
         ]);
+        \App\Models\JobPost::factory(30)->create();
     }
 }
