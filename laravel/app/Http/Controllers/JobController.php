@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Company;
 use App\Models\EmployeePosition;
 use App\Models\Gender;
 use Illuminate\Http\Request;
@@ -16,6 +17,18 @@ use Exception;
 
 class JobController extends Controller
 {
+    public function getAll(){
+        $jobPosts = JobPost::all();
+        foreach ($jobPosts as $key => $jobPost) {
+            $jobPost->name = $jobPost->company->name;
+            $jobPost->address = $jobPost->company->address;
+            $jobPost->jobTypes = $jobPost->jobType->name;
+            $jobPost->employeePositions = $jobPost->employeePosition->name;
+            $jobPost->typeOfEmployments = $jobPost->typeOfEmployment->name;
+        }
+        return response()->json($jobPosts);
+    }
+
     public function getJobInfo()
     {
         try {
@@ -48,7 +61,6 @@ class JobController extends Controller
             $jobPost->company_id = 1;
             $jobPost->job_code = "CODE" . $jobPost->company_id;
             $jobPost->save();
-
             $jobPost->job_code = $jobPost->job_code . $jobPost->id;
             $jobPost->save();
 
@@ -66,15 +78,17 @@ class JobController extends Controller
         }
     }
 
-    public function get($id)
+
+
+    public function getDetail($id)
     {
         $jobPost = JobPost::find($id);
-        $jobPost->location = Province::find($jobPost->jobLocation->province_id)->name;
-        $jobPost->address = $jobPost->jobLocation->address;
+        $jobPost->address = $jobPost->company->address;
         $jobPost->jobTypes = $jobPost->jobType->name;
         $jobPost->employeePositions = $jobPost->employeePosition->name;
         $jobPost->typeOfEmployments = $jobPost->typeOfEmployment->name;
         $jobPost->genders = $jobPost->gender->name;
-        return response()->json($jobPost);
+        $jobs = JobPost::where('job_type_id' , $jobPost->job_type_id)->latest()->take(3)->get();
+        return response()->json(['jobPost'=>$jobPost, 'jobs'=>$jobs ]);
     }
 }

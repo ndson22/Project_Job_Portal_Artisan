@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Job } from 'src/app/shared/models/job';
 import { JobService } from 'src/app/shared/services/job.service';
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-job-detail',
@@ -10,6 +11,9 @@ import { JobService } from 'src/app/shared/services/job.service';
 })
 export class JobDetailComponent implements OnInit {
   jobPost!: Job;
+  jobTake! : any;
+  jobs : Job[] = [];
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -22,12 +26,14 @@ export class JobDetailComponent implements OnInit {
 
   getJobPost() {
     this.jobService.get(this.route.snapshot.params['id']).subscribe({
-      next: (res) => {
-        this.jobPost = res;
+      next: (res : any) => {
+        this.jobPost = res.jobPost;
+        this.jobTake = res.jobs;
       },
       error: (res) => {
         this.router.navigate(['error']);
       }
     });
   }
+
 }

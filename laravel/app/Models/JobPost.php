@@ -23,9 +23,9 @@ class JobPost extends Model
         'description', 'employee_quantity', 'gender_id',
     ];
 
-    public function jobLocation()
+    public function company()
     {
-        return $this->hasOne(JobLocation::class, 'id');
+        return $this->belongsTo(Company::class);
     }
 
     public function jobType()

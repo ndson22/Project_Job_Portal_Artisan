@@ -30,9 +30,12 @@ import { JobCreateComponent } from './jobs/job-create/job-create.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { LoginComponent } from './auth/login/login.component';
 import { ProfileUserDetailComponent } from './profiles/profile-user-detail/profile-user-detail.component';
+//pipes
+import { PostPipePipe } from "../shared/pipes/post-pipe.pipe";
 
 @NgModule({
   declarations: [
+    PostPipePipe,
     // Partials
     HeaderComponent,
     BreadcrumbComponent,

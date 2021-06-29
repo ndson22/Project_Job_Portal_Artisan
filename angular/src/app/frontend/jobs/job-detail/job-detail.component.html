@@ -5,7 +5,7 @@
       <div class="col-md-8">
         <h2>{{ jobPost?.title }}</h2>
         <div class="ptext">Date Posted: {{ jobPost?.created_at | date }}</div>
-        <div class="salary">Monthly Salary: <strong>${{ jobPost?.from_salary }} - ${{ jobPost?.to_salary }}</strong></div>
+        <div class="salary">Monthly Salary: <strong>{{ jobPost?.from_salary | currency : 'USD'}} - {{ jobPost?.to_salary | currency : 'USD' }}</strong></div>
       </div>
       <div class="col-md-4">
         <div class="companyinfo">
@@ -55,7 +55,7 @@
     <!-- related jobs start -->
     <div class="relatedJobs">
       <h3>Related Jobs</h3>
-      <ul class="searchList">
+      <ul class="searchList" *ngFor="let job of jobTake">
         <!-- Job start -->
         <li>
           <div class="row">
@@ -64,90 +64,27 @@
                 <img src="assets/frontend/images/jobs/jobimg.jpg" alt="Job Name" />
               </div>
               <div class="jobinfo">
-                <h3><a href="#.">Technical Database Engineer</a></h3>
+                <h3><a [routerLink]="['/jobs', job.id]" >{{ job.title }}</a></h3>
                 <div class="companyName">
-                  <a href="#.">Datebase Management Company</a>
+                  <a>{{ job.name }}</a>
                 </div>
                 <div class="location">
-                  <label class="fulltime">Full Time</label> -
+                  <label class="fulltime">{{ job.typeOfEmployments}}</label> -
                   <span>New York</span>
                 </div>
               </div>
               <div class="clearfix"></div>
             </div>
             <div class="col-md-4 col-sm-4">
-              <div class="listbtn"><a href="#.">Apply Now</a></div>
+              <div class="listbtn"><a [routerLink]="['/jobs', job.id]" >Apply Now</a></div>
             </div>
           </div>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce
-            venenatis arcu est. Phasellus vel dignissim tellus. Aenean fermentum
-            fermentum convallis.
+            {{ job.description | postPipe }}
           </p>
         </li>
         <!-- Job end -->
 
-        <!-- Job start -->
-        <li>
-          <div class="row">
-            <div class="col-md-8 col-sm-8">
-              <div class="jobimg">
-                <img src="assets/frontend/images/jobs/jobimg.jpg" alt="Job Name" />
-              </div>
-              <div class="jobinfo">
-                <h3><a href="#.">Technical Database Engineer</a></h3>
-                <div class="companyName">
-                  <a href="#.">Datebase Management Company</a>
-                </div>
-                <div class="location">
-                  <label class="partTime">Part Time</label> -
-                  <span>New York</span>
-                </div>
-              </div>
-              <div class="clearfix"></div>
-            </div>
-            <div class="col-md-4 col-sm-4">
-              <div class="listbtn"><a href="#.">Apply Now</a></div>
-            </div>
-          </div>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce
-            venenatis arcu est. Phasellus vel dignissim tellus. Aenean fermentum
-            fermentum convallis.
-          </p>
-        </li>
-        <!-- Job end -->
-
-        <!-- Job start -->
-        <li>
-          <div class="row">
-            <div class="col-md-8 col-sm-8">
-              <div class="jobimg">
-                <img src="assets/frontend/images/jobs/jobimg.jpg" alt="Job Name" />
-              </div>
-              <div class="jobinfo">
-                <h3><a href="#.">Technical Database Engineer</a></h3>
-                <div class="companyName">
-                  <a href="#.">Datebase Management Company</a>
-                </div>
-                <div class="location">
-                  <label class="freelance">Freelance</label> -
-                  <span>New York</span>
-                </div>
-              </div>
-              <div class="clearfix"></div>
-            </div>
-            <div class="col-md-4 col-sm-4">
-              <div class="listbtn"><a href="#.">Apply Now</a></div>
-            </div>
-          </div>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce
-            venenatis arcu est. Phasellus vel dignissim tellus. Aenean fermentum
-            fermentum convallis.
-          </p>
-        </li>
-        <!-- Job end -->
       </ul>
     </div>
   </div>
@@ -161,13 +98,10 @@
         <ul class="jbdetail">
           <li class="row">
             <div class="col-md-6 col-xs-6">Location</div>
-            <div class="col-md-6 col-xs-6"><span>{{ jobPost?.location }}</span></div>
+            <div class="col-md-6 col-xs-6"><span>{{ jobPost?.employeePositions }}</span></div>
           </li>
           <li class="row">
-            <div class="col-md-6 col-xs-6">Location</div>
-          </li>
-          <li class="row">
-            <div class="col-md-6 col-xs-6">Location</div>
+            <div class="col-md-6 col-xs-6">Address</div>
             <div class="col-md-12 col-xs-12"><span>{{ jobPost?.address }}</span></div>
           </li>
           <li class="row">
@@ -187,6 +121,31 @@
             <div class="col-md-6 col-xs-6"><span>{{ jobPost?.genders }}</span></div>
           </li>
         </ul>
+      </div>
+    </div>
+
+    <!-- Contact Company start -->
+    <div class="job-header">
+      <div class="jobdetail">
+        <h3>Contact Themeforest</h3>
+        <div class="formpanel">
+          <div class="formrow">
+            <input type="text" class="form-control" placeholder="Your Name">
+          </div>
+          <div class="formrow">
+            <input type="text" class="form-control" placeholder="Your Email">
+          </div>
+          <div class="formrow">
+            <input type="text" class="form-control" placeholder="Phone">
+          </div>
+          <div class="formrow">
+            <input type="text" class="form-control" placeholder="Subject">
+          </div>
+          <div class="formrow">
+            <textarea class="form-control" placeholder="Message"></textarea>
+          </div>
+          <input type="submit" class="btn" value="Submit">
+        </div>
       </div>
     </div>
     <!-- Google Map start -->

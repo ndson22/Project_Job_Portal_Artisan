@@ -1,5 +1,6 @@
 export class Job {
   constructor(
+    public name: string,
     public id: number,
     public title: string,
     public user_id: number,
@@ -14,7 +15,6 @@ export class Job {
     public description: string,
     public employee_quantity: number,
     public genders: string,
-    public location: string,
     public address: string,
     public is_active: number,
     public created_at: Date,
