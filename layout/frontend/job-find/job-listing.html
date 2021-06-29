@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Mirrored from www.sharjeelanjum.com/html/jobs-portal/demo/job-listing.html  , Thu, 24 Jun 2021 07:52:55 GMT -->
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Online Job Portal HTML</title>
+<!-- Fav Icon -->
+<link rel="shortcut icon" href="favicon.ico">
+
+<!-- Owl carousel -->
+<link href="css/owl.carousel.css" rel="stylesheet">
+
+<!-- Bootstrap -->
+<link href="css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Font Awesome -->
+<link href="css/font-awesome.css" rel="stylesheet">
+
+<!-- Custom Style -->
+<link href="css/main.css" rel="stylesheet">
+
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+  <script src="js/html5shiv.min.js"></script>
+  <script src="js/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+<!-- Header start -->
+<div class="header">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-2 col-sm-3 col-xs-12"> <a href="index.html" class="logo"><img src="images/logo.png" alt="" /></a>
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+      <div class="col-md-10 col-sm-12 col-xs-12"> 
+        <!-- Nav start -->
+        <div class="navbar navbar-default" role="navigation">
+          <div class="navbar-collapse collapse" id="nav-main">
+            <ul class="nav navbar-nav">
+              <li class="dropdown active"><a href="index.html">Home <span class="caret"></span></a> 
+                <!-- dropdown start -->
+                <ul class="dropdown-menu">
+                  <li><a href="index.html">Home Static Image</a></li>
+                  <li><a href="index2.html">Home With Map</a></li>
+                  <li><a href="index3.html">Home With Slider</a></li>
+                </ul>
+                <!-- dropdown end --> 
+              </li>
+              <li><a href="about-us.html">About us</a></li>
+              <li class="dropdown"><a href="#.">Pages <span class="caret"></span></a> 
+                <!-- dropdown start -->
+                <ul class="dropdown-menu">
+                  <li><a href="about-us.html">About Us</a></li>
+                  <li><a href="login.html">Login</a></li>
+                  <li><a href="register.html">Register</a></li>
+                  <li class="active"><a href="job-listing.html">Job Listing</a></li>
+                  <li><a href="job-detail.html">Job Detail</a></li>
+                  <li><a href="candidate-listing.html">Candidate Listing</a></li>
+                  <li><a href="candidate-detail.html">Candidate Detail</a></li>
+                  <li><a href="company-detail.html">Company Profile</a></li>
+                  <li><a href="edit-profile.html">Edit Profile</a></li>
+                  <li><a href="post-job.html">Post a Job</a></li>
+                  <li><a href="packages.html">Packages</a></li>
+                  <li><a href="faqs.html">FAQs</a></li>
+                  <li><a href="404.html">404 Page</a></li>
+                  <li><a href="typography.html">Typography</a></li>
+                </ul>
+                <!-- dropdown end --> 
+              </li>
+              <li class="dropdown"><a href="blog.html">Blog <span class="caret"></span></a> 
+                <!-- dropdown start -->
+                <ul class="dropdown-menu">
+                  <li><a href="blog.html">Blog List</a></li>
+                  <li><a href="blog-detail.html">Blog Detail</a></li>
+                  <li><a href="blog-grid.html">Blog Grid</a></li>
+                  <li><a href="blog-full-width.html">Blog Grid Full Width</a></li>
+                </ul>
+                <!-- dropdown end --> 
+              </li>
+              <li><a href="contact-us.html">Contact</a></li>
+              <li class="postjob"><a href="post-job.html">Post a job</a></li>
+              <li class="jobseeker"><a href="candidate-listing.html">Job Seeker</a></li>
+            </ul>
+            <!-- Nav collapes end --> 
+          </div>
+          <div class="clearfix"></div>
+        </div>
+        <!-- Nav end --> 
+      </div>
+    </div>
+    <!-- row end --> 
+  </div>
+  <!-- Header container end --> 
+</div>
+<!-- Header end --> 
+
+<!-- Page Title start -->
+<div class="pageTitle">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 col-sm-6">
+        <h1 class="page-heading">Job Listing</h1>
+      </div>
+      <div class="col-md-6 col-sm-6">
+        <div class="breadCrumb"><a href="#.">Home</a> / <a href="#.">Job Search</a> / <span>Job Name</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Page Title End -->
+
+<div class="listpgWraper">
+  <div class="container"> 
+    
+    <!-- Page Title start -->
+    <div class="pageSearch">
+      <div class="row">
+        <div class="col-md-3"><a href="#." class="btn"><i class="fa fa-file-text" aria-hidden="true"></i> Upload Your Resume</a></div>
+        <div class="col-md-9">
+          <div class="searchform">
+            <div class="row">
+              <div class="col-md-4 col-sm-3">
+                <input type="text" class="form-control" placeholder="Job Title" />
+              </div>
+              <div class="col-md-2 col-sm-2">
+                <select class="form-control">
+                  <option>Industry</option>
+                </select>
+              </div>
+              <div class="col-md-2 col-sm-2">
+                <select class="form-control">
+                  <option>City</option>
+                </select>
+              </div>
+              <div class="col-md-3 col-sm-3">
+                <select class="form-control">
+                  <option>Min. Salary</option>
+                </select>
+              </div>
+              <div class="col-md-1 col-sm-2">
+                <button class="btn"><i class="fa fa-search" aria-hidden="true"></i></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Page Title end --> 
+    
+    <!-- Search Result and sidebar start -->
+    <div class="row">
+      <div class="col-md-3 col-sm-6"> 
+        <!-- Side Bar start -->
+        <div class="sidebar"> 
+          <!-- Jobs By Title -->
+          <div class="widget">
+            <h4 class="widget-title">Jobs By Title</h4>
+            <ul class="optionlist">
+              <li>
+                <input type="checkbox" name="checkname" id="webdesigner" />
+                <label for="webdesigner"></label>
+                Web Designer <span>12</span> </li>
+              <li>
+                <input type="checkbox" name="checkname" id="3dgraphic" />
+                <label for="3dgraphic"></label>
+                3D Graphic Designer <span>33</span> </li>
+              <li>
+                <input type="checkbox" name="checkname" id="graphic" />
+                <label for="graphic"></label>
+                Graphic Designer <span>33</span> </li>
+              <li>
+                <input type="checkbox" name="checkname" id="electronicTech" />
+                <label for="electronicTech"></label>
+                Electronics Technician <span>33</span> </li>
+              <li>
+                <input type="checkbox" name="checkname" id="webgraphic" />
+                <label for="webgraphic"></label>
+                Web / Graphic Designer <span>33</span> </li>
+              <li>
+                <input type="checkbox" name="checkname" id="brandmanager" />
+                <label for="brandmanager"></label>
+                Brand Manager <span>33</span> </li>
+            </ul>
+            <!-- title end --> 
+            <a href="#.">View More</a> </div>
+          
+          <!-- Jobs By City -->
+          <div class="widget">
+            <h4 class="widget-title">Jobs By City</h4>
+            <ul class="optionlist">
+              <li>
+                <input type="checkbox" name="checkname" id="newyork" />
+                <label for="newyork"></label>
+                New York <span>12</span> </li>
+              <li>
+                <input type="checkbox" name="checkname" id="losangles" />
+                <label for="losangles"></label>
+                Los Angeles <span>33</span> </li>
+              <li>
+                <input type="checkbox" name="checkname" id="chicago" />
+                <label for="chicago"></label>
+                Chicago <span>33</span> </li>
+              <li>
+                <input type="checkbox" name="checkname" id="houston" />
+                <label for="houston"></label>
+                Houston <span>12</span> </li>
+              <li>
+                <input type="checkbox" name="checkname" id="sandiego" />
+                <label for="sandiego"></label>
+                San Diego <span>555</span> </li>
+              <li>
+                <input type="checkbox" name="checkname" id="sanjose" />
+                <label for="sanjose"></label>
+                San Jose <span>44</span> </li>
+            </ul>
+            <a href="#.">View More</a> </div>
+          <!-- Jobs By City end--> 
+          
+          <!-- Jobs By Experience -->
+          <div class="widget">
+            <h4 class="widget-title">Jobs By Experience</h4>
+            <ul class="optionlist">
+              <li>
+                <input type="checkbox" name="checkname" id="permanent" />
+                <label for="permanent"></label>
+                Full Time/Permanent <span>12</span> </li>
+              <li>
+                <input type="checkbox" name="checkname" id="contract" />
+                <label for="contract"></label>
+                Contract <span>33</span> </li>
+              <li>
+                <input type="checkbox" name="checkname" id="parttime" />
+                <label for="parttime"></label>
+                Part Time <span>33</span> </li>
+              <li>
+                <input type="checkbox" name="checkname" id="internship" />
+                <label for="internship"></label>
+                Internship <span>33</span> </li>
+              <li>
+                <input type="checkbox" name="checkname" id="freelance" />
+                <label for="freelance"></label>
+                Freelance <span>33</span> </li>
+            </ul>
+            <a href="#.">View More</a> </div>
+          <!-- Jobs By Experience end --> 
+          
+          <!-- Jobs By Industry -->
+          <div class="widget">
+            <h4 class="widget-title">Jobs By Industry</h4>
+            <ul class="optionlist">
+              <li>
+                <input type="checkbox" name="checkname" id="infotech" />
+                <label for="infotech"></label>
+                Information Technology <span>22</span> </li>
+              <li>
+                <input type="checkbox" name="checkname" id="advertise" />
+                <label for="advertise"></label>
+                Advertising/PR <span>45</span> </li>
+              <li>
+                <input type="checkbox" name="checkname" id="services" />
+                <label for="services"></label>
+                Services <span>44</span> </li>
+              <li>
+                <input type="checkbox" name="checkname" id="health" />
+                <label for="health"></label>
+                Health & Fitness <span>88</span> </li>
+              <li>
+                <input type="checkbox" name="checkname" id="mediacomm" />
+                <label for="mediacomm"></label>
+                Media/Communications <span>22</span> </li>
+              <li>
+                <input type="checkbox" name="checkname" id="fashion" />
+                <label for="fashion"></label>
+                Fashion <span>11</span> </li>
+            </ul>
+            <a href="#.">View More</a> </div>
+          <!-- Jobs By Industry end --> 
+          
+          <!-- Top Companies -->
+          <div class="widget">
+            <h4 class="widget-title">Top Companies</h4>
+            <ul class="optionlist">
+              <li>
+                <input type="checkbox" name="checkname" id="Envato" />
+                <label for="Envato"></label>
+                Envato <span>12</span> </li>
+              <li>
+                <input type="checkbox" name="checkname" id="Themefores" />
+                <label for="Themefores"></label>
+                Themefores <span>33</span> </li>
+              <li>
+                <input type="checkbox" name="checkname" id="GraphicRiver" />
+                <label for="GraphicRiver"></label>
+                Graphic River <span>33</span> </li>
+              <li>
+                <input type="checkbox" name="checkname" id="Codecanyon" />
+                <label for="Codecanyon"></label>
+                Codecanyon <span>33</span> </li>
+              <li>
+                <input type="checkbox" name="checkname" id="AudioJungle" />
+                <label for="AudioJungle"></label>
+                Audio Jungle <span>33</span> </li>
+              <li>
+                <input type="checkbox" name="checkname" id="Videohive" />
+                <label for="Videohive"></label>
+                Videohive <span>33</span> </li>
+            </ul>
+            <a href="#.">View More</a> </div>
+          <!-- Top Companies end --> 
+          
+          <!-- Salary -->
+          <div class="widget">
+            <h4 class="widget-title">Salary Range</h4>
+            <ul class="optionlist">
+              <li>
+                <input type="checkbox" name="checkname" id="price1" />
+                <label for="price1"></label>
+                0 to $100 <span>12</span> </li>
+              <li>
+                <input type="checkbox" name="checkname" id="price2" />
+                <label for="price2"></label>
+                $100 to $199 <span>41</span> </li>
+              <li>
+                <input type="checkbox" name="checkname" id="price3" />
+                <label for="price3"></label>
+                $199 to $499 <span>33</span> </li>
+              <li>
+                <input type="checkbox" name="checkname" id="price4" />
+                <label for="price4"></label>
+                $499 to $999 <span>66</span> </li>
+              <li>
+                <input type="checkbox" name="checkname" id="price5" />
+                <label for="price5"></label>
+                $999 to $4999 <span>159</span> </li>
+              <li>
+                <input type="checkbox" name="checkname" id="price6" />
+                <label for="price6"></label>
+                Above $4999 <span>865</span> </li>
+            </ul>
+            <a href="#.">View More</a> </div>
+          <!-- Salary end --> 
+          
+          <!-- button -->
+          <div class="searchnt">
+            <button class="btn"><i class="fa fa-search" aria-hidden="true"></i> Search Jobs</button>
+          </div>
+          <!-- button end--> 
+        </div>
+        <!-- Side Bar end --> 
+      </div>
+      <div class="col-md-3 col-sm-6 pull-right"> 
+        <!-- Social Icons -->
+        <div class="sidebar">
+          <h4 class="widget-title">Follow Us</h4>
+          <div class="social"> <a href="http://www.twitter.com/" target="_blank"><i class="fa fa-twitter-square" aria-hidden="true"></i></a> <a href="http://www.plus.google.com/" target="_blank"><i class="fa fa-google-plus-square" aria-hidden="true"></i></a> <a href="http://www.facebook.com/" target="_blank"> <i class="fa fa-facebook-square" aria-hidden="true"></i></a> <a href="https://www.pinterest.com/" target="_blank"><i class="fa fa-pinterest-square" aria-hidden="true"></i></a> <a href="https://www.youtube.com/" target="_blank"><i class="fa fa-youtube-square" aria-hidden="true"></i></a> <a href="https://www.linkedin.com/" target="_blank"><i class="fa fa-linkedin-square" aria-hidden="true"></i></a> </div>
+          <!-- Social Icons end --> 
+        </div>
+        
+        <!-- Sponsord By -->
+        <div class="sidebar">
+          <h4 class="widget-title">Sponsord By</h4>
+          <div class="gad"><img src="images/googlead.jpg" alt="your alt text" /></div>
+          <div class="gad"><img src="images/googlead.jpg" alt="your alt text" /></div>
+          <div class="gad"><img src="images/googlead2.jpg" alt="your alt text" /></div>
+          <div class="gad"><img src="images/googlead2.jpg" alt="your alt text" /></div>
+        </div>
+      </div>
+      <div class="col-md-6 col-sm-12"> 
+        <!-- Search List -->
+        <ul class="searchList">
+          <!-- job start -->
+          <li>
+            <div class="row">
+              <div class="col-md-8 col-sm-8">
+                <div class="jobimg"><img src="images/jobs/jobimg.jpg" alt="Job Name" /></div>
+                <div class="jobinfo">
+                  <h3><a href="#.">Technical Database Engineer</a></h3>
+                  <div class="companyName"><a href="#.">Datebase Management Company</a></div>
+                  <div class="location"><label class="fulltime">Full Time</label>   - <span>New York</span></div>
+                </div>
+                <div class="clearfix"></div>
+              </div>
+              <div class="col-md-4 col-sm-4">
+                <div class="listbtn"><a href="#.">Apply Now</a></div>
+              </div>
+            </div>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce venenatis arcu est. Phasellus vel dignissim tellus. Aenean fermentum fermentum convallis.</p>
+          </li>
+          <!-- job end --> 
+          
+          <!-- job start -->
+          <li>
+            <div class="row">
+              <div class="col-md-8 col-sm-8">
+                <div class="jobimg"><img src="images/jobs/jobimg.jpg" alt="Job Name" /></div>
+                <div class="jobinfo">
+                  <h3><a href="#.">Technical Database Engineer</a></h3>
+                  <div class="companyName"><a href="#.">Datebase Management Company</a></div>
+                  <div class="location"><label class="freelance">Free Lancer</label>   - <span>New York</span></div>
+                </div>
+                <div class="clearfix"></div>
+              </div>
+              <div class="col-md-4 col-sm-4">
+                <div class="listbtn"><a href="#.">Apply Now</a></div>
+              </div>
+            </div>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce venenatis arcu est. Phasellus vel dignissim tellus. Aenean fermentum fermentum convallis.</p>
+          </li>
+          <!-- job end --> 
+          
+          <!-- job start -->
+          <li>
+            <div class="row">
+              <div class="col-md-8 col-sm-8">
+                <div class="jobimg"><img src="images/jobs/jobimg.jpg" alt="Job Name" /></div>
+                <div class="jobinfo">
+                  <h3><a href="#.">Technical Database Engineer</a></h3>
+                  <div class="companyName"><a href="#.">Datebase Management Company</a></div>
+                  <div class="location"><label class="partTime">Part Time</label>   - <span>New York</span></div>
+                </div>
+                <div class="clearfix"></div>
+              </div>
+              <div class="col-md-4 col-sm-4">
+                <div class="listbtn"><a href="#.">Apply Now</a></div>
+              </div>
+            </div>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce venenatis arcu est. Phasellus vel dignissim tellus. Aenean fermentum fermentum convallis.</p>
+          </li>
+          <!-- job end --> 
+          
+          <!-- job start -->
+          <li>
+            <div class="row">
+              <div class="col-md-8 col-sm-8">
+                <div class="jobimg"><img src="images/jobs/jobimg.jpg" alt="Job Name" /></div>
+                <div class="jobinfo">
+                  <h3><a href="#.">Technical Database Engineer</a></h3>
+                  <div class="companyName"><a href="#.">Datebase Management Company</a></div>
+                  <div class="location"><label class="fulltime">Full Time</label>   - <span>New York</span></div>
+                </div>
+                <div class="clearfix"></div>
+              </div>
+              <div class="col-md-4 col-sm-4">
+                <div class="listbtn"><a href="#.">Apply Now</a></div>
+              </div>
+            </div>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce venenatis arcu est. Phasellus vel dignissim tellus. Aenean fermentum fermentum convallis.</p>
+          </li>
+          <!-- job end --> 
+          
+          <!-- job start -->
+          <li>
+            <div class="row">
+              <div class="col-md-8 col-sm-8">
+                <div class="jobimg"><img src="images/jobs/jobimg.jpg" alt="Job Name" /></div>
+                <div class="jobinfo">
+                  <h3><a href="#.">Technical Database Engineer</a></h3>
+                  <div class="companyName"><a href="#.">Datebase Management Company</a></div>
+                  <div class="location"><label class="freelance">Free Lancer</label>   - <span>New York</span></div>
+                </div>
+                <div class="clearfix"></div>
+              </div>
+              <div class="col-md-4 col-sm-4">
+                <div class="listbtn"><a href="#.">Apply Now</a></div>
+              </div>
+            </div>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce venenatis arcu est. Phasellus vel dignissim tellus. Aenean fermentum fermentum convallis.</p>
+          </li>
+          <!-- job end --> 
+          
+          <!-- job start -->
+          <li>
+            <div class="row">
+              <div class="col-md-8 col-sm-8">
+                <div class="jobimg"><img src="images/jobs/jobimg.jpg" alt="Job Name" /></div>
+                <div class="jobinfo">
+                  <h3><a href="#.">Technical Database Engineer</a></h3>
+                  <div class="companyName"><a href="#.">Datebase Management Company</a></div>
+                  <div class="location"><label class="partTime">Part Time</label>   - <span>New York</span></div>
+                </div>
+                <div class="clearfix"></div>
+              </div>
+              <div class="col-md-4 col-sm-4">
+                <div class="listbtn"><a href="#.">Apply Now</a></div>
+              </div>
+            </div>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce venenatis arcu est. Phasellus vel dignissim tellus. Aenean fermentum fermentum convallis.</p>
+          </li>
+          <!-- job end --> 
+          
+          <!-- job start -->
+          <li>
+            <div class="row">
+              <div class="col-md-8 col-sm-8">
+                <div class="jobimg"><img src="images/jobs/jobimg.jpg" alt="Job Name" /></div>
+                <div class="jobinfo">
+                  <h3><a href="#.">Technical Database Engineer</a></h3>
+                  <div class="companyName"><a href="#.">Datebase Management Company</a></div>
+                  <div class="location"><label class="fulltime">Full Time</label>   - <span>New York</span></div>
+                </div>
+                <div class="clearfix"></div>
+              </div>
+              <div class="col-md-4 col-sm-4">
+                <div class="listbtn"><a href="#.">Apply Now</a></div>
+              </div>
+            </div>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce venenatis arcu est. Phasellus vel dignissim tellus. Aenean fermentum fermentum convallis.</p>
+          </li>
+          <!-- job end --> 
+          
+          <!-- job start -->
+          <li>
+            <div class="row">
+              <div class="col-md-8 col-sm-8">
+                <div class="jobimg"><img src="images/jobs/jobimg.jpg" alt="Job Name" /></div>
+                <div class="jobinfo">
+                  <h3><a href="#.">Technical Database Engineer</a></h3>
+                  <div class="companyName"><a href="#.">Datebase Management Company</a></div>
+                  <div class="location"><label class="freelance">Free Lancer</label>   - <span>New York</span></div>
+                </div>
+                <div class="clearfix"></div>
+              </div>
+              <div class="col-md-4 col-sm-4">
+                <div class="listbtn"><a href="#.">Apply Now</a></div>
+              </div>
+            </div>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce venenatis arcu est. Phasellus vel dignissim tellus. Aenean fermentum fermentum convallis.</p>
+          </li>
+          <!-- job end --> 
+          
+          <!-- job start -->
+          <li>
+            <div class="row">
+              <div class="col-md-8 col-sm-8">
+                <div class="jobimg"><img src="images/jobs/jobimg.jpg" alt="Job Name" /></div>
+                <div class="jobinfo">
+                  <h3><a href="#.">Technical Database Engineer</a></h3>
+                  <div class="companyName"><a href="#.">Datebase Management Company</a></div>
+                  <div class="location"><label class="fulltime">Full Time</label>   - <span>New York</span></div>
+                </div>
+                <div class="clearfix"></div>
+              </div>
+              <div class="col-md-4 col-sm-4">
+                <div class="listbtn"><a href="#.">Apply Now</a></div>
+              </div>
+            </div>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce venenatis arcu est. Phasellus vel dignissim tellus. Aenean fermentum fermentum convallis.</p>
+          </li>
+          <!-- job end --> 
+          
+          <!-- job start -->
+          <li>
+            <div class="row">
+              <div class="col-md-8 col-sm-8">
+                <div class="jobimg"><img src="images/jobs/jobimg.jpg" alt="Job Name" /></div>
+                <div class="jobinfo">
+                  <h3><a href="#.">Technical Database Engineer</a></h3>
+                  <div class="companyName"><a href="#.">Datebase Management Company</a></div>
+                  <div class="location"><label class="partTime">Part Time</label>   - <span>New York</span></div>
+                </div>
+                <div class="clearfix"></div>
+              </div>
+              <div class="col-md-4 col-sm-4">
+                <div class="listbtn"><a href="#.">Apply Now</a></div>
+              </div>
+            </div>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce venenatis arcu est. Phasellus vel dignissim tellus. Aenean fermentum fermentum convallis.</p>
+          </li>
+          <!-- job end -->
+          
+        </ul>
+        
+        <!-- Pagination Start -->
+        <div class="pagiWrap">
+          <div class="row">
+            <div class="col-md-4 col-sm-4">
+              <div class="showreslt">Showing 1-10</div>
+            </div>
+            <div class="col-md-8 col-sm-8 text-right">
+              <ul class="pagination">
+                <li class="active"><a href="#.">1</a></li>
+                <li><a href="#.">2</a></li>
+                <li><a href="#.">3</a></li>
+                <li><a href="#.">4</a></li>
+                <li><a href="#.">5</a></li>
+                <li><a href="#.">6</a></li>
+                <li><a href="#.">7</a></li>
+                <li><a href="#.">8</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <!-- Pagination end --> 
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--Footer-->
+<div class="footerWrap">
+  <div class="container">
+    <div class="row"> 
+      <!--About Us-->
+      <div class="col-md-3 col-sm-12">
+        <div class="ft-logo"><img src="images/logo.png" alt="Your alt text here"></div>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam et consequat elit. Proin molestie eros sed urna auctor lobortis. Integer eget scelerisque arcu. Pellentesque scelerisque pellentesque nisl, sit amet aliquam mi pellentesque fringilla. Ut porta augue a libero pretium laoreet. Suspendisse sit amet massa accumsan, pulvinar augue id, tristique tortor.</p>
+        
+        <!-- Social Icons -->
+        <div class="social"> <a href="#." target="_blank"> <i class="fa fa-facebook-square" aria-hidden="true"></i></a> <a href="#." target="_blank"><i class="fa fa-twitter-square" aria-hidden="true"></i></a> <a href="#." target="_blank"><i class="fa fa-google-plus-square" aria-hidden="true"></i></a> <a href="#." target="_blank"><i class="fa fa-linkedin-square" aria-hidden="true"></i></a> <a href="#." target="_blank"><i class="fa fa-youtube-square" aria-hidden="true"></i></a> </div>
+        <!-- Social Icons end --> 
+      </div>
+      <!--About us End--> 
+      
+      <!--Quick Links-->
+      <div class="col-md-2 col-sm-6">
+        <h5>Quick Links</h5>
+        <!--Quick Links menu Start-->
+        <ul class="quicklinks">
+          <li><a href="#.">Career Services</a></li>
+          <li><a href="#.">CV Writing</a></li>
+          <li><a href="#.">Career Resources</a></li>
+          <li><a href="#.">Company Listings</a></li>
+          <li><a href="#.">Success Stories</a></li>
+          <li><a href="#.">Contact Us</a></li>
+          <li><a href="#.">Create Account</a></li>
+          <li><a href="#.">Post a Job</a></li>
+          <li><a href="#.">Contact Sales</a></li>
+        </ul>
+      </div>
+      <!--Quick Links menu end--> 
+      
+      <!--Jobs By Industry-->
+      <div class="col-md-3 col-sm-6">
+        <h5>Jobs By Industry</h5>
+        <!--Industry menu Start-->
+        <ul class="quicklinks">
+          <li><a href="#.">Information Technology Jobs</a></li>
+          <li><a href="#.">Recruitment/Employment Firms Jobs</a></li>
+          <li><a href="#.">Education/Training Jobs</a></li>
+          <li><a href="#.">Manufacturing Jobs</a></li>
+          <li><a href="#.">Call Center Jobs</a></li>
+          <li><a href="#.">N.G.O./Social Services Jobs</a></li>
+          <li><a href="#.">BPO Jobs</a></li>
+          <li><a href="#.">Textiles/Garments Jobs</a></li>
+          <li><a href="#.">Telecommunication/ISP Jobs</a></li>
+        </ul>
+        <!--Industry menu End-->
+        <div class="clear"></div>
+      </div>
+      
+      <!--Latest Articles-->
+      <div class="col-md-4 col-sm-12">
+        <h5>Latest Articles</h5>
+        <ul class="posts-list">
+          <!--Article 1-->
+          <li>
+            <article class="post post-list">
+              <div class="entry-content media">
+                <div class="media-left"> <a href="#." title="" class="entry-image"> <img width="80" height="80" src="images/news-1.jpg" alt="Your alt text here"> </a> </div>
+                <div class="media-body">
+                  <h4 class="entry-title"> <a href="#.">Sed fermentum at lectus nec porta.</a> </h4>
+                  <div class="entry-content-inner">
+                    <div class="entry-meta"> <span class="entry-date">Jan 28, 2016</span> </div>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </li>
+          <!--Article end 1--> 
+          
+          <!--Article 2-->
+          <li>
+            <article class="post post-list">
+              <div class="entry-content media">
+                <div class="media-left"> <a href="#." title="" class="entry-image"> <img width="80" height="80" src="images/news-2.jpg" alt="Your alt text here"> </a> </div>
+                <div class="media-body">
+                  <h4 class="entry-title"> <a href="#.">Sed fermentum at lectus nec porta.</a> </h4>
+                  <div class="entry-content-inner">
+                    <div class="entry-meta"> <span class="entry-date">Jan 28, 2016</span> </div>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </li>
+          <!--Article end 2--> 
+          
+          <!--Article 3-->
+          <li>
+            <article class="post post-list">
+              <div class="entry-content media">
+                <div class="media-left"> <a href="#." title="" class="entry-image"> <img width="80" height="80" src="images/news-3.jpg" alt="Your alt text here"> </a> </div>
+                <div class="media-body">
+                  <h4 class="entry-title"> <a href="#.">Sed fermentum at lectus nec porta.</a> </h4>
+                  <div class="entry-content-inner">
+                    <div class="entry-meta"> <span class="entry-date">Jan 28, 2016</span> </div>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </li>
+          <!--Article end 3-->
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<!--Footer end--> 
+
+<!--Copyright-->
+<div class="copyright">
+  <div class="container">
+    <div class="bttxt">Copyright &copy; 2017 Your Company Name. All Rights Reserved. Design by: <a href="../../../../graphicriver.net/user/ecreativesol.html" target="_blank">eCreativeSolutions</a></div>
+  </div>
+</div>
+
+<!-- Bootstrap's JavaScript --> 
+<script src="js/jquery-2.1.4.min.js"></script> 
+<script src="js/bootstrap.min.js"></script> 
+
+<!-- Owl carousel --> 
+<script src="js/owl.carousel.js"></script> 
+
+<!-- Custom js --> 
+<script src="js/script.js"></script>
+</body>
+
+<!-- Mirrored from www.sharjeelanjum.com/html/jobs-portal/demo/job-listing.html  , Thu, 24 Jun 2021 07:53:02 GMT -->
+</html>
