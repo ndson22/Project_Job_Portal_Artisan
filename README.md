@@ -5,7 +5,7 @@ git clone -b dev https://github.com/ndson22/Project_Job_Portal_Artisan.git
 git fetch origin dev:dev
 ```
 ```
-git init --bare <branch-name>
+git init -b <branch-name> // Bãn cũ ko chạy được
 git add .
 git commit -m "First commit"
 git remote add origin https://github.com/ndson22/Project_Job_Portal_Artisan.git
