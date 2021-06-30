@@ -17,17 +17,23 @@ export class JobListComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private router: Router,
     private jobService: JobService)
-  { }
+  {
+    }
   subscription!: Subscription;
   jobs!: Job[];
 
 
   ngOnInit(): void {
-    this.getAllPost()
+    if (this.jobService.flag) {
+      this.jobs = this.jobService.jobPosts;
+    } else {
+      this.getAllPost()
+    }
+    this.jobService.flag = false;
   }
 
   getAllPost() {
-   this.subscription =  this.jobService.getAll().subscribe({
+   this.subscription = this.jobService.getAll().subscribe({
       next: (res) => {
         this.jobs = res;
       },

@@ -13,6 +13,8 @@ const baseUrl = `${environment.frontendUrl}/jobs`;
   providedIn: 'root',
 })
 export class JobService {
+  jobPosts!: Job[];
+  flag: boolean = false;
   constructor(private http: HttpClient) {}
 
   getAll(): Observable<Job[]> {
@@ -40,7 +42,8 @@ export class JobService {
   }
 
   search(data: any): Observable<any> {
-    return this.http.post<Job>(`${baseUrl}/search`, data);
+    this.flag = true;
+    return this.http.post<Job[]>(`${baseUrl}/search`, data);
   }
 
   getJobType(): Observable<jobTypes> {

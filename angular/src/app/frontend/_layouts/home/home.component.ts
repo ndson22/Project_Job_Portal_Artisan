@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Job } from './../../../shared/models/job';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { JobService } from './../../../shared/services/job.service';
@@ -12,12 +13,13 @@ import { JobProvinces } from 'src/app/shared/models/jobProvince';
 })
 export class HomeComponent implements OnInit {
   searchForm!: FormGroup;
-  jobTypes! : jobTypes[]  ;
-  jobProvinces! : JobProvinces[];
+  jobTypes!: jobTypes[];
+  jobProvinces!: JobProvinces[];
 
   constructor(
     private jobService: JobService,
     private formBuilder: FormBuilder,
+    private router: Router,
   ) { }
 
 
@@ -34,31 +36,27 @@ export class HomeComponent implements OnInit {
   search() {
     this.jobService.search(this.searchForm.value).subscribe(
       (res) => {
-        console.log(res)
+        this.jobService.jobPosts = res;
+        this.router.navigate(['jobs']);
       },
-       () => {
+      (error) => {
       }
     );
   }
 
   getJobTypes() {
-   this.jobService.getJobType().subscribe({
-      next: (res: any) => {
+    this.jobService.getJobType().subscribe(
+      (res: any) => {
         this.jobTypes = res;
       }
-    })
-   };
+    )
+  };
 
-   getJobProvince(){
+  getJobProvince() {
     this.jobService.getJobProvince().subscribe({
       next: (res: any) => {
         this.jobProvinces = res;
       }
     })
-   };
-
-
-
-
-
+  };
 }
