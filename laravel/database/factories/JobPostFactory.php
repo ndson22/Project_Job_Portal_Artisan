@@ -23,7 +23,6 @@ class JobPostFactory extends Factory
     {
         return [
             'title' => $this->faker->sentence(),
-            'user_id' => 2,
             'company_id' => 1,
             'job_type_id' => 1,
             'from_salary' => 100,

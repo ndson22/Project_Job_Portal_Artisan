@@ -57,8 +57,7 @@ class JobController extends Controller
             DB::beginTransaction();
             $jobPost = new JobPost();
             $jobPost->fill($request->all());
-            $jobPost->user_id = 1;
-            $jobPost->company_id = 1;
+            $jobPost->company_id = Auth::id();
             $jobPost->job_code = "CODE" . $jobPost->company_id;
             $jobPost->save();
             $jobPost->job_code = $jobPost->job_code . $jobPost->id;

@@ -30,10 +30,9 @@ Route::prefix('backend')->group(function () {
         Route::get('/users/current', [AuthController::class, 'getCurrentUser']);
     });
 });
-
-    Route::prefix('/jobs')->group(function() {
-        Route::get('', [JobController::class, 'getAll'])->name('jobs.list');
-        Route::get('/info', [JobController::class, 'getJobInfo'])->name('jobs.getJobInfo');
-        Route::post('/store', [JobController::class, 'store'])->name('jobs.store');
-        Route::get('/{id}', [JobController::class, 'getDetail'])->name('jobs.get');
+Route::prefix('/jobs')->group(function () {
+    Route::get('', [JobController::class, 'getAll'])->name('jobs.list');
+    Route::get('/info', [JobController::class, 'getJobInfo'])->name('jobs.getJobInfo');
+    Route::post('/store', [JobController::class, 'store'])->name('jobs.store')->middleware('auth:sanctum');
+    Route::get('/{id}', [JobController::class, 'getDetail'])->name('jobs.get');
 });

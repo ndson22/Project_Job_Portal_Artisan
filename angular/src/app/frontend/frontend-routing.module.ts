@@ -49,7 +49,7 @@ const routes: Routes = [
   },
   {
     path: 'jobs',
-    component: MainComponent,
+    component: ProfileComponent,
     children: [
       {
         path: '',

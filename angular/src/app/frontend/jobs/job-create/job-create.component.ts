@@ -1,6 +1,6 @@
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
-import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { FormBuilder, Validators, FormGroup, FormGroupDirective } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { JobService } from 'src/app/shared/services/job.service';
 
@@ -20,7 +20,7 @@ export class JobCreateComponent implements OnInit {
     private formBuilder: FormBuilder,
     private jobService: JobService,
     private router: Router,
-    private toastr: ToastrService
+    private toastr: ToastrService,
   ) { }
 
   ngOnInit(): void {
@@ -37,7 +37,6 @@ export class JobCreateComponent implements OnInit {
       description: ['', [Validators.required]],
       employee_quantity: ['', [Validators.required]],
       gender_id: ['', [Validators.required]],
-      address: ['', [Validators.required]],
     });
   }
 
@@ -65,14 +64,13 @@ export class JobCreateComponent implements OnInit {
         // thong bao thanh cong
         this.toastr.success('Success', 'Created Successfully!');
         //reset form
-        // Object.keys(this.createForm.controls).forEach((key) => {
-        //   this.createForm.get(key)?.setValue('');
-        // });
-        this.createForm.reset();
-        return;
+        Object.keys(this.createForm.controls).forEach((key) => {
+          this.createForm.get(key)?.setValue('');
+          this.createForm.get(key)?.setErrors(null);
+        });
       },
-      error: (res) => {
-
+      error: () => {
+        this.toastr.success('Error', 'Created Fail! Try again');
       }
     });
   }

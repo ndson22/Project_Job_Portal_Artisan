@@ -35,8 +35,6 @@ class StoreJobPostRequest extends FormRequest
             'description' => 'required',
             'employee_quantity' => 'required|numeric|min:1',
             'gender_id' => 'required|numeric|min:1',
-            'province_id' => 'required|numeric|min:1',
-            'address' => 'required'
         ];
     }
 }

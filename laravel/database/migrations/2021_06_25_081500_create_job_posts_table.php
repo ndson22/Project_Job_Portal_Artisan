@@ -16,7 +16,6 @@ class CreateJobPostsTable extends Migration
         Schema::create('job_posts', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('company_id');
             $table->unsignedBigInteger('job_type_id');
             $table->string('from_salary');
@@ -32,7 +31,6 @@ class CreateJobPostsTable extends Migration
             $table->string('job_code');
             $table->timestamps();
 
-            $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('job_type_id')->references('id')->on('job_types');
             $table->foreign('employee_position_id')->references('id')->on('employee_positions');
             $table->foreign('type_of_employment_id')->references('id')->on('type_of_employments');
