@@ -1,0 +1,35 @@
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <div class="userccount">
+      <h3 class="text-center">User Login</h3>
+      <!-- login form -->
+      <form class="formpanel" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <div class="formrow">
+          <input
+            class="form-control"
+            type="email"
+            formControlName="email"
+            placeholder="Email"
+          />
+        </div>
+        <div class="formrow">
+          <input
+            class="form-control"
+            type="password"
+            formControlName="password"
+            placeholder="Password"
+          />
+        </div>
+        <input class="btn" type="submit" value="Login" />
+      </form>
+      <!-- login form  end-->
+
+      <!-- sign up form -->
+      <div class="newuser">
+        <i class="fa fa-user" aria-hidden="true"></i> New User?
+        <a routerLink="/register">Register Here</a>
+      </div>
+      <!-- sign up form end-->
+    </div>
+  </div>
+</div>

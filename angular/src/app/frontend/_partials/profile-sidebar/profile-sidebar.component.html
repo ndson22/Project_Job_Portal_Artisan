@@ -1,0 +1,82 @@
+<div class="col-md-3 col-sm-4">
+  <div class="switchbox">
+    <div class="txtlbl">
+      Immediate Available
+      <i
+        class="fa fa-info-circle"
+        data-toggle="popover"
+        data-trigger="hover"
+        data-placement="top"
+        data-content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec luctus consectetur sagittis. Duis vitae urna vehicula, ornare nibh non, aliquet neque. In vitae erat ut augue suscipit."
+        data-original-title=""
+        title=""
+      ></i>
+    </div>
+    <div class="pull-right">
+      <label class="switch switch-green">
+        <input type="checkbox" class="switch-input" />
+        <span class="switch-label" data-on="On" data-off="Off"></span>
+        <span class="switch-handle"></span>
+      </label>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+
+  <ul class="usernavdash">
+    <li>
+      <a href="#"
+        ><i class="fa fa-tachometer" aria-hidden="true"></i> Dashboard</a
+      >
+    </li>
+    <li routerLinkActive="active">
+      <a routerLink="/profile"
+        ><i class="fa fa-user" aria-hidden="true"></i> My Details</a
+      >
+    </li>
+    <li routerLinkActive="active">
+      <a routerLink="/jobs/create"
+        ><i class="fa fa-user" aria-hidden="true"></i> New Job Post</a
+      >
+    </li>
+    <li>
+      <a href="#"><i class="fa fa-eye" aria-hidden="true"></i> View Resume</a>
+    </li>
+    <li>
+      <a href="#"
+        ><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Build
+        Resume</a
+      >
+    </li>
+    <li>
+      <a href="#"
+        ><i class="fa fa-trash" aria-hidden="true"></i> Delete Resume</a
+      >
+    </li>
+    <li>
+      <a href="#"
+        ><i class="fa fa-commenting" aria-hidden="true"></i> Feedback</a
+      >
+    </li>
+    <li>
+      <a href="#"><i class="fa fa-star" aria-hidden="true"></i> Followers</a>
+    </li>
+    <li>
+      <a href="#"
+        ><i class="fa fa-paper-plane" aria-hidden="true"></i> My Package</a
+      >
+    </li>
+    <li>
+      <a href="#"><i class="fa fa-tag" aria-hidden="true"></i> Tags</a>
+    </li>
+    <li>
+      <a href="#"
+        ><i class="fa fa-lock" aria-hidden="true"></i> Account Setting</a
+      >
+    </li>
+    <li (click)="onLogout()">
+      <a href="javascript:void(0)"
+        ><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a
+      >
+    </li>
+  </ul>
+</div>

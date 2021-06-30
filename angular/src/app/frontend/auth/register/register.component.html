@@ -1,0 +1,166 @@
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <div class="userccount">
+      <div class="userbtns">
+        <ul class="nav nav-tabs">
+          <li class="active">
+            <a data-toggle="tab" href="#candidate">Seeker</a>
+          </li>
+          <li><a data-toggle="tab" href="#company">Company</a></li>
+        </ul>
+      </div>
+      <div class="tab-content">
+        <form
+          id="candidate"
+          class="formpanel tab-pane fade in active"
+          [formGroup]="seekerForm"
+          (ngSubmit)="onSubmitSeeker()"
+        >
+          <h5><i class="glyphicon glyphicon-user"></i> Account</h5>
+          <div class="formrow">
+            <input
+              class="form-control"
+              type="text"
+              formControlName="name"
+              placeholder="Full Name"
+            />
+          </div>
+          <div class="formrow">
+            <input
+              class="form-control"
+              type="email"
+              formControlName="email"
+              placeholder="Email"
+            />
+          </div>
+          <div class="formrow">
+            <input
+              class="form-control"
+              type="password"
+              formControlName="password"
+              placeholder="Password"
+            />
+          </div>
+          <div class="formrow">
+            <input
+              class="form-control"
+              type="password"
+              formControlName="password_confirmation"
+              placeholder="Confirm Password"
+            />
+          </div>
+          <div class="formrow">
+            <input type="checkbox" value="agree text" formControlName="agree" />
+            I have read & accept
+            <span style="font-weight: bold">Artisans</span> Privacy Policy and
+            Terms of Use
+          </div>
+          <button class="btn" [disabled]="seekerForm.invalid" type="submit">
+            Register
+          </button>
+        </form>
+
+        <!-- Company Form -->
+        <form
+          id="company"
+          class="formpanel tab-pane fade in"
+          [formGroup]="companyForm"
+          (ngSubmit)="onSubmitCompany()"
+        >
+          <h5><i class="glyphicon glyphicon-user"></i> Account</h5>
+          <div class="formrow">
+            <input
+              class="form-control"
+              type="text"
+              placeholder="Full Name"
+              formControlName="name"
+            />
+          </div>
+          <div class="formrow">
+            <input
+              class="form-control"
+              type="email"
+              placeholder="Email"
+              formControlName="email"
+            />
+          </div>
+          <div class="formrow">
+            <input
+              class="form-control"
+              type="password"
+              placeholder="Password"
+              formControlName="password"
+            />
+          </div>
+          <div class="formrow">
+            <input
+              class="form-control"
+              type="password"
+              placeholder="Confirm Password"
+              formControlName="password_confirmation"
+            />
+          </div>
+          <hr />
+          <h5><i class="glyphicon glyphicon-briefcase"></i> Company</h5>
+          <div class="formrow">
+            <input
+              class="form-control"
+              type="text"
+              placeholder="Company Name"
+              formControlName="company_name"
+            />
+          </div>
+          <div class="formrow">
+            <input
+              class="form-control"
+              type="text"
+              placeholder="Short Name"
+              formControlName="short_name"
+            />
+          </div>
+          <div class="formrow">
+            <input
+              class="form-control"
+              type="text"
+              formControlName="address"
+              placeholder="Address"
+            />
+          </div>
+          <div class="formrow">
+            <select
+              class="form-control"
+              formControlName="province_id"
+              style="padding: 10px 12px"
+            >
+              <option value disabled selected>Provinces</option>
+              <option
+                *ngFor="let province of provinces"
+                value="{{ province.id }}"
+              >
+                {{ province.name }}
+              </option>
+            </select>
+          </div>
+          <div class="formrow">
+            <input
+              name="cagree"
+              type="checkbox"
+              value="agree text c"
+              formControlName="agree"
+            />
+            I have read & accept
+            <span style="font-weight: bold">Artisans</span> Privacy Policy and
+            Terms of Use
+          </div>
+          <button class="btn" [disabled]="companyForm.invalid" type="submit">
+            Register
+          </button>
+        </form>
+      </div>
+      <div class="newuser">
+        <i class="fa fa-user" aria-hidden="true"></i> Already a Member?
+        <a routerLink="/login">Login Here</a>
+      </div>
+    </div>
+  </div>
+</div>
