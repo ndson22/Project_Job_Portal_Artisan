@@ -32,7 +32,7 @@ Installed packages:
 # Laravel
 ```
 composer install
-copy .env.example .env \\ Database nen dat ten la codegym_jobportal
+cp .env.example .env \\ Database nen dat ten la codegym_jobportal
 php artisan key:generate
 php artisan migrate --seed
 php artisan storage:link
