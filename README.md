@@ -6,6 +6,8 @@ git fetch origin dev:dev
 ```
 ```
 git init -b <branch-name> // Bãn cũ ko chạy được
+git init
+git checkout -b <branch-name>
 git add .
 git commit -m "First commit"
 git remote add origin https://github.com/ndson22/Project_Job_Portal_Artisan.git
