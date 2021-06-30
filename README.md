@@ -5,7 +5,7 @@ git clone -b dev https://github.com/ndson22/Project_Job_Portal_Artisan.git
 git fetch origin dev:dev
 ```
 ```
-git init -b <branch-name> // Bãn cũ ko chạy được
+git init -b <branch-name> // Bản cũ ko chạy được
 git init
 git checkout -b <branch-name>
 git add .
