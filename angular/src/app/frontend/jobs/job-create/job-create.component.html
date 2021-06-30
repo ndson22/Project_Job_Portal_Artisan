@@ -124,29 +124,29 @@
                 </div>
               </div>
             </div>
-            <div class="col-md-6">
-              <div class="formrow">
-                <select class="form-control" formControlName="province_id">
-                  <option value="">Province</option>
-                  <option *ngFor="let province of provinces" value="{{ province.id }}">{{ province.name }}</option>
-                </select>
-              </div>
-              <div *ngIf="getControl.province_id.invalid && (getControl.province_id.dirty || getControl.province_id.touched)" class="text-danger">
-                <div *ngIf="getControl.province_id.errors?.required">
-                  Province is required.
-                </div>
-              </div>
-            </div>
-            <div class="col-md-12">
-              <div class="formrow">
-                <textarea class="form-control" formControlName="address" placeholder="Address"></textarea>
-              </div>
-              <div *ngIf="getControl.address.invalid && (getControl.address.dirty || getControl.address.touched)" class="text-danger">
-                <div *ngIf="getControl.address.errors?.required">
-                  Job address is required.
-                </div>
-              </div>
-            </div>
+<!--            <div class="col-md-6">-->
+<!--              <div class="formrow">-->
+<!--                <select class="form-control" formControlName="province_id">-->
+<!--                  <option value="">Province</option>-->
+<!--                  <option *ngFor="let province of provinces" value="{{ province.id }}">{{ province.name }}</option>-->
+<!--                </select>-->
+<!--              </div>-->
+<!--              <div *ngIf="getControl.province_id.invalid && (getControl.province_id.dirty || getControl.province_id.touched)" class="text-danger">-->
+<!--                <div *ngIf="getControl.province_id.errors?.required">-->
+<!--                  Province is required.-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--            <div class="col-md-12">-->
+<!--              <div class="formrow">-->
+<!--                <textarea class="form-control" formControlName="address" placeholder="Address"></textarea>-->
+<!--              </div>-->
+<!--              <div *ngIf="getControl.address.invalid && (getControl.address.dirty || getControl.address.touched)" class="text-danger">-->
+<!--                <div *ngIf="getControl.address.errors?.required">-->
+<!--                  Job address is required.-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div>-->
             <div class="col-md-12">
               <h5>Job description</h5>
             </div>

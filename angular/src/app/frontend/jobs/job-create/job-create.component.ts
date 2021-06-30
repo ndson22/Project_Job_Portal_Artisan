@@ -14,7 +14,6 @@ export class JobCreateComponent implements OnInit {
   employeePositions !: any;
   typeOfEmployments !: any;
   genders !: any;
-  provinces !: any;
   createForm !: FormGroup;
 
   constructor(
@@ -38,7 +37,6 @@ export class JobCreateComponent implements OnInit {
       description: ['', [Validators.required]],
       employee_quantity: ['', [Validators.required]],
       gender_id: ['', [Validators.required]],
-      province_id: ['', [Validators.required]],
       address: ['', [Validators.required]],
     });
   }
@@ -50,7 +48,6 @@ export class JobCreateComponent implements OnInit {
         this.employeePositions = res.employeePositions;
         this.typeOfEmployments = res.typeOfEmployments;
         this.genders = res.genders;
-        this.provinces = res.provinces
       },
       error: (res) => {
         console.log(res);
@@ -77,7 +74,7 @@ export class JobCreateComponent implements OnInit {
       error: (res) => {
 
       }
-    });;
+    });
   }
 
   get getControl() {

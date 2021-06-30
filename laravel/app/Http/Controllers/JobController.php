@@ -8,6 +8,7 @@ use App\Models\Gender;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreJobPostRequest;
 use App\Models\JobLocation;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Models\JobPost;
 use App\Models\JobType;
@@ -54,7 +55,6 @@ class JobController extends Controller
     {
         try {
             DB::beginTransaction();
-
             $jobPost = new JobPost();
             $jobPost->fill($request->all());
             $jobPost->user_id = 1;
@@ -63,12 +63,6 @@ class JobController extends Controller
             $jobPost->save();
             $jobPost->job_code = $jobPost->job_code . $jobPost->id;
             $jobPost->save();
-
-            JobLocation::create([
-                'id' => $jobPost->id,
-                'province_id' => $request->province_id,
-                'address' => $request->address
-            ]);
 
             DB::commit();
             return response()->json(['jobPost' => $jobPost, 'status' => 200]);
