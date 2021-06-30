@@ -40,3 +40,5 @@ php artisan hcvn:install
 ```
 Installed packages:
 + https://github.com/vanthao03596/laravel-hanhchinhvn
+
+https://www.youtube.com/watch?v=kXcBuJdp6UM
