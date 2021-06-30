@@ -36,7 +36,10 @@ export class HomeComponent implements OnInit {
   search() {
     this.jobService.search(this.searchForm.value).subscribe(
       (res) => {
-        this.jobService.jobPosts = res;
+        this.jobService.jobPosts = res.jobPosts;
+        this.jobService.searching = res.search;
+        this.jobService.jobTypeId = res.jobTypeId;
+        this.jobService.provinceId = res.provinceId;
         this.router.navigate(['jobs']);
       },
       (error) => {

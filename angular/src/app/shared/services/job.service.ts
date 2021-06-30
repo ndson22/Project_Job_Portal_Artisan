@@ -14,6 +14,9 @@ const baseUrl = `${environment.frontendUrl}/jobs`;
 })
 export class JobService {
   jobPosts!: Job[];
+  searching!: string;
+  jobTypeId!: number;
+  provinceId!: number;
   flag: boolean = false;
   constructor(private http: HttpClient) {}
 

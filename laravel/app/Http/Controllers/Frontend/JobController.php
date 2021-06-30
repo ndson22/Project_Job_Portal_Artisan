@@ -116,7 +116,7 @@ class JobController extends Controller
                     $jobPost->typeOfEmployments = $jobPost->typeOfEmployment->name;
                 }
             }
-        return response()->json($jobPosts);
+        return response()->json(compact('jobPosts', 'provinceId', 'jobTypeId', 'search'));
     }
 
     public function getDetail($id)
