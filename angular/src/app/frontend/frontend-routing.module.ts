@@ -60,6 +60,7 @@ const routes: Routes = [
   },
   {
     path: 'jobs',
+    canActivate: [AuthGuard],
     component: ProfileComponent,
     children: [
       {
