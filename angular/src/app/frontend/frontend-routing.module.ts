@@ -1,3 +1,4 @@
+import { FeatureJobsComponent } from './home/feature-jobs/feature-jobs.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from '../shared/guards/auth.guard';

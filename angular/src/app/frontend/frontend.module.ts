@@ -32,6 +32,7 @@ import { LoginComponent } from './auth/login/login.component';
 import { ProfileUserDetailComponent } from './profiles/profile-user-detail/profile-user-detail.component';
 //pipes
 import { PostPipePipe } from "../shared/pipes/post-pipe.pipe";
+import { FeatureJobsComponent } from './home/feature-jobs/feature-jobs.component';
 
 @NgModule({
   declarations: [
@@ -57,6 +58,7 @@ import { PostPipePipe } from "../shared/pipes/post-pipe.pipe";
     RegisterComponent,
     LoginComponent,
     ProfileUserDetailComponent,
+    FeatureJobsComponent,
   ],
   imports: [
     CommonModule,
