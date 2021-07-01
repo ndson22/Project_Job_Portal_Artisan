@@ -17,7 +17,19 @@ export class JobEditComponent implements OnInit {
   employeePositions !: any;
   typeOfEmployments !: any;
   genders !: any;
-  updateForm !: FormGroup;
+  updateForm = this.formBuilder.group({
+    title: ['', [Validators.required, Validators.maxLength(255)]],
+    job_type_id: ['', [Validators.required]],
+    from_salary: ['', [Validators.required]],
+    to_salary: ['', [Validators.required]],
+    employee_position_id: ['', [Validators.required]],
+    experience: ['', [Validators.required]],
+    type_of_employment_id: ['', [Validators.required]],
+    expire: ['', [Validators.required]],
+    description: ['', [Validators.required]],
+    employee_quantity: ['', [Validators.required]],
+    gender_id: ['', [Validators.required]],
+  });
   id!: number
   job! : Job
 
@@ -32,46 +44,20 @@ export class JobEditComponent implements OnInit {
 
   ngOnInit(): void {
     this.getJobData();
-    this.updateForm = this.formBuilder.group({
-      title: ['', [Validators.required, Validators.maxLength(255)]],
-      job_type_id: ['', [Validators.required]],
-      from_salary: ['', [Validators.required]],
-      to_salary: ['', [Validators.required]],
-      employee_position_id: ['', [Validators.required]],
-      experience: ['', [Validators.required]],
-      type_of_employment_id: ['', [Validators.required]],
-      expire: ['', [Validators.required]],
-      description: ['', [Validators.required]],
-      employee_quantity: ['', [Validators.required]],
-      gender_id: ['', [Validators.required]],
-    });
+    this.getJobDetail();
+    
   }
 
   getJobData() {
-    this.id = +this.routeActive.snapshot.paramMap.get("id")!;
 
     this.jobService.getJobInfor().subscribe({
       next: (res) => {
         this.jobTypes = res.jobTypes;
         this.employeePositions = res.employeePositions;
         this.typeOfEmployments = res.typeOfEmployments;
-        this.genders = res.genders;
-        this.job = res;
-        // this.updateForm.patchValue({
-        //   title: this.job.title,
-        //   job_type_id: this.job.jobTypes,
-        //   from_salary: this.job.from_salary,
-        //   to_salary: this.job.to_salary,
-        //   employee_position_id: this.job.employeePositions,
-        //   experience: this.job.experience,
-        //   type_of_employment_id: this.job.typeOfEmployments,
-        //   expire: this.job.expire,
-        //   description: this.job.description,
-        //   employee_quantity: this.job.employee_quantity,
-        //   gender_id: this.job.genders
-          
-        // })
+        this.genders = res.genders;  
       },
+
       error: (res) => {
         console.log(res);
       }
@@ -82,18 +68,12 @@ export class JobEditComponent implements OnInit {
     if (this.updateForm.invalid) {
       return;
     }
-    console.log(this.id)
+    
     this.jobService.update(this.id ,this.updateForm.value).subscribe({
       next: (res) => {
         console.log(res);
         // thong bao thanh cong
         this.toastr.success('Success', 'Update Successfully!');
-        //reset formr(formData, this.id).subscribe(
-
-        // Object.keys(this.updateForm.controls).forEach((key) => {
-        //   this.updateForm.get(key)?.setValue('');
-        //   this.updateForm.get(key)?.setErrors(null);
-        // });
       },
       error: () => {
         this.toastr.error('Error', 'Update Fail! Try again');
@@ -101,6 +81,26 @@ export class JobEditComponent implements OnInit {
     });
   }
 
+  getJobDetail(){
+    this.id = +this.routeActive.snapshot.paramMap.get("id")!;
+    this.jobService.get(this.id).subscribe(
+      (res: any)=> {
+        this.updateForm.controls['title'].setValue(res.jobPost.title);
+        this.updateForm.controls['description'].setValue(res.jobPost.description);
+        this.updateForm.controls['from_salary'].setValue(res.jobPost.from_salary);
+        this.updateForm.controls['to_salary'].setValue(res.jobPost.to_salary);
+        this.updateForm.controls['expire'].setValue(res.jobPost.expire);
+        this.updateForm.controls['experience'].setValue(res.jobPost.experience);
+        this.updateForm.controls['employee_quantity'].setValue(res.jobPost.employee_quantity);
+        this.updateForm.controls['type_of_employment_id'].setValue(res.jobPost.type_of_employment_id);
+        this.updateForm.controls['employee_position_id'].setValue(res.jobPost.employee_position_id);
+        this.updateForm.controls['gender_id'].setValue(res.jobPost.gender_id);
+        this.updateForm.controls['job_type_id'].setValue(res.jobPost.job_type_id);
+
+
+      }
+    );
+  }
   get getControl() {
     return this.updateForm.controls;
   }

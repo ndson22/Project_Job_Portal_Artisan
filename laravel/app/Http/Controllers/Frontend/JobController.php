@@ -20,11 +20,7 @@ use App\Http\Requests\StoreJobPostRequest;
 
 class JobController extends Controller
 {
-    protected $jobPost;
-    public function __construct(JobPost $jobPost)
-    {
-        $this->jobPost = $jobPost;
-    }
+   
     public function getAll(){
         $jobPosts = JobPost::all();
         foreach ($jobPosts as $key => $jobPost) {
@@ -79,22 +75,9 @@ class JobController extends Controller
 
     public function edit(StoreJobPostRequest $request, $id)
     {
-        try {
-            DB::beginTransaction();
-            $jobPost = $this->jobPost->find($id);
-            $jobPost->fill($request->all());
-            $jobPost->company_id = Company::where('user_id', Auth::id())->pluck('id')[0];
-            $jobPost->job_code = "CODE" . $jobPost->company_id;
-            $jobPost->save();
-            $jobPost->job_code = $jobPost->job_code . $jobPost->id;
-            $this->jobPost->update($jobPost);
-            $jobPost->save();
-            DB::commit();
+            $jobPost = JobPost::find($id);
+            $jobPost->update($request->all());
             return response()->json($jobPost);
-        } catch (Exception $e) {
-            DB::rollback();
-            return response()->json($e->getMessage(), 400);
-        }
     }
 
     public function search(Request $request)

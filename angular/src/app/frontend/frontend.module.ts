@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
+// import { NgbPagination } from '@ng-bootstrap/ng-bootstrap';
 import { FrontendRoutingModule } from './frontend-routing.module';
 
 // Extra
