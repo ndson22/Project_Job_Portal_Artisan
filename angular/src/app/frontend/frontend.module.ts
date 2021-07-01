@@ -1,3 +1,4 @@
+import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -69,6 +70,7 @@ import { FeatureJobsComponent } from './home/feature-jobs/feature-jobs.component
     // Extra
     NgbModule,
     EditorModule,
+    NzButtonModule,
     TimeagoModule.forChild(),
   ],
 })
