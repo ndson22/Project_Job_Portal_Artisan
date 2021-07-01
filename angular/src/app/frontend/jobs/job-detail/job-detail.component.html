@@ -1,0 +1,166 @@
+<!-- Job Header start -->
+<div class="job-header">
+  <div class="jobinfo">
+    <div class="row">
+      <div class="col-md-8">
+        <h2>{{ jobPost?.title }}</h2>
+        <div class="ptext">Date Posted: {{ jobPost?.created_at | date }}</div>
+        <div class="salary">Monthly Salary: <strong>{{ jobPost?.from_salary | currency : 'USD'}} - {{ jobPost?.to_salary | currency : 'USD' }}</strong></div>
+      </div>
+      <div class="col-md-4">
+        <div class="companyinfo">
+          <div class="companylogo">
+            <img src="assets/frontend/images/employers/emplogo1.jpg" alt="your alt text" />
+          </div>
+          <div class="title"><a href="#.">{{ company.name }}</a></div>
+          <div class="ptext">{{ company.location }}</div>
+          <div class="opening"><a href="#.">{{ company.jobPostAmount }} Current Jobs Openings</a></div>
+          <div class="clearfix"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="jobButtons">
+    <a href="#." class="btn apply"
+      ><i class="fa fa-paper-plane" aria-hidden="true"></i> Apply Now</a
+    >
+    <a href="#." class="btn"
+      ><i class="fa fa-envelope" aria-hidden="true"></i> Email to Friend</a
+    >
+    <a href="#." class="btn"
+      ><i class="fa fa-black-tie" aria-hidden="true"></i> Job Aleart</a
+    >
+    <a href="#." class="btn"
+      ><i class="fa fa-floppy-o" aria-hidden="true"></i> Save This Job</a
+    >
+    <a href="#." class="btn report"
+      ><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Report
+      Abuse</a
+    >
+  </div>
+</div>
+
+<!-- Job Detail start -->
+<div class="row">
+  <div class="col-md-8">
+    <!-- Job Description start -->
+    <div class="job-header">
+      <div class="contentbox">
+        <h3>Job Description</h3>
+        <p [innerHTML]="jobPost?.description"></p>
+      </div>
+    </div>
+    <!-- Job Description end -->
+
+    <!-- related jobs start -->
+    <div class="relatedJobs">
+      <h3>Related Jobs</h3>
+      <ul class="searchList" *ngFor="let job of jobTake">
+        <!-- Job start -->
+        <li>
+          <div class="row">
+            <div class="col-md-8 col-sm-8">
+              <div class="jobimg">
+                <img src="assets/frontend/images/jobs/jobimg.jpg" alt="Job Name" />
+              </div>
+              <div class="jobinfo">
+                <h3><a [routerLink]="['/jobs', job.id]" >{{ job.title }}</a></h3>
+                <div class="companyName">
+                  <a>{{ job.name }}</a>
+                </div>
+                <div class="location">
+                  <label class="fulltime">{{ job.typeOfEmployments}}</label> -
+                  <span>New York</span>
+                </div>
+              </div>
+              <div class="clearfix"></div>
+            </div>
+            <div class="col-md-4 col-sm-4">
+              <div class="listbtn"><a [routerLink]="['/jobs', job.id]" >Apply Now</a></div>
+            </div>
+          </div>
+          <p>
+            {{ job.description | postPipe }}
+          </p>
+        </li>
+        <!-- Job end -->
+
+      </ul>
+    </div>
+  </div>
+  <!-- related jobs end -->
+
+  <div class="col-md-4">
+    <!-- Job Detail start -->
+    <div class="job-header">
+      <div class="jobdetail">
+        <h3>Job Detail</h3>
+        <ul class="jbdetail">
+          <li class="row">
+            <div class="col-md-6 col-xs-6">Employment Type</div>
+            <div class="col-md-6 col-xs-6"><span>{{ jobPost?.typeOfEmployments }}</span></div>
+          </li>
+          <li class="row">
+            <div class="col-md-6 col-xs-6">Positions</div>
+            <div class="col-md-6 col-xs-6"><span>{{ jobPost?.employeePositions }}</span></div>
+          </li>
+          <li class="row">
+            <div class="col-md-6 col-xs-6">Employers</div>
+            <div class="col-md-6 col-xs-6"><span>{{ jobPost?.employee_quantity }}</span></div>
+          </li>
+          <li class="row">
+            <div class="col-md-6 col-xs-6">Experience</div>
+            <div class="col-md-6 col-xs-6"><span>{{ jobPost?.experience }} Years</span></div>
+          </li>
+          <li class="row">
+            <div class="col-md-6 col-xs-6">Gender</div>
+            <div class="col-md-6 col-xs-6"><span>{{ jobPost?.genders }}</span></div>
+          </li>
+          <li class="row">
+            <div class="col-md-12 col-xs-12">Address</div>
+          </li>
+          <li class="row">
+            <div class="col-md-12 col-xs-12" style="color:chocolate;"><b>{{ jobPost?.address }}</b></div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Contact Company start -->
+    <div class="job-header">
+      <div class="jobdetail">
+        <h3>Contact Themeforest</h3>
+        <div class="formpanel">
+          <div class="formrow">
+            <input type="text" class="form-control" placeholder="Your Name">
+          </div>
+          <div class="formrow">
+            <input type="text" class="form-control" placeholder="Your Email">
+          </div>
+          <div class="formrow">
+            <input type="text" class="form-control" placeholder="Phone">
+          </div>
+          <div class="formrow">
+            <input type="text" class="form-control" placeholder="Subject">
+          </div>
+          <div class="formrow">
+            <textarea class="form-control" placeholder="Message"></textarea>
+          </div>
+          <input type="submit" class="btn" value="Submit">
+        </div>
+      </div>
+    </div>
+    <!-- Google Map start -->
+    <div class="job-header">
+      <div class="jobdetail">
+        <h3>Google Map</h3>
+        <div class="gmap">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d13276.272465119835!2d72.97962462269287!3d33.70718629417979!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2s!4v1480401216309"
+            allowfullscreen
+          ></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
