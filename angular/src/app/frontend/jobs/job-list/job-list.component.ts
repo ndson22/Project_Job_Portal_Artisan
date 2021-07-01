@@ -22,8 +22,8 @@ export class JobListComponent implements OnInit, OnDestroy {
 
   searchForm = this.formBuilder.group({
     search: [''],
-    job_type_id: [''],
-    province_id: [''],
+    job_type_id: [null],
+    province_id: [null],
   });
 
   constructor(
