@@ -54,6 +54,7 @@ class JobController extends Controller
         }
     }
 
+
     public function store(StoreJobPostRequest $request)
     {
         try {
@@ -65,13 +66,19 @@ class JobController extends Controller
             $jobPost->save();
             $jobPost->job_code = $jobPost->job_code . $jobPost->id;
             $jobPost->save();
-
             DB::commit();
             return response()->json($jobPost);
         } catch (Exception $e) {
             DB::rollback();
             return response()->json($e->getMessage(), 400);
         }
+    }
+
+    public function edit(StoreJobPostRequest $request, $id)
+    {
+            $jobPost = JobPost::find($id);
+            $jobPost->update($request->all());
+            return response()->json($jobPost);
     }
 
     public function search(Request $request)

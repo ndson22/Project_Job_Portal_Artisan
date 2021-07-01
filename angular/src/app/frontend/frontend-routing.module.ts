@@ -68,7 +68,7 @@ const routes: Routes = [
         component: JobCreateComponent,
       },
       {
-        path: 'edit/id',
+        path: 'edit/:id',
         component: JobEditComponent,
       },
     ],
