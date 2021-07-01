@@ -28,7 +28,7 @@ export class JobService {
   }
 
   update(id: number, data: any): Observable<any> {
-    return this.http.put(`${baseUrl}/${id}`, data);
+    return this.http.post(`${baseUrl}/edit/${id}`, data);
   }
 
   delete(id: number): Observable<any> {
