@@ -80,7 +80,7 @@ export class AppComponent implements OnInit, AfterViewInit {
       await this.loadScripts(this.frontendScripts);
     }
     this.completeLoading = Promise.resolve(true);
-    // this.spinner.hide();
+    this.spinner.hide();
   }
 
   loadStyles(styles: string[]): Promise<boolean> {
