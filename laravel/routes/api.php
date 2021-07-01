@@ -1,9 +1,9 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthController;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Frontend;
 use App\Http\Controllers\Backend;
+use App\Http\Controllers\Frontend;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,7 +40,7 @@ Route::prefix('/jobs')->group(function() {
 
     Route::post('/search', [Frontend\JobController::class, 'search'])->name('jobs.search');
     Route::get('/types', [Frontend\JobTypeController::class, 'getJobTypes']);
-    Route::get('/provinces', [Frontend\ProvinceController::class, 'getJobProvinces']);
+    Route::get('/provinces', [Frontend\ProvinceController::class, 'index']);
     Route::get('/{id}', [Frontend\JobController::class, 'getDetail'])->name('jobs.get');
 
 });

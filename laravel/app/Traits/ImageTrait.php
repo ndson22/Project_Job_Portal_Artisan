@@ -33,12 +33,6 @@ trait ImageTrait
 
     public function deleteImage($instance)
     {
-        // if (!empty($instance->image)){
-        //     $existPath = str_replace('storage', 'public', $instance->image);
-        //     if (Storage::exists($existPath)) {
-        //         Storage::delete($existPath);
-        //     }
-        // }
         return Storage::delete(str_replace('storage', 'public', $instance->image));
     }
 }

@@ -19,12 +19,6 @@ export class ProfileSidebarComponent implements OnInit {
   ngOnInit(): void {}
 
   onLogout(): void {
-    this.authService
-      .logout()
-      .pipe(first())
-      .subscribe((response) => {
-        this.toastr.success(response.message, 'Logout Successfully!');
-        this.router.navigate(['/']);
-      });
+    this.authService.logout();
   }
 }

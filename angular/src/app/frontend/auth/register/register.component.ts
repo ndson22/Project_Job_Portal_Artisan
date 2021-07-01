@@ -15,6 +15,7 @@ import { PasswordValidators } from 'ngx-validators';
 import { AuthService } from '../../../shared/services/auth.service';
 import { ProvincesService } from 'src/app/shared/services/provinces.service';
 import { Province } from 'src/app/shared/models/province';
+import { UserService } from 'src/app/shared/services/user.service';
 
 @Component({
   selector: 'app-register',
@@ -63,6 +64,7 @@ export class RegisterComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
+    private userService: UserService,
     private provinceService: ProvincesService,
     private fb: FormBuilder,
     private toastr: ToastrService,
@@ -72,17 +74,6 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit(): void {
     this.getProvincesData();
-  }
-
-  checkAuthenticate(): void {
-    this.authService
-      .isAuthenticated()
-      .pipe(first())
-      .subscribe((res) => {
-        if (res) {
-          this.toastr.error('You are already logged in');
-        }
-      });
   }
 
   getProvincesData(): void {
@@ -123,7 +114,7 @@ export class RegisterComponent implements OnInit {
             'Please confirm your email',
             'Register Successfully'
           );
-          // this.router.navigate(['/login']);
+          this.router.navigate(['/login']);
         },
         (err: any) => {
           this.toastr.error(err.message, 'Failed To Register');

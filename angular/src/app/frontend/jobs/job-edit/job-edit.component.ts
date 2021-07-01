@@ -1,5 +1,5 @@
 import { ToastrService } from 'ngx-toastr';
-import {ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, Validators, FormGroup, FormGroupDirective } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { JobService } from 'src/app/shared/services/job.service';
@@ -12,7 +12,7 @@ import { Job } from 'src/app/shared/models/job';
 })
 export class JobEditComponent implements OnInit {
 
-  title! : string;
+  title!: string;
   jobTypes !: any;
   employeePositions !: any;
   typeOfEmployments !: any;
@@ -31,7 +31,7 @@ export class JobEditComponent implements OnInit {
     gender_id: ['', [Validators.required]],
   });
   id!: number
-  job! : Job
+  job!: Job
 
 
   constructor(
@@ -45,7 +45,7 @@ export class JobEditComponent implements OnInit {
   ngOnInit(): void {
     this.getJobData();
     this.getJobDetail();
-    
+
   }
 
   getJobData() {
@@ -55,7 +55,7 @@ export class JobEditComponent implements OnInit {
         this.jobTypes = res.jobTypes;
         this.employeePositions = res.employeePositions;
         this.typeOfEmployments = res.typeOfEmployments;
-        this.genders = res.genders;  
+        this.genders = res.genders;
       },
 
       error: (res) => {
@@ -68,8 +68,8 @@ export class JobEditComponent implements OnInit {
     if (this.updateForm.invalid) {
       return;
     }
-    
-    this.jobService.update(this.id ,this.updateForm.value).subscribe({
+
+    this.jobService.update(this.id, this.updateForm.value).subscribe({
       next: (res) => {
         console.log(res);
         // thong bao thanh cong
@@ -81,10 +81,10 @@ export class JobEditComponent implements OnInit {
     });
   }
 
-  getJobDetail(){
+  getJobDetail() {
     this.id = +this.routeActive.snapshot.paramMap.get("id")!;
     this.jobService.get(this.id).subscribe(
-      (res: any)=> {
+      (res: any) => {
         this.updateForm.controls['title'].setValue(res.jobPost.title);
         this.updateForm.controls['description'].setValue(res.jobPost.description);
         this.updateForm.controls['from_salary'].setValue(res.jobPost.from_salary);

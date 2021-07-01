@@ -12,7 +12,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
-  constructor(private authService: AuthService, private router: Router, private route: ActivatedRoute) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
 
   intercept(
     request: HttpRequest<unknown>,
@@ -21,7 +25,7 @@ export class ErrorInterceptor implements HttpInterceptor {
     return next.handle(request).pipe(
       catchError((err) => {
         if ([401, 403].indexOf(err.status) !== -1) {
-          this.router.navigateByUrl(`/login`);
+          this.router.navigateByUrl('/login');
         }
         const error = err.error.message || err.statusText;
         return throwError(error);

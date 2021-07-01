@@ -29,7 +29,7 @@ export class JobService {
   }
 
   store(data: any): Observable<any> {
-  
+
     return this.http.post(`${baseUrl}/store`, data);
   }
 

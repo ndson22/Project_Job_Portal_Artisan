@@ -24,6 +24,18 @@
               formControlName="name"
               placeholder="Full Name"
             />
+            <div
+              class="text-danger"
+              *ngIf="
+                this.seekerForm.get('name')?.invalid &&
+                (this.seekerForm.get('name')?.dirty ||
+                  this.seekerForm.get('name')?.touched)
+              "
+            >
+              <div *ngIf="this.seekerForm.get('name')?.hasError('required')">
+                Full name is required.
+              </div>
+            </div>
           </div>
           <div class="formrow">
             <input
@@ -32,6 +44,21 @@
               formControlName="email"
               placeholder="Email"
             />
+            <div
+              class="text-danger"
+              *ngIf="
+                this.seekerForm.get('email')?.invalid &&
+                (this.seekerForm.get('email')?.dirty ||
+                  this.seekerForm.get('email')?.touched)
+              "
+            >
+              <div *ngIf="this.seekerForm.get('email')?.hasError('required')">
+                Email is required.
+              </div>
+              <div *ngIf="this.seekerForm.get('email')?.hasError('email')">
+                Must be an email.
+              </div>
+            </div>
           </div>
           <div class="formrow">
             <input
@@ -40,6 +67,20 @@
               formControlName="password"
               placeholder="Password"
             />
+            <div
+              class="text-danger"
+              *ngIf="
+                this.seekerForm.get('password')?.invalid &&
+                (this.seekerForm.get('password')?.dirty ||
+                  this.seekerForm.get('password')?.touched)
+              "
+            >
+              <div
+                *ngIf="this.seekerForm.get('password')?.hasError('required')"
+              >
+                Password is required.
+              </div>
+            </div>
           </div>
           <div class="formrow">
             <input
@@ -48,6 +89,18 @@
               formControlName="password_confirmation"
               placeholder="Confirm Password"
             />
+            <div
+              class="text-danger"
+              *ngIf="
+                this.seekerForm.get('password_confirmation')?.invalid &&
+                (this.seekerForm.get('password_confirmation')?.dirty ||
+                  this.seekerForm.get('password_confirmation')?.touched)
+              "
+            >
+              <div *ngIf="this.seekerForm?.hasError('mismatchedPasswords')">
+                Mismatched passwords.
+              </div>
+            </div>
           </div>
           <div class="formrow">
             <input type="checkbox" value="agree text" formControlName="agree" />

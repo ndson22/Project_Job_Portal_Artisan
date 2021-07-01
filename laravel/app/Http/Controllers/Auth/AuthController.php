@@ -3,30 +3,30 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CompanyRegisterFormRequest;
+use App\Http\Requests\RegisterFormRequest;
+use App\Mail\VertifyUser;
+use App\Models\Company;
 use App\Models\User;
+use App\Traits\ArrayTrait;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
-    public function register(Request $request)
-    {
-        $validator = Validator::make($request->all(), [
-            'name' => 'required|string|between:2,100',
-            'email' => 'required|string|email|max:100|unique:users',
-            'password' => 'required|string|confirmed|min:6',
-        ]);
-        if ($validator->fails()) {
-            return response()->json($validator->errors()->toJson(), 400);
-        }
+    use ArrayTrait;
 
+    public function register(RegisterFormRequest $request)
+    {
         $user = User::create(array_merge(
-            $validator->validated(),
+            $request->validated(),
             ['password' => bcrypt($request->password)]
         ));
+
+        Mail::to($user->email)->queue(new VertifyUser());
 
         return response()->json([
             'message' => 'User successfully registered',
@@ -34,25 +34,35 @@ class AuthController extends Controller
         ], 201);
     }
 
-    public function registerCompany(Request $request)
+    public function registerCompany(CompanyRegisterFormRequest $request)
     {
-        // this.register
+        $user = User::create(array_merge(
+            $request->only('name', 'email', 'password', 'password_confirmation'),
+            ['password' => bcrypt($request->password)]
+        ));
+
+        // Tao tai khoan company
+        $data = array_merge(
+            $request->except('name', 'password', 'agree', 'password_confirmation'),
+            ['user_id' => $user->id]
+        );
+        $this->changeKey($data, 'company_name', 'name');
+        $company = new Company();
+        $company->fill($data);
+        $company->save();
+        $company->code = $company->short_name . $company->id;
+        $company->save();
+
+        // Tra response
         return response()->json([
-            'message' => 'User successfully dsadasdsasdsa',
-            'user' => $request->all(),
+            'message' => 'Company account successfully created',
+            'user' => $user,
+            'company' => $company,
         ], 201);
     }
 
     public function login(Request $request)
     {
-        $validator = Validator::make($request->only('email', 'password'), [
-            'email' => 'required|email',
-            'password' => 'required|string|min:6',
-        ]);
-        if ($validator->fails()) {
-            return response()->json($validator->errors(), 422);
-        }
-
         $user = User::where('email', $request->email)->first();
         if (!$user || !Hash::check($request->password, $user->password)) {
             return response()->json(['error' => 'Unauthorized'], 401);

@@ -6,21 +6,11 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class CompanyFormRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
     public function authorize()
     {
         return true;
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array
-     */
     public function rules()
     {
         return [
@@ -29,7 +19,7 @@ class CompanyFormRequest extends FormRequest
             'short_name' => 'required',
             'email' => 'required',
             'image' => 'nullable|mimes:jpg,jpeg,bmp,png|max:10240',
-            'description' => 'required',
+            'description' => 'nullable',
             'address' => 'required',
             'province_id' => 'required'
         ];

@@ -12,6 +12,7 @@ import { first, map } from 'rxjs/operators';
 import { AuthService } from '../services/auth.service';
 import { Location } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
+import { UserService } from '../services/user.service';
 
 @Injectable({
   providedIn: 'root',
@@ -19,6 +20,7 @@ import { ToastrService } from 'ngx-toastr';
 export class IsLoggedInGuard implements CanActivate {
   constructor(
     private authService: AuthService,
+    private userService: UserService,
     private toastr: ToastrService,
     private route: ActivatedRoute,
     private router: Router,
@@ -34,22 +36,15 @@ export class IsLoggedInGuard implements CanActivate {
     | boolean
     | UrlTree {
     return new Observable<boolean>((obs) => {
-      this.authService
-        .isAuthenticated()
-        .pipe(first())
-        .subscribe(
-          (res) => {
-            if (res === 1) {
-              obs.next(false);
-              this.toastr.error('Already Logged In!')
-            } else {
-              obs.next(true);
-            }
-          },
-          (error) => {
-            obs.next(true);
-          }
-        );
+      this.userService.isAuthenticated().subscribe(
+        (res) => {
+          this.toastr.error('You are already logged in!');
+          obs.next(false);
+        },
+        (err) => {
+          obs.next(true);
+        }
+      );
     });
   }
 }

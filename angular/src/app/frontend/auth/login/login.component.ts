@@ -8,6 +8,7 @@ import { ToastrService } from 'ngx-toastr';
 
 import { AuthService } from '../../../shared/services/auth.service';
 import { User } from 'src/app/shared/models/user';
+import { UserService } from 'src/app/shared/services/user.service';
 
 @Component({
   selector: 'app-login',
@@ -23,23 +24,13 @@ export class LoginComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
+    private userService: UserService,
     private toastr: ToastrService,
     private router: Router,
     private location: Location
   ) {}
 
   ngOnInit(): void {}
-
-  checkAuthenticated(): void {
-    this.authService
-      .isAuthenticated()
-      .pipe(first())
-      .subscribe((res) => {
-        if (res) {
-          this.toastr.error('You are already logged in');
-        }
-      });
-  }
 
   onSubmit(): void {
     if (!this.loginForm.valid) {
@@ -51,7 +42,7 @@ export class LoginComponent implements OnInit {
       .pipe(first())
       .subscribe(
         (res) => {
-          this.authService.user = new User(
+          this.userService.user = new User(
             res.user.id,
             res.user.name,
             res.user.email

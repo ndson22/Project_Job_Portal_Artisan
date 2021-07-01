@@ -54,7 +54,6 @@ class JobController extends Controller
         }
     }
 
-
     public function store(StoreJobPostRequest $request)
     {
         try {

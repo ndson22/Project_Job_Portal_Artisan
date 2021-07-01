@@ -13,6 +13,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { HttpConfigInterceptor } from './shared/interceptors/http-config.interceptor';
 import { CookieService } from 'ngx-cookie-service';
 import { ErrorInterceptor } from './shared/interceptors/error.interceptor';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
   declarations: [AppComponent],
@@ -22,6 +23,7 @@ import { ErrorInterceptor } from './shared/interceptors/error.interceptor';
     HttpClientModule,
     BrowserAnimationsModule,
     NgbModule,
+    NgxSpinnerModule,
     ToastrModule.forRoot({
       preventDuplicates: false,
     }),

@@ -18,11 +18,14 @@ class CreateCompaniesTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->string('name');
             $table->string('short_name');
-            $table->string('code');
+            $table->string('code')->nullable();
             $table->string('email');
             $table->string('image')->nullable();
             $table->string('description')->nullable();
             $table->string('address');
+            $table->integer('scale')->nullable();
+            $table->boolean('is_active')->default(0);
+            $table->boolean('is_vertfied')->default(0);
             $table->unsignedBigInteger('province_id');
             $table->timestamps();
 

@@ -1,6 +1,7 @@
 import { resolve } from '@angular/compiler-cli/src/ngtsc/file_system';
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-root',
@@ -14,26 +15,26 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   // Backend
   backendStyles = [
-    "assets/backend/plugins/simplebar/css/simplebar.css",
-    "assets/backend/plugins/perfect-scrollbar/css/perfect-scrollbar.css",
-    "assets/backend/plugins/metismenu/css/metisMenu.min.css",
-    "assets/backend/css/pace.min.css",
-    "assets/backend/css/bootstrap.min.css",
-    "https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap",
-    "assets/backend/css/app.css",
-    "assets/backend/css/icons.css",
-    "assets/backend/css/dark-theme.css",
-    "assets/backend/css/semi-dark.css",
-    "assets/backend/css/header-colors.css",
+    'assets/backend/plugins/simplebar/css/simplebar.css',
+    'assets/backend/plugins/perfect-scrollbar/css/perfect-scrollbar.css',
+    'assets/backend/plugins/metismenu/css/metisMenu.min.css',
+    'assets/backend/css/pace.min.css',
+    'assets/backend/css/bootstrap.min.css',
+    'https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap',
+    'assets/backend/css/app.css',
+    'assets/backend/css/icons.css',
+    'assets/backend/css/dark-theme.css',
+    'assets/backend/css/semi-dark.css',
+    'assets/backend/css/header-colors.css',
   ];
   backendScripts = [
-    "assets/backend/js/pace.min.js",
-    "assets/backend/js/bootstrap.bundle.min.js",
-    "assets/backend/js/jquery.min.js",
-    "assets/backend/plugins/simplebar/js/simplebar.min.js",
-    "assets/backend/plugins/metismenu/js/metisMenu.min.js",
-    "assets/backend/plugins/perfect-scrollbar/js/perfect-scrollbar.js",
-    "assets/backend/js/app.js"
+    'assets/backend/js/pace.min.js',
+    'assets/backend/js/bootstrap.bundle.min.js',
+    'assets/backend/js/jquery.min.js',
+    'assets/backend/plugins/simplebar/js/simplebar.min.js',
+    'assets/backend/plugins/metismenu/js/metisMenu.min.js',
+    'assets/backend/plugins/perfect-scrollbar/js/perfect-scrollbar.js',
+    'assets/backend/js/app.js',
   ];
 
   // Frontend
@@ -50,9 +51,11 @@ export class AppComponent implements OnInit, AfterViewInit {
     'assets/frontend/js/script.js',
   ];
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private spinner: NgxSpinnerService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.spinner.show();
+  }
 
   ngAfterViewInit(): void {
     this.router.events.subscribe((event) => {
@@ -77,6 +80,7 @@ export class AppComponent implements OnInit, AfterViewInit {
       await this.loadScripts(this.frontendScripts);
     }
     this.completeLoading = Promise.resolve(true);
+    this.spinner.hide();
   }
 
   loadStyles(styles: string[]): Promise<boolean> {
