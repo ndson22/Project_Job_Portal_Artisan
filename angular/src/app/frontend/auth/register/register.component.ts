@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -24,12 +24,13 @@ import { UserService } from 'src/app/shared/services/user.service';
 })
 export class RegisterComponent implements OnInit {
   provinces!: Province[];
+  isLoading: boolean = false;
 
   seekerForm: FormGroup = this.fb.group(
     {
       name: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required]],
+      password: ['', [Validators.required, Validators.minLength(8)]],
       password_confirmation: ['', Validators.required],
       agree: ['', [Validators.requiredTrue]],
     },
@@ -44,14 +45,12 @@ export class RegisterComponent implements OnInit {
     {
       name: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required]],
+      password: ['', [Validators.required, Validators.minLength(8)]],
       password_confirmation: ['', Validators.required],
-
       company_name: ['', [Validators.required]],
       short_name: ['', [Validators.required]],
       address: ['', [Validators.required]],
       province_id: ['', [Validators.required]],
-
       agree: ['', [Validators.requiredTrue]],
     },
     {
@@ -86,24 +85,29 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmitSeeker(): void {
+    this.isLoading = true;
     this.authService
       .register(this.seekerForm.value)
       .pipe(first())
       .subscribe(
         (res: any) => {
           this.toastr.success(
-            'Please confirm your email',
+            'Please confirm your email and update your profile.',
             'Register Successfully'
           );
           this.router.navigate(['/login']);
         },
         (err: any) => {
-          this.toastr.error(err.message, 'Failed To Register');
+          this.isLoading = false;
+          const errorMessage =
+            err.error.errors[Object.keys(err.error.errors)[0]];
+          this.toastr.error(errorMessage, 'Failed To Register');
         }
       );
   }
 
   onSubmitCompany(): void {
+    this.isLoading = true;
     this.authService
       .registerCompany(this.companyForm.value)
       .pipe(first())
@@ -111,13 +115,14 @@ export class RegisterComponent implements OnInit {
         (res: any) => {
           console.log(res);
           this.toastr.success(
-            'Please confirm your email',
-            'Register Successfully'
+            'Please confirm your email and wait for admin to confirm your company information.',
+            'Registered successfully'
           );
           this.router.navigate(['/login']);
         },
         (err: any) => {
-          this.toastr.error(err.message, 'Failed To Register');
+          this.isLoading = false;
+          this.toastr.error(err, 'Failed to register!');
         }
       );
   }

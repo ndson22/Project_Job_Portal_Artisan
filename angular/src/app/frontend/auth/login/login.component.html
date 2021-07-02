@@ -3,7 +3,12 @@
     <div class="userccount">
       <h3 class="text-center">User Login</h3>
       <!-- login form -->
-      <form class="formpanel" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <form
+        class="formpanel"
+        [formGroup]="loginForm"
+        (ngSubmit)="onSubmit()"
+        [hidden]="isLoading"
+      >
         <div class="formrow">
           <input
             class="form-control"
@@ -11,6 +16,17 @@
             formControlName="email"
             placeholder="Email"
           />
+          <div
+            class="text-danger"
+            *ngIf="
+              loginForm.get('email')?.invalid &&
+              (loginForm.get('email')?.dirty || loginForm.get('email')?.touched)
+            "
+          >
+            <div *ngIf="loginForm.get('email')?.hasError('required')">
+              Email is required.
+            </div>
+          </div>
         </div>
         <div class="formrow">
           <input
@@ -19,13 +35,40 @@
             formControlName="password"
             placeholder="Password"
           />
+          <div
+            class="text-danger"
+            *ngIf="
+              loginForm.get('password')?.invalid &&
+              (loginForm.get('password')?.dirty ||
+                loginForm.get('password')?.touched)
+            "
+          >
+            <div *ngIf="loginForm.get('password')?.hasError('required')">
+              Password is required.
+            </div>
+          </div>
         </div>
-        <input class="btn" type="submit" value="Login" />
+        <input
+          class="btn"
+          [disabled]="loginForm.invalid || isLoading"
+          type="submit"
+          value="Login"
+        />
       </form>
       <!-- login form  end-->
 
+      <ng-template #indicatorTemplate
+        ><i nz-icon nzType="loading" style="font-size: 150px"></i
+      ></ng-template>
+      <nz-spin
+        nzSimple
+        [nzIndicator]="indicatorTemplate"
+        style="text-align: center"
+        *ngIf="isLoading"
+      ></nz-spin>
+
       <!-- sign up form -->
-      <div class="newuser">
+      <div class="newuser" *ngIf="!isLoading">
         <i class="fa fa-user" aria-hidden="true"></i> New User?
         <a routerLink="/register">Register Here</a>
       </div>

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 
 import { first } from 'rxjs/operators';
@@ -20,23 +20,42 @@ export class LoginComponent implements OnInit {
     email: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required]],
   });
+  isLoading: boolean = false;
 
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
     private userService: UserService,
     private toastr: ToastrService,
+    private route: ActivatedRoute,
     private router: Router,
     private location: Location
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if (this.router.url.startsWith('/verify-email/')) {
+      const userId = this.route.snapshot.paramMap.get('id');
+      if (userId) {
+        this.authService
+          .verifyEmail(+userId)
+          .pipe(first())
+          .subscribe(
+            (res) => {
+              this.toastr.success(
+                'Please login to your account',
+                'Your email is verified succesfully!'
+              );
+            },
+            (err) => {
+              this.toastr.error(err.error.message);
+            }
+          );
+      }
+    }
+  }
 
   onSubmit(): void {
-    if (!this.loginForm.valid) {
-      return;
-    }
-
+    this.isLoading = true;
     this.authService
       .login(this.loginForm.value)
       .pipe(first())
@@ -47,10 +66,11 @@ export class LoginComponent implements OnInit {
             res.user.name,
             res.user.email
           );
-          this.toastr.success('Success', 'Login Successfully!');
+          this.toastr.success('Success', 'Logged in successfully!');
           this.router.navigate(['/']);
         },
         (err) => {
+          this.isLoading = false;
           this.toastr.error(err.message, 'Login Failed');
         }
       );

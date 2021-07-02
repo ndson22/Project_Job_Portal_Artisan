@@ -14,10 +14,11 @@ class CompanyFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'user_id' => 'required',
+            'user_id' => 'required|digits',
             'name' => 'required',
             'short_name' => 'required',
             'email' => 'required',
+            'phone' => 'nullable|digits',
             'image' => 'nullable|mimes:jpg,jpeg,bmp,png|max:10240',
             'description' => 'nullable',
             'address' => 'required',

@@ -6,13 +6,16 @@ export class Company {
     public address: string,
     public province_id: number,
     public location: string,
+    public is_active: boolean,
+    public is_vertfied: boolean,
     public jobPostAmount: number,
+    public code: string,
     public id?: number,
     public user_id?: number,
-    public code?: string,
+    public phone_number?: number,
     public created_at?: string,
     public updated_at?: string,
     public image?: string,
-    public description?: string,
+    public description?: string
   ) {}
 }

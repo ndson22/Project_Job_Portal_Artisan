@@ -5,12 +5,13 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CompanyRegisterFormRequest;
 use App\Http\Requests\RegisterFormRequest;
-use App\Mail\VertifyUser;
+use App\Mail\VerifyUser;
 use App\Models\Company;
 use App\Models\User;
 use App\Traits\ArrayTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
@@ -26,7 +27,7 @@ class AuthController extends Controller
             ['password' => bcrypt($request->password)]
         ));
 
-        Mail::to($user->email)->queue(new VertifyUser());
+        Mail::to($user->email)->queue(new VerifyUser($request->validated(), $user));
 
         return response()->json([
             'message' => 'User successfully registered',
@@ -37,9 +38,11 @@ class AuthController extends Controller
     public function registerCompany(CompanyRegisterFormRequest $request)
     {
         $user = User::create(array_merge(
-            $request->only('name', 'email', 'password', 'password_confirmation'),
+            $request->only('name', 'email'),
             ['password' => bcrypt($request->password)]
         ));
+        $user->role_id = 3;
+        $user->save();
 
         // Tao tai khoan company
         $data = array_merge(
@@ -49,9 +52,12 @@ class AuthController extends Controller
         $this->changeKey($data, 'company_name', 'name');
         $company = new Company();
         $company->fill($data);
+        $company->code = $company->short_name;
         $company->save();
         $company->code = $company->short_name . $company->id;
         $company->save();
+
+        Mail::to($user->email)->queue(new VerifyUser($request->validated(), $user));
 
         // Tra response
         return response()->json([
@@ -94,14 +100,28 @@ class AuthController extends Controller
         ])->withCookie($cookie);
     }
 
+    public function verifyEmail(Request $request)
+    {
+        $user = User::findOrFail($request->id);
+
+        if (is_null($user->email_verified_at)) {
+            $user->email_verified_at = now();
+            $user->save();
+            return response()->json(['message' => 'Your email is verified!']);
+        }
+
+        return response()->json(['message' => 'Your email is already verified!'], 409);
+    }
+
     public function getCurrentUser()
     {
-        $userID = auth()->user();
-        return response()->json($userID);
+        $user = User::getWithRole();
+        return response()->json($user);
     }
 
     public function isAuthenticated()
     {
-        return auth('sanctum')->check();
+        $user = User::getWithRole();
+        return response()->json($user);
     }
 }

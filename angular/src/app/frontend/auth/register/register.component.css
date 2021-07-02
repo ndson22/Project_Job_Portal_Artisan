@@ -1,3 +1,7 @@
 .text-danger {
   margin: 10px 0;
 }
+
+.text-danger > div {
+  margin: 7px 0;
+}

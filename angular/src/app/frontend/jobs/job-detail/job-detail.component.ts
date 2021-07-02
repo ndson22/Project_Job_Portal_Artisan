@@ -32,7 +32,6 @@ export class JobDetailComponent implements OnInit {
         this.jobPost = res.jobPost;
         this.jobTake = res.jobs;
         this.company = res.company;
-        console.log(res)
       },
       error: (res) => {
         this.router.navigate(['error']);

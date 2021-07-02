@@ -49,4 +49,8 @@ export class AuthService {
   registerCompany(data: any): Observable<any> {
     return this.http.post(`${baseUrl}/register-company`, data);
   }
+
+  verifyEmail(id: number): Observable<any> {
+    return this.http.put(`${baseUrl}/verify-email`, { id: id });
+  }
 }

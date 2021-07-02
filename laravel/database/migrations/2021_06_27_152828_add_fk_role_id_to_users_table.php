@@ -15,7 +15,7 @@ class AddFkRoleIdToUsersTable extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->string('avatar')->nullable();
-            $table->unsignedBigInteger('role_id')->default(3);
+            $table->unsignedBigInteger('role_id')->default(2);
 
             $table->foreign('role_id')->references('id')->on('roles');
         });

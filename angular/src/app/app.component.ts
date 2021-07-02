@@ -58,6 +58,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
+    this.spinner.show();
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         const CustomJsList = document.querySelectorAll('script.custom_js');

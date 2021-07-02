@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Backend;
 use App\Http\Controllers\Frontend;
 use App\Http\Controllers\Frontend\JobController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,6 +22,7 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::prefix('backend')->group(function () {
+    Route::put('/verify-email', [AuthController::class, 'verifyEmail'])->name('verify.email');
     Route::post('/register-company', [AuthController::class, 'registerCompany']);
     Route::post('/register', [AuthController::class, 'register']);
     Route::post('/login', [AuthController::class, 'login']);

@@ -4,12 +4,12 @@
       <div class="userbtns">
         <ul class="nav nav-tabs">
           <li class="active">
-            <a data-toggle="tab" href="#candidate">Seeker</a>
+            <a #candidateTab data-toggle="tab" href="#candidate">Seeker</a>
           </li>
-          <li><a data-toggle="tab" href="#company">Company</a></li>
+          <li><a #companyTab data-toggle="tab" href="#company">Company</a></li>
         </ul>
       </div>
-      <div class="tab-content">
+      <div class="tab-content" [hidden]="isLoading">
         <form
           id="candidate"
           class="formpanel tab-pane fade in active"
@@ -22,18 +22,18 @@
               class="form-control"
               type="text"
               formControlName="name"
-              placeholder="Full Name"
+              placeholder="Username"
             />
             <div
               class="text-danger"
               *ngIf="
-                this.seekerForm.get('name')?.invalid &&
-                (this.seekerForm.get('name')?.dirty ||
-                  this.seekerForm.get('name')?.touched)
+                seekerForm.get('name')?.invalid &&
+                (seekerForm.get('name')?.dirty ||
+                  seekerForm.get('name')?.touched)
               "
             >
-              <div *ngIf="this.seekerForm.get('name')?.hasError('required')">
-                Full name is required.
+              <div *ngIf="seekerForm.get('name')?.hasError('required')">
+                Username is required.
               </div>
             </div>
           </div>
@@ -47,15 +47,15 @@
             <div
               class="text-danger"
               *ngIf="
-                this.seekerForm.get('email')?.invalid &&
-                (this.seekerForm.get('email')?.dirty ||
-                  this.seekerForm.get('email')?.touched)
+                seekerForm.get('email')?.invalid &&
+                (seekerForm.get('email')?.dirty ||
+                  seekerForm.get('email')?.touched)
               "
             >
-              <div *ngIf="this.seekerForm.get('email')?.hasError('required')">
+              <div *ngIf="seekerForm.get('email')?.hasError('required')">
                 Email is required.
               </div>
-              <div *ngIf="this.seekerForm.get('email')?.hasError('email')">
+              <div *ngIf="seekerForm.get('email')?.hasError('email')">
                 Must be an email.
               </div>
             </div>
@@ -70,15 +70,16 @@
             <div
               class="text-danger"
               *ngIf="
-                this.seekerForm.get('password')?.invalid &&
-                (this.seekerForm.get('password')?.dirty ||
-                  this.seekerForm.get('password')?.touched)
+                seekerForm.get('password')?.invalid &&
+                (seekerForm.get('password')?.dirty ||
+                  seekerForm.get('password')?.touched)
               "
             >
-              <div
-                *ngIf="this.seekerForm.get('password')?.hasError('required')"
-              >
+              <div *ngIf="seekerForm.get('password')?.hasError('required')">
                 Password is required.
+              </div>
+              <div *ngIf="seekerForm.get('password')?.hasError('minlength')">
+                Password must be longer than 8 characters.
               </div>
             </div>
           </div>
@@ -92,12 +93,12 @@
             <div
               class="text-danger"
               *ngIf="
-                this.seekerForm.get('password_confirmation')?.invalid &&
-                (this.seekerForm.get('password_confirmation')?.dirty ||
-                  this.seekerForm.get('password_confirmation')?.touched)
+                seekerForm.get('password_confirmation')?.invalid &&
+                (seekerForm.get('password_confirmation')?.dirty ||
+                  seekerForm.get('password_confirmation')?.touched)
               "
             >
-              <div *ngIf="this.seekerForm?.hasError('mismatchedPasswords')">
+              <div *ngIf="seekerForm?.hasError('mismatchedPasswords')">
                 Mismatched passwords.
               </div>
             </div>
@@ -108,12 +109,16 @@
             <span style="font-weight: bold">Artisans</span> Privacy Policy and
             Terms of Use
           </div>
-          <button class="btn" [disabled]="seekerForm.invalid" type="submit">
+          <button
+            class="btn"
+            [disabled]="seekerForm.invalid || isLoading"
+            type="submit"
+          >
             Register
           </button>
         </form>
 
-        <!-- Company Form -->
+        <!-- User / Company Form -->
         <form
           id="company"
           class="formpanel tab-pane fade in"
@@ -125,9 +130,21 @@
             <input
               class="form-control"
               type="text"
-              placeholder="Full Name"
+              placeholder="Username"
               formControlName="name"
             />
+            <div
+              class="text-danger"
+              *ngIf="
+                companyForm.get('name')?.invalid &&
+                (companyForm.get('name')?.dirty ||
+                  companyForm.get('name')?.touched)
+              "
+            >
+              <div *ngIf="companyForm.get('name')?.hasError('required')">
+                Username is required.
+              </div>
+            </div>
           </div>
           <div class="formrow">
             <input
@@ -136,6 +153,21 @@
               placeholder="Email"
               formControlName="email"
             />
+            <div
+              class="text-danger"
+              *ngIf="
+                companyForm.get('email')?.invalid &&
+                (companyForm.get('email')?.dirty ||
+                  companyForm.get('email')?.touched)
+              "
+            >
+              <div *ngIf="companyForm.get('email')?.hasError('required')">
+                Email is required.
+              </div>
+              <div *ngIf="companyForm.get('email')?.hasError('email')">
+                Must be an email.
+              </div>
+            </div>
           </div>
           <div class="formrow">
             <input
@@ -144,6 +176,21 @@
               placeholder="Password"
               formControlName="password"
             />
+            <div
+              class="text-danger"
+              *ngIf="
+                companyForm.get('password')?.invalid &&
+                (companyForm.get('password')?.dirty ||
+                  companyForm.get('password')?.touched)
+              "
+            >
+              <div *ngIf="companyForm.get('password')?.hasError('required')">
+                Password is required.
+              </div>
+              <div *ngIf="companyForm.get('password')?.hasError('minlength')">
+                Password must be longer than 8 characters.
+              </div>
+            </div>
           </div>
           <div class="formrow">
             <input
@@ -152,8 +199,22 @@
               placeholder="Confirm Password"
               formControlName="password_confirmation"
             />
+            <div
+              class="text-danger"
+              *ngIf="
+                companyForm.get('password_confirmation')?.invalid &&
+                (companyForm.get('password_confirmation')?.dirty ||
+                  companyForm.get('password_confirmation')?.touched)
+              "
+            >
+              <div *ngIf="companyForm?.hasError('mismatchedPasswords')">
+                Mismatched passwords.
+              </div>
+            </div>
           </div>
+
           <hr />
+          <!-- Company Form -->
           <h5><i class="glyphicon glyphicon-briefcase"></i> Company</h5>
           <div class="formrow">
             <input
@@ -162,6 +223,20 @@
               placeholder="Company Name"
               formControlName="company_name"
             />
+            <div
+              class="text-danger"
+              *ngIf="
+                companyForm.get('company_name')?.invalid &&
+                (companyForm.get('company_name')?.dirty ||
+                  companyForm.get('company_name')?.touched)
+              "
+            >
+              <div
+                *ngIf="companyForm.get('company_name')?.hasError('required')"
+              >
+                Company name is required.
+              </div>
+            </div>
           </div>
           <div class="formrow">
             <input
@@ -170,6 +245,18 @@
               placeholder="Short Name"
               formControlName="short_name"
             />
+            <div
+              class="text-danger"
+              *ngIf="
+                companyForm.get('short_name')?.invalid &&
+                (companyForm.get('short_name')?.dirty ||
+                  companyForm.get('short_name')?.touched)
+              "
+            >
+              <div *ngIf="companyForm.get('short_name')?.hasError('required')">
+                Short name is required.
+              </div>
+            </div>
           </div>
           <div class="formrow">
             <input
@@ -178,6 +265,18 @@
               formControlName="address"
               placeholder="Address"
             />
+            <div
+              class="text-danger"
+              *ngIf="
+                companyForm.get('address')?.invalid &&
+                (companyForm.get('address')?.dirty ||
+                  companyForm.get('address')?.touched)
+              "
+            >
+              <div *ngIf="companyForm.get('address')?.hasError('required')">
+                Address is required.
+              </div>
+            </div>
           </div>
           <div class="formrow">
             <select
@@ -193,6 +292,18 @@
                 {{ province.name }}
               </option>
             </select>
+            <div
+              class="text-danger"
+              *ngIf="
+                companyForm.get('province_id')?.invalid &&
+                (companyForm.get('province_id')?.dirty ||
+                  companyForm.get('province_id')?.touched)
+              "
+            >
+              <div *ngIf="companyForm.get('province_id')?.hasError('required')">
+                Province is required.
+              </div>
+            </div>
           </div>
           <div class="formrow">
             <input
@@ -205,12 +316,27 @@
             <span style="font-weight: bold">Artisans</span> Privacy Policy and
             Terms of Use
           </div>
-          <button class="btn" [disabled]="companyForm.invalid" type="submit">
+          <button
+            class="btn"
+            [disabled]="companyForm.invalid || isLoading"
+            type="submit"
+          >
             Register
           </button>
         </form>
       </div>
-      <div class="newuser">
+
+      <ng-template #indicatorTemplate
+        ><i nz-icon nzType="loading" style="font-size: 150px"></i
+      ></ng-template>
+      <nz-spin
+        nzSimple
+        [nzIndicator]="indicatorTemplate"
+        style="text-align: center"
+        *ngIf="isLoading"
+      ></nz-spin>
+
+      <div class="newuser" *ngIf="!isLoading">
         <i class="fa fa-user" aria-hidden="true"></i> Already a Member?
         <a routerLink="/login">Login Here</a>
       </div>

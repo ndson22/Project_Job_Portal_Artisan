@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
+use App\Models\Role;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\DB;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
@@ -16,7 +18,6 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'role_id'
     ];
 
     protected $hidden = [
@@ -33,7 +34,8 @@ class User extends Authenticatable
         return $this->belongsTo(Role::class);
     }
 
-    public static function getUser() {
-        return 1;
+    public static function getWithRole()
+    {
+        return User::findOrFail(auth()->user()->id)->with('role')->first();
     }
 }

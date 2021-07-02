@@ -14,7 +14,7 @@ const baseUrl = `${environment.backendUrl}`;
   providedIn: 'root',
 })
 export class UserService {
-  user!: User;
+  user!: User | undefined;
   authenticated: boolean = false;
 
   constructor(
@@ -24,13 +24,15 @@ export class UserService {
   ) {}
 
   isAuthenticated(): Observable<any> {
-    return this.http.get(`${baseUrl}/is-authenticated`).pipe(
+    return this.getCurrent().pipe(
       map((res) => {
         this.authenticated = true;
+        this.user = res;
         return true;
       }),
       catchError((err) => {
         this.authenticated = false;
+        this.user = undefined;
         return throwError(err);
       })
     );
