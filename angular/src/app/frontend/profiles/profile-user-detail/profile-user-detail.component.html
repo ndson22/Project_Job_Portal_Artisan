@@ -1,0 +1,96 @@
+<div class="col-12">
+  <div class="userccount">
+    <form
+      class="formpanel"
+      [formGroup]="userProfileForm"
+      (ngSubmit)="onSubmitProfile()"
+    >
+      <!-- Personal Information -->
+      <h5>Account General Information</h5>
+      <hr />
+      <div class="row">
+        <div class="col-md-6">
+          <div class="formrow input-group">
+            <span class="input-group-addon"
+              ><i class="glyphicon glyphicon-user"></i
+            ></span>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="User Name"
+              formControlName="name"
+            />
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="formrow input-group">
+            <span class="input-group-addon"
+              ><i class="glyphicon glyphicon-envelope"></i
+            ></span>
+            <input
+              type="email"
+              class="form-control"
+              placeholder="Email"
+              formControlName="email"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="formrow input-group">
+            <span class="input-group-addon"
+              ><i class="glyphicon glyphicon-user"></i
+            ></span>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="User Name"
+              formControlName="name"
+            />
+          </div>
+        </div>
+      </div>
+      <button type="submit" class="btn">Update and Save</button>
+    </form>
+
+    <form
+      class="formpanel"
+      [formGroup]="changePasswordForm"
+      (ngSubmit)="onSubmitPassword()"
+    >
+      <hr />
+      <h5>Change Password</h5>
+      <hr />
+      <div class="row">
+        <div class="col-md-6">
+          <div class="formrow input-group">
+            <span class="input-group-addon"
+              ><i class="glyphicon glyphicon-lock"></i
+            ></span>
+            <input
+              type="password"
+              class="form-control"
+              placeholder="Password"
+              formControlName="password"
+            />
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="formrow input-group">
+            <span class="input-group-addon"
+              ><i class="glyphicon glyphicon-lock"></i
+            ></span>
+            <input
+              type="password"
+              class="form-control"
+              placeholder="Password Confirmation"
+              formControlName="password_confirmation"
+            />
+          </div>
+        </div>
+      </div>
+      <input type="submit" class="btn" value="Update and Save" />
+    </form>
+  </div>
+</div>

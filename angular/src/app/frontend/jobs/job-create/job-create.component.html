@@ -1,0 +1,188 @@
+<form [formGroup]="createForm" (ngSubmit)="onSubmit()">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="userccount">
+        <div class="formpanel">
+          <!-- Job Information -->
+          <h5>Job Information</h5>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="formrow">
+                <input type="text" formControlName="title" class="form-control" placeholder="Job Title" />
+                <div *ngIf="getControl.title.invalid && (getControl.title.dirty || getControl.title.touched)"
+                  class="text-danger">
+                  <div *ngIf="getControl.title.errors?.required">
+                    Title is required.
+                  </div>
+                  <div *ngIf="getControl.title.errors?.maxlength">
+                    Title max 255 characters long.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="formrow">
+                <select class="form-control" formControlName="job_type_id">
+                  <option value="">Job Type</option>
+                  <option *ngFor="let jobType of jobTypes" value="{{ jobType.id }}">{{ jobType.name }}</option>
+                </select>
+                <div
+                *ngIf="getControl.job_type_id.invalid && (getControl.job_type_id.dirty || getControl.job_type_id.touched)"
+                class="text-danger">
+                <div *ngIf="getControl.job_type_id.errors?.required">
+                  Job type is required.
+                </div>
+              </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="formrow">
+                <select class="form-control" formControlName="employee_position_id">
+                  <option value="">Job position</option>
+                  <option *ngFor="let employeePosition of employeePositions" value="{{ employeePosition.id }}">{{
+                    employeePosition.name }}</option>
+                </select>
+                <div
+                  *ngIf="getControl.employee_position_id.invalid && (getControl.employee_position_id.dirty || getControl.employee_position_id.touched)"
+                  class="text-danger">
+                  <div *ngIf="getControl.employee_position_id.errors?.required">
+                    Employee position is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="formrow">
+                <select class="form-control" formControlName="type_of_employment_id">
+                  <option value="">Type of Employment</option>
+                  <option *ngFor="let typeOfEmployment of typeOfEmployments" value="{{ typeOfEmployment.id }}">{{
+                    typeOfEmployment.name }}</option>
+                </select>
+                <div
+                *ngIf="getControl.type_of_employment_id.invalid && (getControl.type_of_employment_id.dirty || getControl.type_of_employment_id.touched)"
+                class="text-danger">
+                <div *ngIf="getControl.type_of_employment_id.errors?.required">
+                  Type of employment is required.
+                </div>
+              </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="formrow">
+                <select class="form-control" formControlName="gender_id">
+                  <option value="">Gender</option>
+                  <option *ngFor="let gender of genders" value="{{ gender.id }}">{{ gender.name }}</option>
+                </select>
+                <div
+                *ngIf="getControl.gender_id.invalid && (getControl.gender_id.dirty || getControl.gender_id.touched)"
+                class="text-danger">
+                <div *ngIf="getControl.gender_id.errors?.required">
+                  Gender is required.
+                </div>
+              </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-3">
+              <div class="formrow">
+                <input class="form-control" type="number" placeholder="Experience" formControlName="experience">
+                <div
+                  *ngIf="getControl.experience.invalid && (getControl.experience.dirty || getControl.experience.touched)"
+                  class="text-danger">
+                  <div *ngIf="getControl.experience.errors?.required">
+                    Experience is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="formrow">
+                <input class="form-control" type="number" placeholder="Employers"
+                  formControlName="employee_quantity">
+                <div
+                  *ngIf="getControl.employee_quantity.invalid && (getControl.employee_quantity.dirty || getControl.employee_quantity.touched)"
+                  class="text-danger">
+                  <div *ngIf="getControl.employee_quantity.errors?.required">
+                    Employee quantity is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="formrow">
+                <input class="form-control" type="number" placeholder="From salary" formControlName="from_salary">
+                <div
+                  *ngIf="getControl.from_salary.invalid && (getControl.from_salary.dirty || getControl.from_salary.touched)"
+                  class="text-danger">
+                  <div *ngIf="getControl.from_salary.errors?.required">
+                    From salary is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="formrow">
+                <input class="form-control" type="number" placeholder="To salary" formControlName="to_salary">
+                <div
+                  *ngIf="getControl.to_salary.invalid && (getControl.to_salary.dirty || getControl.to_salary.touched)"
+                  class="text-danger">
+                  <div *ngIf="getControl.to_salary.errors?.required">
+                    To salary is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="formrow">
+                <input class="form-control" type="text" onfocus="(this.type='date')" onblur="(this.type='text')"
+                  placeholder="Expire" formControlName="expire" style="padding: 13px;">
+                <div *ngIf="getControl.expire.invalid && (getControl.expire.dirty || getControl.expire.touched)"
+                  class="text-danger">
+                  <div *ngIf="getControl.expire.errors?.required">
+                    Expire is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+            </div>
+            <div class="row">
+            <div class="col-md-12">
+              <h5>Job description</h5>
+            </div>
+            <div
+              *ngIf="getControl.description.invalid && (getControl.description.dirty || getControl.description.touched)"
+              class="text-danger col-md-12">
+              <div *ngIf="getControl.description.errors?.required">
+                Job description is required.
+              </div>
+            </div>
+            <div class="col-md-12">
+              <editor formControlName="description" apiKey="kwzv7sdzx3mxt9miqs949uzirazxaljvelvgncytz7h8exuf" [init]="{
+                height: 350,
+                menubar: false,
+                plugins: [
+                  'advlist autolink lists link image charmap print preview anchor',
+                  'searchreplace visualblocks code fullscreen',
+                  'insertdatetime media table paste code help wordcount'
+                ],
+                toolbar:
+                  'undo redo | formatselect | bold italic backcolor | \
+                  alignleft aligncenter alignright alignjustify | \
+                  bullist numlist outdent indent | removeformat | help'
+              }"></editor>
+            </div>
+          </div>
+          <br />
+          <input [disabled]="createForm.invalid" type="submit" class="btn" value="Post Job" />
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
