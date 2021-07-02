@@ -22,6 +22,8 @@ npm install
 Tạo component: ng g c frontend/<component-group>/<specific-component-name>
 Tạo service: ng g s shared/services/<service-name>
 Tạo model: ng g class shared/models/<model-name>
+Tạo guard: ng g guard shared/resolvers/<resolver-name>
+Tạo resolve: ng g resolver shared/resolvers/<resolver-name>
 ```
 Installed packages:
 + https://www.npmjs.com/package/ngx-toastr
