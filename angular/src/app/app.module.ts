@@ -14,6 +14,7 @@ import { HttpConfigInterceptor } from './shared/interceptors/http-config.interce
 import { CookieService } from 'ngx-cookie-service';
 import { ErrorInterceptor } from './shared/interceptors/error.interceptor';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { UserService } from './shared/services/user.service';
 
 @NgModule({
   declarations: [AppComponent],
