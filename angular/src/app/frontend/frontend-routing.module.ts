@@ -1,3 +1,4 @@
+import { DashboardJobListComponent } from './profiles/dashboard-job-list/dashboard-job-list.component';
 import { FeatureJobsComponent } from './home/feature-jobs/feature-jobs.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
@@ -9,7 +10,6 @@ import { JobCreateComponent } from './jobs/job-create/job-create.component';
 import { JobDetailComponent } from './jobs/job-detail/job-detail.component';
 
 // Import components
-import { JobEditComponent } from './jobs/job-edit/job-edit.component';
 import { JobListComponent } from './jobs/job-list/job-list.component';
 import { ProfileUserDetailComponent } from './profiles/profile-user-detail/profile-user-detail.component';
 import { ErrorsComponent } from './_layouts/errors/errors.component';
@@ -59,17 +59,17 @@ const routes: Routes = [
     ],
   },
   {
-    path: 'jobs',
+    path: 'dashboard/jobs',
     canActivate: [AuthGuard],
     component: ProfileComponent,
     children: [
       {
-        path: 'create',
-        component: JobCreateComponent,
+        path: '',
+        component: DashboardJobListComponent,
       },
       {
-        path: 'edit/:id',
-        component: JobEditComponent,
+        path: 'create',
+        component: JobCreateComponent,
       },
     ],
   },

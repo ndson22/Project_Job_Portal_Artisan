@@ -8,6 +8,7 @@ import { jobTypes } from '../models/jobType';
 import { JobProvinces } from '../models/jobProvince';
 
 const baseUrl = `${environment.frontendUrl}/jobs`;
+const baseDashboardUrl = `${environment.frontendUrl}/dashboard`;
 
 @Injectable({
   providedIn: 'root',
@@ -38,7 +39,7 @@ export class JobService {
   }
 
   delete(id: number): Observable<any> {
-    return this.http.delete(`${baseUrl}/${id}`);
+    return this.http.delete(`${baseUrl}/delete/${id}`);
   }
 
   getJobInfor(): Observable<any> {
@@ -56,5 +57,13 @@ export class JobService {
 
   getJobProvince(): Observable<JobProvinces> {
     return this.http.get<JobProvinces>(`${baseUrl}/provinces`);
+  }
+
+  getJobByCompany(page: number, size = 20): Observable<any> {
+    return this.http.get<any>(`${baseDashboardUrl}/jobs/${page}/${size}`);
+  }
+
+  changeActive(id: number): Observable<any> {
+    return this.http.put<any>(`${baseDashboardUrl}/jobs/active`, {id: id});
   }
 }

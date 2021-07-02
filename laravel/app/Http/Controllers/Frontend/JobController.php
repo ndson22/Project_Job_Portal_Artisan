@@ -75,9 +75,11 @@ class JobController extends Controller
 
     public function edit(StoreJobPostRequest $request, $id)
     {
-            $jobPost = JobPost::find($id);
-            $jobPost->update($request->all());
-            return response()->json($jobPost);
+        $jobPost = JobPost::find($id);
+        $jobPost->update($request->all());
+        $companyId = Company::where('user_id', Auth::id())->pluck('id')[0];
+        $jobPosts = JobPost::where('company_id', $companyId)->latest()->get();
+        return response()->json($jobPosts);
     }
 
     public function search(Request $request)
@@ -139,5 +141,32 @@ class JobController extends Controller
         $company->location = $company->province->name;
         $company->jobPostAmount = JobPost::where('company_id', $company->id)->where('is_active', 1)->count();
         return response()->json(['jobPost' => $jobPost, 'jobs' => $jobs, 'company' => $company]);
+    }
+
+    public function getJobByCompany($page, $size = 20)
+    {
+        $size = 100;
+        $companyId = Company::where('user_id', Auth::id())->pluck('id')[0];
+        $jobPosts = JobPost::where('company_id', $companyId)->latest()->skip(($page-1)*$size)->take($size)->get();
+        $totalPage = ceil(JobPost::where('company_id', $companyId)->count()/$size);
+        return response()->json(compact('jobPosts', 'totalPage'));
+    }
+
+    public function delete($id)
+    {
+        JobPost::destroy($id);
+        $companyId = Company::where('user_id', Auth::id())->pluck('id')[0];
+        $jobPosts = JobPost::where('company_id', $companyId)->latest()->get();
+        return response()->json($jobPosts);
+    }
+
+    public function changeStatus(Request $request)
+    {
+        $jobPost = JobPost::find($request->id);
+        $jobPost->is_active = $jobPost->is_active === 0 ? 1 : 0;
+        $jobPost->save();
+        $companyId = Company::where('user_id', Auth::id())->pluck('id')[0];
+        $jobPosts = JobPost::where('company_id', $companyId)->latest()->get();
+        return response()->json($jobPosts);
     }
 }

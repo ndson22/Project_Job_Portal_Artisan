@@ -17,7 +17,7 @@ export class Job {
     public genders: string,
     public location: string,
     public address: string,
-    public is_active: number,
+    public is_active: boolean,
     public created_at: Date,
     public updated_at: Date,
   ) {}

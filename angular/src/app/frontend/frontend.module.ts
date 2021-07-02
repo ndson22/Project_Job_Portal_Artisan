@@ -41,6 +41,8 @@ import { NzNotificationModule } from 'ng-zorro-antd/notification';
 import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { NzBackTopModule } from 'ng-zorro-antd/back-top';
+import { NzDividerModule } from 'ng-zorro-antd/divider';
+import { EditFill, DeleteFill } from '@ant-design/icons-angular/icons';
 // Partials
 import { HeaderComponent } from './_partials/header/header.component';
 import { BreadcrumbComponent } from './_partials/breadcrumb/breadcrumb.component';
@@ -55,7 +57,6 @@ import { HomeComponent } from './_layouts/home/home.component';
 // Sepcific
 import { JobListComponent } from './jobs/job-list/job-list.component';
 import { JobDetailComponent } from './jobs/job-detail/job-detail.component';
-import { JobEditComponent } from './jobs/job-edit/job-edit.component';
 import { ErrorsComponent } from './_layouts/errors/errors.component';
 import { CopyrightComponent } from './_partials/copyright/copyright.component';
 import { JobCreateComponent } from './jobs/job-create/job-create.component';
@@ -65,7 +66,10 @@ import { ProfileUserDetailComponent } from './profiles/profile-user-detail/profi
 //pipes
 import { PostPipePipe } from "../shared/pipes/post-pipe.pipe";
 import { FeatureJobsComponent } from './home/feature-jobs/feature-jobs.component';
+import { DashboardJobListComponent } from './profiles/dashboard-job-list/dashboard-job-list.component';
+import { IconDefinition } from '@ant-design/icons-angular';
 
+const QuestionOutline: IconDefinition[] = [EditFill, DeleteFill];
 @NgModule({
   declarations: [
     PostPipePipe,
@@ -85,17 +89,17 @@ import { FeatureJobsComponent } from './home/feature-jobs/feature-jobs.component
     // Sepcific
     JobListComponent,
     JobDetailComponent,
-    JobEditComponent,
     JobCreateComponent,
     RegisterComponent,
     LoginComponent,
     ProfileUserDetailComponent,
     FeatureJobsComponent,
+    DashboardJobListComponent,
   ],
   imports: [
     // Zorro
     NzButtonModule,
-    NzIconModule,
+    NzIconModule.forChild(QuestionOutline),
     NzSpaceModule,
     NzDropDownModule,
     NzPaginationModule,
@@ -125,6 +129,7 @@ import { FeatureJobsComponent } from './home/feature-jobs/feature-jobs.component
     NzPopconfirmModule,
     NzSpinModule,
     NzBackTopModule,
+    NzDividerModule,
     //
     CommonModule,
     FormsModule,

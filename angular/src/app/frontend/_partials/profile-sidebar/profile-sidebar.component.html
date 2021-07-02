@@ -33,8 +33,13 @@
         ><i class="fa fa-user" aria-hidden="true"></i> My Details</a
       >
     </li>
+    <li routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+      <a routerLink="/dashboard/jobs"
+        ><i class="fa fa-user" aria-hidden="true"></i> My Job Posts</a
+      >
+    </li>
     <li routerLinkActive="active">
-      <a routerLink="/jobs/create"
+      <a routerLink="/dashboard/jobs/create"
         ><i class="fa fa-user" aria-hidden="true"></i> New Job Post</a
       >
     </li>
