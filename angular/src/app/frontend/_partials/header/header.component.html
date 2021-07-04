@@ -33,7 +33,6 @@
             <a href="#.">Pages <span class="caret"></span></a>
             <!-- dropdown start -->
             <ul class="dropdown-menu">
-              <li><a href="about-us.html">About Us</a></li>
               <li routerLinkActive="active">
                 <a routerLink="/login">Login</a>
               </li>
@@ -46,9 +45,6 @@
               >
                 <a routerLink="/jobs">Job Listing</a>
               </li>
-              <li routerLinkActive="active">
-                <a [routerLink]="['/jobs/id']">Job Detail</a>
-              </li>
               <li><a href="candidate-listing.html">Candidate Listing</a></li>
               <li><a href="candidate-detail.html">Candidate Detail</a></li>
               <li><a href="company-detail.html">Company Profile</a></li>
@@ -56,25 +52,9 @@
               <li routerLinkActive="active">
                 <a routerLink="/dashboard/jobs/create">Post a Job</a>
               </li>
-              <li><a href="packages.html">Packages</a></li>
-              <li><a href="faqs.html">FAQs</a></li>
-              <li><a href="404.html">404 Page</a></li>
-              <li><a href="typography.html">Typography</a></li>
             </ul>
             <!-- dropdown end -->
           </li>
-          <li class="dropdown">
-            <a href="blog.html">Blog <span class="caret"></span></a>
-            <!-- dropdown start -->
-            <ul class="dropdown-menu">
-              <li><a href="blog.html">Blog List</a></li>
-              <li><a href="blog-detail.html">Blog Detail</a></li>
-              <li><a href="blog-grid.html">Blog Grid</a></li>
-              <li><a href="blog-full-width.html">Blog Grid Full Width</a></li>
-            </ul>
-            <!-- dropdown end -->
-          </li>
-          <li><a href="contact-us.html">Contact</a></li>
           <li class="postjob"><a routerLink="/dashboard/jobs/create">Post a job</a></li>
           <li class="jobseeker">
             <a routerLink="/profile">Job seeker</a>

@@ -212,7 +212,7 @@
               </div>
               <div class="location">
                 <label class="fulltime">{{ job.typeOfEmployments}}</label> -
-                <span>New York</span>
+                <span>{{ job?.location }}</span>
               </div>
             </div>
             <div class="clearfix"></div>
@@ -221,7 +221,6 @@
             <div class="listbtn"><a  [routerLink]="['/jobs', job.id]">Apply Now</a></div>
           </div>
         </div>
-        <p> {{ job.description | postPipe }} </p>
       </li>
       <!-- job end -->
     </ul>

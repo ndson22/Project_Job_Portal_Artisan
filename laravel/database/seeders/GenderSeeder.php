@@ -14,7 +14,7 @@ class GenderSeeder extends Seeder
      */
     public function run()
     {
-        $genders = ['Male', 'Female', 'All gender'];
+        $genders = ['Male', 'Female', 'Any'];
         foreach ($genders as $gender) {
             Gender::create([
                 'name' => $gender,
