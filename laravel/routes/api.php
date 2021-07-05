@@ -37,6 +37,7 @@ Route::prefix('backend')->group(function () {
 
 Route::prefix('/jobs')->group(function () {
     Route::get('', [Frontend\JobController::class, 'getAll'])->name('jobs.list');
+
     Route::get('/info', [Frontend\JobController::class, 'getJobInfo'])->name('jobs.getJobInfo');
     Route::post('/store', [Frontend\JobController::class, 'store'])->name('jobs.store')->middleware('auth:sanctum');
     Route::put('/edit/{id}', [Frontend\JobController::class, 'edit'])->middleware('auth:sanctum');

@@ -20,5 +20,6 @@ export class Job {
     public is_active: boolean,
     public created_at: Date,
     public updated_at: Date,
+    public companyImg: string,
   ) {}
 }

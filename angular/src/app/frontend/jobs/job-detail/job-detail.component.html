@@ -61,7 +61,7 @@
           <div class="row">
             <div class="col-md-8 col-sm-8">
               <div class="jobimg">
-                <img src="assets/frontend/images/jobs/jobimg.jpg" alt="Job Name" />
+                <img [src]="job.companyImg ?? 'assets/frontend/images/employers/emplogo1.jpg'" alt="Job Name" />
               </div>
               <div class="jobinfo">
                 <h3><a [routerLink]="['/jobs', job.id]" >{{ job.title }}</a></h3>
@@ -70,7 +70,7 @@
                 </div>
                 <div class="location">
                   <label class="fulltime">{{ job.typeOfEmployments}}</label> -
-                  <span>New York</span>
+                  <span>{{ job.location }}</span>
                 </div>
               </div>
               <div class="clearfix"></div>
@@ -79,9 +79,6 @@
               <div class="listbtn"><a [routerLink]="['/jobs', job.id]" >Apply Now</a></div>
             </div>
           </div>
-          <p>
-            {{ job.description | postPipe }}
-          </p>
         </li>
         <!-- Job end -->
 

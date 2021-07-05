@@ -116,15 +116,15 @@ class JobController extends Controller
                     });
             })
             ->get();
-            if (count($jobPosts) > 0) {
-                foreach ($jobPosts as $key => $jobPost) {
-                    $jobPost->name = $jobPost->company->name;
-                    $jobPost->address = $jobPost->company->address;
-                    $jobPost->jobTypes = $jobPost->jobType->name;
-                    $jobPost->employeePositions = $jobPost->employeePosition->name;
-                    $jobPost->typeOfEmployments = $jobPost->typeOfEmployment->name;
-                }
+        if (count($jobPosts) > 0) {
+            foreach ($jobPosts as $key => $jobPost) {
+                $jobPost->name = $jobPost->company->name;
+                $jobPost->address = $jobPost->company->address;
+                $jobPost->jobTypes = $jobPost->jobType->name;
+                $jobPost->employeePositions = $jobPost->employeePosition->name;
+                $jobPost->typeOfEmployments = $jobPost->typeOfEmployment->name;
             }
+        }
         return response()->json(compact('jobPosts', 'provinceId', 'jobTypeId', 'search'));
     }
 
@@ -137,6 +137,15 @@ class JobController extends Controller
         $jobPost->typeOfEmployments = $jobPost->typeOfEmployment->name;
         $jobPost->genders = $jobPost->gender->name;
         $jobs = JobPost::where('job_type_id', $jobPost->job_type_id)->where('is_active', 1)->where('id', '!=', $jobPost->id)->inRandomOrder()->take(3)->get();
+        foreach ($jobs as $job) {
+            $job->name = $job->company->name;
+            $job->location = $job->company->province->name;
+            $job->address = $job->company->address;
+            $job->jobTypes = $job->jobType->name;
+            $job->employeePositions = $job->employeePosition->name;
+            $job->typeOfEmployments = $job->typeOfEmployment->name;
+            $job->companyImg = $job->company->image;
+        }
         $company = Company::find($jobPost->company_id);
         $company->location = $company->province->name;
         $company->jobPostAmount = JobPost::where('company_id', $company->id)->where('is_active', 1)->count();
@@ -147,8 +156,8 @@ class JobController extends Controller
     {
         $size = 100;
         $companyId = Company::where('user_id', Auth::id())->pluck('id')[0];
-        $jobPosts = JobPost::where('company_id', $companyId)->latest()->skip(($page-1)*$size)->take($size)->get();
-        $totalPage = ceil(JobPost::where('company_id', $companyId)->count()/$size);
+        $jobPosts = JobPost::where('company_id', $companyId)->latest()->skip(($page - 1) * $size)->take($size)->get();
+        $totalPage = ceil(JobPost::where('company_id', $companyId)->count() / $size);
         return response()->json(compact('jobPosts', 'totalPage'));
     }
 
