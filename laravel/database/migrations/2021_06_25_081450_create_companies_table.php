@@ -28,6 +28,10 @@ class CreateCompaniesTable extends Migration
             $table->boolean('is_active')->default(0);
             $table->date('verified_at')->nullable();
             $table->unsignedBigInteger('province_id');
+            $table->string('facebook')->nullable();
+            $table->string('website')->nullable();
+            $table->string('map_link')->nullable();
+            $table->string('branch')->nullable();
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

@@ -20,6 +20,10 @@ export class Company {
     public verified_at: string,
     public image: string,
     public description: string,
+    public facebook: string,
+    public website: string,
+    public map_link: string,
+    public branch: string,
     public province: Province,
     public user: User
   ) {}
