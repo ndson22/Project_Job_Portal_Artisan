@@ -22,7 +22,7 @@ class JobController extends Controller
 {
     public function getAll()
     {
-        $jobPosts = JobPost::latest()->take(20)->get();
+        $jobPosts = JobPost::where('is_active', 1)->latest()->take(20)->get();
         foreach ($jobPosts as $key => $jobPost) {
             $jobPost->name = $jobPost->company->name;
             $jobPost->location = $jobPost->company->province->name;
