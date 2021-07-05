@@ -136,7 +136,7 @@ class JobController extends Controller
         $jobPost->employeePositions = $jobPost->employeePosition->name;
         $jobPost->typeOfEmployments = $jobPost->typeOfEmployment->name;
         $jobPost->genders = $jobPost->gender->name;
-        $jobs = JobPost::where('job_type_id', $jobPost->job_type_id)->latest()->take(3)->get();
+        $jobs = JobPost::where('job_type_id', $jobPost->job_type_id)->where('is_active', 1)->where('id', '!=', $jobPost->id)->inRandomOrder()->take(3)->get();
         $company = Company::find($jobPost->company_id);
         $company->location = $company->province->name;
         $company->jobPostAmount = JobPost::where('company_id', $company->id)->where('is_active', 1)->count();
