@@ -1,21 +1,19 @@
+import { AuthService } from '../../../shared/services/auth.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { first } from 'rxjs/operators';
+import { Location } from '@angular/common';
+import { PasswordValidators } from 'ngx-validators';
+import { Province } from 'src/app/shared/models/province';
+import { ProvincesService } from 'src/app/shared/services/provinces.service';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { UserService } from 'src/app/shared/services/user.service';
 import {
   FormBuilder,
   FormGroup,
   ValidationErrors,
   Validators,
 } from '@angular/forms';
-import { Router } from '@angular/router';
-import { Location } from '@angular/common';
-
-import { first } from 'rxjs/operators';
-import { ToastrService } from 'ngx-toastr';
-import { PasswordValidators } from 'ngx-validators';
-
-import { AuthService } from '../../../shared/services/auth.service';
-import { ProvincesService } from 'src/app/shared/services/provinces.service';
-import { Province } from 'src/app/shared/models/province';
-import { UserService } from 'src/app/shared/services/user.service';
 
 @Component({
   selector: 'app-register',
@@ -28,10 +26,39 @@ export class RegisterComponent implements OnInit {
 
   seekerForm: FormGroup = this.fb.group(
     {
-      name: ['', [Validators.required]],
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(8)]],
-      password_confirmation: ['', Validators.required],
+      name: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(5),
+          Validators.maxLength(100),
+        ],
+      ],
+      email: [
+        '',
+        [
+          Validators.required,
+          Validators.email,
+          Validators.minLength(5),
+          Validators.maxLength(100),
+        ],
+      ],
+      password: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(8),
+          Validators.maxLength(100),
+        ],
+      ],
+      password_confirmation: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(8),
+          Validators.maxLength(100),
+        ],
+      ],
       agree: ['', [Validators.requiredTrue]],
     },
     {
@@ -43,13 +70,57 @@ export class RegisterComponent implements OnInit {
   );
   companyForm: FormGroup = this.fb.group(
     {
-      name: ['', [Validators.required]],
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(8)]],
-      password_confirmation: ['', Validators.required],
-      company_name: ['', [Validators.required]],
-      short_name: ['', [Validators.required]],
-      address: ['', [Validators.required]],
+      name: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(5),
+          Validators.maxLength(100),
+        ],
+      ],
+      email: [
+        '',
+        [
+          Validators.required,
+          Validators.email,
+          Validators.minLength(5),
+          Validators.maxLength(100),
+        ],
+      ],
+      password: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(8),
+          Validators.maxLength(100),
+        ],
+      ],
+      password_confirmation: [
+        '',
+        Validators.required,
+        Validators.minLength(8),
+        Validators.maxLength(100),
+      ],
+      company_name: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(5),
+          Validators.maxLength(100),
+        ],
+      ],
+      short_name: [
+        '',
+        [Validators.required, Validators.minLength(1), Validators.maxLength(5)],
+      ],
+      address: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(5),
+          Validators.maxLength(255),
+        ],
+      ],
       province_id: ['', [Validators.required]],
       agree: ['', [Validators.requiredTrue]],
     },
@@ -113,7 +184,6 @@ export class RegisterComponent implements OnInit {
       .pipe(first())
       .subscribe(
         (res: any) => {
-          console.log(res);
           this.toastr.success(
             'Please confirm your email and wait for admin to confirm your company information.',
             'Registered successfully'

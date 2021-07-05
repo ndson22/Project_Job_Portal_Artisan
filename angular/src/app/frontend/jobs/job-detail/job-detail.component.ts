@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Job } from 'src/app/shared/models/job';
 import { JobService } from 'src/app/shared/services/job.service';
 import { Subscription } from "rxjs";
+import { UserService } from 'src/app/shared/services/user.service';
 
 @Component({
   selector: 'app-job-detail',
@@ -19,8 +20,10 @@ export class JobDetailComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private jobService: JobService
+    private jobService: JobService,
+    public userService: UserService,
   ) { }
+
 
   ngOnInit(): void {
     this.getJobPost();

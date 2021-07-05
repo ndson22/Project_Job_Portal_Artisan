@@ -1,13 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-// import { NgbPagination } from '@ng-bootstrap/ng-bootstrap';
 import { FrontendRoutingModule } from './frontend-routing.module';
 
 // Extra
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TimeagoModule } from 'ngx-timeago';
-import { EditorModule } from "@tinymce/tinymce-angular";
+import { EditorModule } from '@tinymce/tinymce-angular';
 
 // Zorro
 import { NzButtonModule } from 'ng-zorro-antd/button';
@@ -42,7 +40,7 @@ import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { NzBackTopModule } from 'ng-zorro-antd/back-top';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
-import { EditFill, DeleteFill } from '@ant-design/icons-angular/icons';
+
 // Partials
 import { HeaderComponent } from './_partials/header/header.component';
 import { BreadcrumbComponent } from './_partials/breadcrumb/breadcrumb.component';
@@ -63,13 +61,17 @@ import { JobCreateComponent } from './jobs/job-create/job-create.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { LoginComponent } from './auth/login/login.component';
 import { ProfileUserDetailComponent } from './profiles/profile-user-detail/profile-user-detail.component';
-//pipes
-import { PostPipePipe } from "../shared/pipes/post-pipe.pipe";
 import { FeatureJobsComponent } from './home/feature-jobs/feature-jobs.component';
 import { DashboardJobListComponent } from './profiles/dashboard-job-list/dashboard-job-list.component';
 import { IconDefinition } from '@ant-design/icons-angular';
+import { HomeMobileAppComponent } from './_partials/home-mobile-app/home-mobile-app.component';
 
-const QuestionOutline: IconDefinition[] = [EditFill, DeleteFill];
+// Pipes
+import { PostPipePipe } from '../shared/pipes/post-pipe.pipe';
+import { GoogleMapComponent } from './_partials/google-map/google-map.component';
+import { AboutUsComponent } from './_layouts/about-us/about-us.component';
+import { ContactUsComponent } from './_layouts/contact-us/contact-us.component';
+
 @NgModule({
   declarations: [
     PostPipePipe,
@@ -79,6 +81,7 @@ const QuestionOutline: IconDefinition[] = [EditFill, DeleteFill];
     FooterComponent,
     CopyrightComponent,
     ProfileSidebarComponent,
+    HomeMobileAppComponent,
 
     // Layouts
     ErrorsComponent,
@@ -95,11 +98,14 @@ const QuestionOutline: IconDefinition[] = [EditFill, DeleteFill];
     ProfileUserDetailComponent,
     FeatureJobsComponent,
     DashboardJobListComponent,
+    GoogleMapComponent,
+    AboutUsComponent,
+    ContactUsComponent,
   ],
   imports: [
     // Zorro
     NzButtonModule,
-    NzIconModule.forChild(QuestionOutline),
+    NzIconModule,
     NzSpaceModule,
     NzDropDownModule,
     NzPaginationModule,
@@ -130,14 +136,14 @@ const QuestionOutline: IconDefinition[] = [EditFill, DeleteFill];
     NzSpinModule,
     NzBackTopModule,
     NzDividerModule,
-    //
+
+    // Angular
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
     FrontendRoutingModule,
 
     // Extra
-    NgbModule,
     EditorModule,
     TimeagoModule.forChild(),
   ],

@@ -26,7 +26,7 @@ class CompanySeeder extends Seeder
         ]);
 
         Company::create([
-            'user_id' => '3',
+            'user_id' => '2',
             'name' => 'Cong ty CP Codegym',
             'email' => 'codegym@@codegym.vn',
             'image' => 'https://i1.wp.com/codegym.vn/wp-content/uploads/2021/05/dia-chi-cuc-so-huu-tri-tue-removebg-preview.png?w=442&ssl=1',

@@ -24,6 +24,5 @@ class DatabaseSeeder extends Seeder
             CompanySeeder::class,
             JobPostSeeder::class,
         ]);
-        // \App\Models\JobPost::factory(30)->create();
     }
 }

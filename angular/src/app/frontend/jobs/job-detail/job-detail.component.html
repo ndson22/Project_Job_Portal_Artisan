@@ -5,7 +5,10 @@
       <div class="col-md-8">
         <h2>{{ jobPost?.title }}</h2>
         <div class="ptext">Date Posted: {{ jobPost?.created_at | date }}</div>
-        <div class="salary">Monthly Salary: <strong>{{ jobPost?.from_salary | currency : 'USD'}} - {{ jobPost?.to_salary | currency : 'USD' }}</strong></div>
+        <div class="salary">Monthly Salary: <strong *ngIf="userService.isUser(); else login">{{ jobPost?.from_salary | currency : 'USD'}} - {{ jobPost?.to_salary | currency : 'USD' }}</strong></div>
+        <ng-template #login>
+          <a routerLink="/login">Login to see salaray</a>
+        </ng-template>
       </div>
       <div class="col-md-4">
         <div class="companyinfo">

@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Thank you</title>
 </head>
 
 <body>
@@ -27,6 +27,13 @@
                                                         Please confirm your email address by clicking the link below. Futhermore, remember your password which is <span style="font-weight: bold">{{ $request['password'] }}</span>.
                                                     </td>
                                                 </tr>
+                                                @if ($userRole === 'company')
+                                                    <tr style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
+                                                        <td class="content-block" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 0 0 20px;" valign="top">
+                                                            Your company information will be verify by our Support Team between 1 to 5 working days. After that, your company will be able to make a job posts.
+                                                        </td>
+                                                    </tr>
+                                                @endif
                                                 <tr style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
                                                     <td class="content-block" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 0 0 20px;" valign="top">
                                                         We may need to send you critical information about our service and it is important that we have an accurate email address.

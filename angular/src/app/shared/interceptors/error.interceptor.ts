@@ -9,13 +9,15 @@ import { Observable, of, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { AuthService } from '../services/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { LocalStorageService } from '../services/local-storage.service';
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private localStorageService: LocalStorageService
   ) {}
 
   intercept(
@@ -25,10 +27,11 @@ export class ErrorInterceptor implements HttpInterceptor {
     return next.handle(request).pipe(
       catchError((err) => {
         if ([401, 403].indexOf(err.status) !== -1) {
+          this.localStorageService.removeItem('user');
           this.router.navigateByUrl('/login');
         }
         const error = err.error.message || err.statusText;
-        return throwError(error);
+        return throwError(err);
       })
     );
   }

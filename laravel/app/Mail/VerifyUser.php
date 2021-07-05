@@ -11,12 +11,13 @@ class VerifyUser extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $request, $userId;
+    public $request, $userId, $userRole;
 
     public function __construct($request, $user)
     {
         $this->request = $request;
         $this->userId = $user->id;
+        $this->userRole = $user->role->slug;
     }
 
     public function build()

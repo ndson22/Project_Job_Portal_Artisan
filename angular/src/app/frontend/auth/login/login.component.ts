@@ -1,12 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Location } from '@angular/common';
-
-import { first } from 'rxjs/operators';
-import { ToastrService } from 'ngx-toastr';
-
 import { AuthService } from '../../../shared/services/auth.service';
+import { Component, OnInit } from '@angular/core';
+import { first } from 'rxjs/operators';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Location } from '@angular/common';
+import { ToastrService } from 'ngx-toastr';
 import { User } from 'src/app/shared/models/user';
 import { UserService } from 'src/app/shared/services/user.service';
 
@@ -17,8 +15,19 @@ import { UserService } from 'src/app/shared/services/user.service';
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup = this.fb.group({
-    email: ['', [Validators.required, Validators.email]],
-    password: ['', [Validators.required]],
+    email: [
+      '',
+      [
+        Validators.required,
+        ,
+        Validators.minLength(5),
+        Validators.maxLength(100),
+      ],
+    ],
+    password: [
+      '',
+      [Validators.required, Validators.minLength(8), Validators.maxLength(100)],
+    ],
   });
   isLoading: boolean = false;
 
@@ -36,20 +45,7 @@ export class LoginComponent implements OnInit {
     if (this.router.url.startsWith('/verify-email/')) {
       const userId = this.route.snapshot.paramMap.get('id');
       if (userId) {
-        this.authService
-          .verifyEmail(+userId)
-          .pipe(first())
-          .subscribe(
-            (res) => {
-              this.toastr.success(
-                'Please login to your account',
-                'Your email is verified succesfully!'
-              );
-            },
-            (err) => {
-              this.toastr.error(err.error.message);
-            }
-          );
+        this.authService.verifyEmail(+userId);
       }
     }
   }
@@ -61,15 +57,11 @@ export class LoginComponent implements OnInit {
       .pipe(first())
       .subscribe(
         (res) => {
-          this.userService.user = new User(
-            res.user.id,
-            res.user.name,
-            res.user.email
-          );
-          this.toastr.success('Success', 'Logged in successfully!');
-          this.router.navigate(['/']);
+          // this.toastr.success('Success', 'Logged in successfully!');
+          this.location.back();
         },
         (err) => {
+          console.log(err);
           this.isLoading = false;
           this.toastr.error(err.message, 'Login Failed');
         }

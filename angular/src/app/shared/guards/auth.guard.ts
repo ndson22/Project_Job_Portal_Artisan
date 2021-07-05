@@ -1,4 +1,10 @@
+import { AuthService } from '../services/auth.service';
+import { first, map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
+import { Location } from '@angular/common';
+import { Observable } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
+import { UserService } from '../services/user.service';
 import {
   ActivatedRoute,
   ActivatedRouteSnapshot,
@@ -7,12 +13,6 @@ import {
   RouterStateSnapshot,
   UrlTree,
 } from '@angular/router';
-import { Observable } from 'rxjs';
-import { first, map } from 'rxjs/operators';
-import { AuthService } from '../services/auth.service';
-import { Location } from '@angular/common';
-import { ToastrService } from 'ngx-toastr';
-import { UserService } from '../services/user.service';
 
 @Injectable({
   providedIn: 'root',
@@ -36,12 +36,11 @@ export class AuthGuard implements CanActivate {
     | boolean
     | UrlTree {
     return new Observable<boolean>((obs) => {
-      this.userService.isAuthenticated().subscribe(
-        (res) => {
-          obs.next(true);
+      this.userService.checkAuthenticated().subscribe(
+        (res: boolean) => {
+          obs.next(res);
         },
-        (err) => {
-          this.toastr.error('You need to logged in first!');
+        (err: any) => {
           obs.next(false);
         }
       );

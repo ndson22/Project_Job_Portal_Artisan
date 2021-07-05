@@ -29,21 +29,21 @@
       >
     </li>
     <li routerLinkActive="active">
-      <a routerLink="/profile"
-        ><i class="fa fa-user" aria-hidden="true"></i> My Details</a
+      <a routerLink="/dashboard/acount"
+        ><i class="fa fa-user" aria-hidden="true"></i> Account</a
       >
     </li>
-    <li routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+    <li routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" *ngIf="userService.isRole('company')">
       <a routerLink="/dashboard/jobs"
         ><i class="fa fa-user" aria-hidden="true"></i> My Job Posts</a
       >
     </li>
-    <li routerLinkActive="active">
+    <li routerLinkActive="active" *ngIf="userService.isRole('company')">
       <a routerLink="/dashboard/jobs/create"
         ><i class="fa fa-user" aria-hidden="true"></i> New Job Post</a
       >
     </li>
-    <li>
+    <!-- <li>
       <a href="#"><i class="fa fa-eye" aria-hidden="true"></i> View Resume</a>
     </li>
     <li>
@@ -77,7 +77,7 @@
       <a href="#"
         ><i class="fa fa-lock" aria-hidden="true"></i> Account Setting</a
       >
-    </li>
+    </li> -->
     <li (click)="onLogout()">
       <a href="javascript:void(0)"
         ><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a

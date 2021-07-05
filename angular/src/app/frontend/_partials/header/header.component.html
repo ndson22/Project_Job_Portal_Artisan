@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-md-2 col-sm-3 col-xs-12">
-    <a href="index.html" class="logo"
+    <a routerLink="/" class="logo"
       ><img src="assets/frontend/images/logo.png" alt=""
     /></a>
     <div class="navbar-header">
@@ -22,65 +22,81 @@
     <div class="navbar navbar-default" role="navigation">
       <div class="navbar-collapse collapse" id="nav-main">
         <ul class="nav navbar-nav">
+          <!-- Navbar Item -->
           <li
             routerLinkActive="active"
             [routerLinkActiveOptions]="{ exact: true }"
           >
             <a routerLink="/">Home</a>
           </li>
-          <li><a href="about-us.html">About us</a></li>
-          <li class="dropdown" routerLinkActive="active">
-            <a href="#.">Pages <span class="caret"></span></a>
-            <!-- dropdown start -->
-            <ul class="dropdown-menu">
-              <li routerLinkActive="active">
-                <a routerLink="/login">Login</a>
-              </li>
-              <li routerLinkActive="active">
-                <a routerLink="/register">Register</a>
-              </li>
-              <li
-                routerLinkActive="active"
-                [routerLinkActiveOptions]="{ exact: true }"
-              >
-                <a routerLink="/jobs">Job Listing</a>
-              </li>
-              <li><a href="candidate-listing.html">Candidate Listing</a></li>
-              <li><a href="candidate-detail.html">Candidate Detail</a></li>
-              <li><a href="company-detail.html">Company Profile</a></li>
-              <li><a href="edit-profile.html">Edit Profile</a></li>
-              <li routerLinkActive="active">
-                <a routerLink="/dashboard/jobs/create">Post a Job</a>
-              </li>
-            </ul>
-            <!-- dropdown end -->
+          <li
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            <a routerLink="/about-us">About us</a>
           </li>
-          <li class="postjob"><a routerLink="/dashboard/jobs/create">Post a job</a></li>
-          <li class="jobseeker">
-            <a routerLink="/profile">Job seeker</a>
+          <li
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            <a routerLink="/jobs">Job List</a>
           </li>
-          <li class="dropdown userbtn">
-            <a href="#"
+          <li
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            <a routerLink="/contact-us">Contact Us</a>
+          </li>
+          <!-- <li><a href="contact-us.html">Contact</a></li> -->
+
+          <!-- Two Big Button -->
+          <li
+            class="postjob"
+            *ngIf="userService.isRole('company'); else firstButtonNotUser"
+          >
+            <a routerLink="/dashboard/jobs/create">Post a job</a>
+          </li>
+          <li
+            class="jobseeker"
+            *ngIf="userService.isRole('company'); else secondButtonNotUser"
+          >
+            <a routerLink="/dashboard/account">View CV</a>
+          </li>
+
+          <ng-template #firstButtonNotUser>
+            <li class="postjob">
+              <a routerLink="/login">Login</a>
+            </li>
+          </ng-template>
+          <ng-template #secondButtonNotUser>
+            <li class="jobseeker" #secondButtonNotUser>
+              <a routerLink="/register">Register</a>
+            </li>
+          </ng-template>
+
+          <!-- Admin Small Circle -->
+          <li
+            class="dropdown userbtn"
+            *ngIf="userService.isRole('admin'); else smallCircle"
+          >
+            <a href="/backend"
               ><img
-                src="assets/frontend/images/candidates/01.jpg"
+                [src]="
+                  userService.user?.avatar ??
+                  'assets/frontend/images/candidates/01.jpg'
+                "
                 alt=""
                 class="userimg"
             /></a>
             <ul class="dropdown-menu">
-              <li routerLinkActive="active">
-                <a routerLink="/profile"
-                  ><i class="fa fa-tachometer" aria-hidden="true"></i>
-                  Dashboard</a
-                >
-              </li>
-              <li routerLinkActive="active">
-                <a href="#"
+              <li>
+                <a href="/backend"
                   ><i class="fa fa-pencil" aria-hidden="true"></i> Edit
-                  Profilt</a
+                  Account</a
                 >
               </li>
-              <li routerLinkActive="active">
-                <a href="#"
+              <li>
+                <a href="/backend"
                   ><i class="fa fa-briefcase" aria-hidden="true"></i> My Jobs</a
                 >
               </li>
@@ -92,6 +108,41 @@
               </li>
             </ul>
           </li>
+
+          <!-- Small Circle -->
+          <ng-template #smallCircle>
+            <li class="dropdown userbtn" *ngIf="userService.isUser()">
+              <a href="/dashboard/account"
+                ><img
+                  [src]="
+                    userService.user?.avatar ??
+                    'assets/frontend/images/candidates/01.jpg'
+                  "
+                  alt=""
+                  class="userimg"
+              /></a>
+              <ul class="dropdown-menu">
+                <li routerLinkActive="active">
+                  <a routerLink="/dashboard/account"
+                    ><i class="fa fa-pencil" aria-hidden="true"></i> Edit
+                    Account</a
+                  >
+                </li>
+                <li routerLinkActive="active">
+                  <a routerLink="/dashboard/jobs"
+                    ><i class="fa fa-briefcase" aria-hidden="true"></i> My
+                    Jobs</a
+                  >
+                </li>
+                <li role="separator" class="divider"></li>
+                <li (click)="onLogout()">
+                  <a href="javascript:void(0)"
+                    ><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a
+                  >
+                </li>
+              </ul>
+            </li>
+          </ng-template>
         </ul>
         <!-- Nav collapes end -->
       </div>

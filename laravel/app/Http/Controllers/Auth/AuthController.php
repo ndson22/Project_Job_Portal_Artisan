@@ -27,12 +27,10 @@ class AuthController extends Controller
             ['password' => bcrypt($request->password)]
         ));
 
+        $user = User::withRelationships($user->id);
         Mail::to($user->email)->queue(new VerifyUser($request->validated(), $user));
 
-        return response()->json([
-            'message' => 'User successfully registered',
-            'user' => $user,
-        ], 201);
+        return response()->json($user, 201);
     }
 
     public function registerCompany(CompanyRegisterFormRequest $request)
@@ -41,7 +39,7 @@ class AuthController extends Controller
             $request->only('name', 'email'),
             ['password' => bcrypt($request->password)]
         ));
-        $user->role_id = 3;
+        $user->role_id = 2;
         $user->save();
 
         // Tao tai khoan company
@@ -54,17 +52,13 @@ class AuthController extends Controller
         $company->fill($data);
         $company->code = $company->short_name;
         $company->save();
-        $company->code = $company->short_name . $company->id;
+        $company->code = $company->short_name . $company->id . str_pad(rand(0, 9999), 6, '0', STR_PAD_LEFT);
         $company->save();
 
         Mail::to($user->email)->queue(new VerifyUser($request->validated(), $user));
 
         // Tra response
-        return response()->json([
-            'message' => 'Company account successfully created',
-            'user' => $user,
-            'company' => $company,
-        ], 201);
+        return response()->json(compact('user', 'company'), 201);
     }
 
     public function login(Request $request)
@@ -75,19 +69,11 @@ class AuthController extends Controller
         }
 
         $user->tokens()->delete();
-        $tokenAbility = 'role: ' . $user->role->slug;
+        $tokenAbility = $user->role->slug;
         $token = $user->createToken($request->email, [$tokenAbility])->plainTextToken;
-        $cookie = cookie('sanctum_token', $token, 30);
+        $cookie = cookie('sanctum_token', $token, 60);
 
-        return response()->json([
-            'message' => 'User successfully logged in',
-            'user' => $user,
-            'access' => [
-                'token' => $token,
-                'token_type' => 'bearer',
-                'token_can' => $tokenAbility
-            ],
-        ])->withCookie($cookie);
+        return response()->json($user)->withCookie($cookie);
     }
 
     public function logout()
@@ -103,11 +89,11 @@ class AuthController extends Controller
     public function verifyEmail(Request $request)
     {
         $user = User::findOrFail($request->id);
-
         if (is_null($user->email_verified_at)) {
             $user->email_verified_at = now();
-            $user->save();
-            return response()->json(['message' => 'Your email is verified!']);
+            $user->update();
+            $user = User::withRelationships($request->id);
+            return response()->json($user);
         }
 
         return response()->json(['message' => 'Your email is already verified!'], 409);
@@ -115,13 +101,13 @@ class AuthController extends Controller
 
     public function getCurrentUser()
     {
-        $user = User::getWithRole();
+        $user = User::where('id', auth()->id())->first();
         return response()->json($user);
     }
 
-    public function isAuthenticated()
+    public function checkAuthenticated()
     {
-        $user = User::getWithRole();
+        $user = User::withRelationships();
         return response()->json($user);
     }
 }

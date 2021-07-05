@@ -34,8 +34,9 @@ class User extends Authenticatable
         return $this->belongsTo(Role::class);
     }
 
-    public static function getWithRole()
+    public static function withRelationships($id = null)
     {
-        return User::findOrFail(auth()->user()->id)->with('role')->first();
+        $id = $id ?? auth('sanctum')->id();
+        return User::with('role')->findOrFail($id);
     }
 }

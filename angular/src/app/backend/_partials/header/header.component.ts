@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from 'src/app/shared/models/user';
 import { UserService } from 'src/app/shared/services/user.service';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { LocalStorageService } from 'src/app/shared/services/local-storage.service';
+import { AuthService } from 'src/app/shared/services/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -8,11 +11,17 @@ import { UserService } from 'src/app/shared/services/user.service';
   styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent implements OnInit {
-  user!: User;
+  constructor(
+    private authService: AuthService,
+    public userService: UserService,
+    private localStorageService: LocalStorageService,
+    private router: Router,
+    private toastr: ToastrService
+  ) {}
 
-  constructor(private userService: UserService) {}
+  ngOnInit(): void {}
 
-  ngOnInit(): void {
-    // this.user
+  onLogout(): void {
+    this.authService.logout();
   }
 }

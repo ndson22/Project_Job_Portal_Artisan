@@ -12,9 +12,9 @@
   <tbody>
     <tr *ngFor="let data of basicTable.data">
       <td>{{ data.title }}</td>
-      <td>{{ data.expire | timeago }}</td>
-      <td>{{ data.created_at | timeago }}</td>
-      <td>{{ data.updated_at | timeago }}</td>
+      <td timeago [date]="data.expire" [live]="false"></td>
+      <td timeago [date]="data.created_at" [live]="false"></td>
+      <td timeago [date]="data.updated_at" [live]="false"></td>
       <td>
         <input type="checkbox" [checked]="data.is_active" nz-popconfirm
           nzPopconfirmTitle="Are you sure change this acitve?" (nzOnConfirm)="changeActive(data.id)"

@@ -1,3 +1,4 @@
+import { UserService } from 'src/app/shared/services/user.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -13,7 +14,8 @@ export class ProfileSidebarComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    public userService: UserService
   ) {}
 
   ngOnInit(): void {}

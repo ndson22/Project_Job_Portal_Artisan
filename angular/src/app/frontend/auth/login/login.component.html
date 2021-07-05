@@ -58,7 +58,12 @@
       <!-- login form  end-->
 
       <ng-template #indicatorTemplate
-        ><i nz-icon nzType="loading" style="font-size: 150px"></i
+        ><i
+          nz-icon
+          [nzType]="'sync'"
+          [nzSpin]="true"
+          style="font-size: 150px"
+        ></i
       ></ng-template>
       <nz-spin
         nzSimple

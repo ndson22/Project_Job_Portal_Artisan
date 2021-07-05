@@ -1,6 +1,12 @@
 import { resolve } from '@angular/compiler-cli/src/ngtsc/file_system';
-import { AfterViewInit, Component, OnInit } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
+import {
+  AfterContentInit,
+  AfterViewInit,
+  Component,
+  DoCheck,
+  OnInit,
+} from '@angular/core';
+import { NavigationEnd, NavigationStart, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
@@ -8,14 +14,18 @@ import { NgxSpinnerService } from 'ngx-spinner';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
-export class AppComponent implements OnInit, AfterViewInit {
+export class AppComponent
+  implements OnInit, AfterViewInit, AfterContentInit, DoCheck
+{
   title = 'angular';
-  // isLoading: boolean = true;
-  completeLoading!: Promise<boolean>;
+  isLoading!: boolean;
 
   // Backend
   backendStyles = [
+    'assets/backend/plugins/vectormap/jquery-jvectormap-2.0.2.css',
     'assets/backend/plugins/simplebar/css/simplebar.css',
+    'assets/backend/plugins/select2/css/select2.min.css',
+    'assets/backend/plugins/select2/css/select2-bootstrap4.css',
     'assets/backend/plugins/perfect-scrollbar/css/perfect-scrollbar.css',
     'assets/backend/plugins/metismenu/css/metisMenu.min.css',
     'assets/backend/css/pace.min.css',
@@ -23,8 +33,6 @@ export class AppComponent implements OnInit, AfterViewInit {
     'https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap',
     'assets/backend/css/app.css',
     'assets/backend/css/icons.css',
-    'assets/backend/css/dark-theme.css',
-    'assets/backend/css/semi-dark.css',
     'assets/backend/css/header-colors.css',
   ];
   backendScripts = [
@@ -51,13 +59,11 @@ export class AppComponent implements OnInit, AfterViewInit {
     'assets/frontend/js/script.js',
   ];
 
-  constructor(private router: Router, private spinner: NgxSpinnerService) {}
-
-  ngOnInit(): void {
-    this.spinner.show();
+  constructor(private router: Router, private spinner: NgxSpinnerService) {
+    this.isLoading = true;
   }
 
-  ngAfterViewInit(): void {
+  ngOnInit(): void {
     this.spinner.show();
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
@@ -72,6 +78,12 @@ export class AppComponent implements OnInit, AfterViewInit {
     });
   }
 
+  ngDoCheck(): void {}
+
+  ngAfterContentInit(): void {}
+
+  ngAfterViewInit(): void {}
+
   async loadAssets() {
     if (window.location.pathname.startsWith('/backend')) {
       await this.loadStyles(this.backendStyles);
@@ -80,8 +92,10 @@ export class AppComponent implements OnInit, AfterViewInit {
       await this.loadStyles(this.frontendStyles);
       await this.loadScripts(this.frontendScripts);
     }
-    this.completeLoading = Promise.resolve(true);
-    this.spinner.hide();
+    setTimeout(() => {
+      this.isLoading = false;
+      this.spinner.hide();
+    }, 500);
   }
 
   loadStyles(styles: string[]): Promise<boolean> {

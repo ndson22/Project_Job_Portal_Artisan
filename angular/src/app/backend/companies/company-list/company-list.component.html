@@ -1,0 +1,53 @@
+<nz-table #rowSelectionTable nzShowSizeChanger [nzData]="companies">
+  <thead>
+    <tr>
+      <th
+        [nzAlign]="'center'"
+        *ngFor="
+          let fieldName of [
+            'ID',
+            'Company Name',
+            'Province',
+            'Registered',
+            'Email verified',
+            'Allow active',
+            'Action'
+          ]
+        "
+      >
+        {{ fieldName }}
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let company of companies">
+      <td [nzAlign]="'center'">{{ company.id }}</td>
+      <td [nzAlign]="'center'">{{ company.name }}</td>
+      <td [nzAlign]="'center'">{{ company.province?.name }}</td>
+      <td [nzAlign]="'center'">{{ company.created_at | timeago }}</td>
+      <td [nzAlign]="'center'">
+        {{ company.user?.email_verified_at | timeago }}
+      </td>
+      <td [nzAlign]="'center'">
+        <nz-switch
+          [ngModel]="company.verified_at"
+          [nzControl]="true"
+          nz-popconfirm
+          nzPopconfirmTitle="Are you sure to change this company's active status?"
+          (nzOnConfirm)="onVertified(company)"
+          nzPopconfirmPlacement="bottom"
+          nzOkText="Change"
+        ></nz-switch>
+      </td>
+      <td [nzAlign]="'center'">
+        <button nz-button nzType="primary" nzSize="default" nzShape="round">
+          Edit
+        </button>
+        <nz-divider nzType="vertical"></nz-divider>
+        <button nz-button nzType="danger" nzSize="default" nzShape="round">
+          Delete
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</nz-table>

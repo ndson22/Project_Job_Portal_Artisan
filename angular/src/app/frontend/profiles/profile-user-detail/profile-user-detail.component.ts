@@ -1,14 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-
-import { first } from 'rxjs/operators';
-import { ToastrService } from 'ngx-toastr';
-import { PasswordValidators } from 'ngx-validators';
-
-import { User } from 'src/app/shared/models/user';
 import { AuthService } from '../../../shared/services/auth.service';
+import { Component, OnInit } from '@angular/core';
+import { first } from 'rxjs/operators';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { PasswordValidators } from 'ngx-validators';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { User } from 'src/app/shared/models/user';
 import { UserService } from 'src/app/shared/services/user.service';
+import { LocalStorageService } from 'src/app/shared/services/local-storage.service';
 
 @Component({
   selector: 'app-profile-user-detail',
@@ -16,17 +15,14 @@ import { UserService } from 'src/app/shared/services/user.service';
   styleUrls: ['./profile-user-detail.component.css'],
 })
 export class ProfileUserDetailComponent implements OnInit {
-  currentUser!: User;
-  userProfileForm: FormGroup = this.fb.group({
-    name: ['', Validators.required],
-    email: [''],
-    password: [''],
-    password_confirmation: [''],
-  });
   changePasswordForm: FormGroup = this.fb.group(
     {
-      password: [''],
-      password_confirmation: [''],
+      current_password: ['', [Validators.required]],
+      password: ['', [Validators.required, Validators.minLength(8)]],
+      password_confirmation: [
+        '',
+        [Validators.required, Validators.minLength(8)],
+      ],
     },
     {
       validators: PasswordValidators.mismatchedPasswords(
@@ -35,35 +31,52 @@ export class ProfileUserDetailComponent implements OnInit {
       ),
     }
   );
+  generalInfoForm!: FormGroup;
+  isLoading = false;
+  user!: User;
 
   constructor(
     private fb: FormBuilder,
     private userService: UserService,
     private authService: AuthService,
+    private localStorageService: LocalStorageService,
     private toastr: ToastrService,
     private router: Router
-  ) {}
-
-  ngOnInit(): void {
-    this.userService
-      .getCurrent()
-      .pipe(first())
-      .subscribe(
-        (res: any) => {
-          this.currentUser = res;
-          this.userProfileForm = this.fb.group({
-            name: [res.name, Validators.required],
-            email: [res.email],
-          });
-        },
-        (err: any) => {
-          this.currentUser = err;
-          console.log(err);
-        }
-      );
+  ) {
+    this.user = this.userService.getUserFromLocalStorage();
+    this.localStorageService.watchStorage().subscribe((res) => {
+      this.userService.getUserFromLocalStorage();
+    });
   }
 
-  onSubmitProfile() {}
+  ngOnInit(): void {
+    this.generalInfoForm = this.fb.group({
+      name: [this.user.name, [Validators.required]],
+      email: [this.user.email, [Validators.required, Validators.email]],
+    });
+  }
 
-  onSubmitPassword() {}
+  onSubmitGeneralInfo() {
+    this.isLoading = true;
+    this.userService.updateGeneralInfo(this.generalInfoForm.value).subscribe(
+      (res) => {
+        this.isLoading = false;
+      },
+      (err) => {
+        this.isLoading = false;
+      }
+    );
+  }
+
+  onSubmitPassword() {
+    this.isLoading = true;
+    this.userService.updatePassword(this.changePasswordForm.value).subscribe(
+      (res) => {
+        this.isLoading = false;
+      },
+      (err) => {
+        this.isLoading = false;
+      }
+    );
+  }
 }

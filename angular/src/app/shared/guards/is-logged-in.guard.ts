@@ -13,6 +13,7 @@ import { AuthService } from '../services/auth.service';
 import { Location } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
 import { UserService } from '../services/user.service';
+import { LocalStorageService } from '../services/local-storage.service';
 
 @Injectable({
   providedIn: 'root',
@@ -21,6 +22,7 @@ export class IsLoggedInGuard implements CanActivate {
   constructor(
     private authService: AuthService,
     private userService: UserService,
+    private localStorageService: LocalStorageService,
     private toastr: ToastrService,
     private route: ActivatedRoute,
     private router: Router,
@@ -36,15 +38,12 @@ export class IsLoggedInGuard implements CanActivate {
     | boolean
     | UrlTree {
     return new Observable<boolean>((obs) => {
-      this.userService.isAuthenticated().subscribe(
-        (res) => {
-          this.toastr.error('You are already logged in!');
-          obs.next(false);
-        },
-        (err) => {
-          obs.next(true);
-        }
-      );
+      if (this.userService.isUser()) {
+        this.toastr.error('You are already logged in!');
+        obs.next(false);
+      } else {
+        obs.next(true);
+      }
     });
   }
 }

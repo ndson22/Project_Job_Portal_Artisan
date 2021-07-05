@@ -480,19 +480,22 @@
           aria-expanded="false"
         >
           <img
-            src="assets/backend/images/avatars/avatar-2.png"
+            [src]="
+              userService.user?.avatar ??
+              'assets/frontend/images/candidates/01.jpg'
+            "
             class="user-img"
             alt="user avatar"
           />
           <div class="user-info ps-3">
-            <p class="user-name mb-0">Pauline Seitz</p>
-            <p class="designattion mb-0">Web Designer</p>
+            <p class="user-name mb-0">{{ userService.user?.name }}</p>
+            <p class="designattion mb-0">{{ userService.user?.role?.name }}</p>
           </div>
         </a>
         <ul class="dropdown-menu dropdown-menu-end">
           <li>
-            <a class="dropdown-item" href="javascript:;"
-              ><i class="bx bx-user"></i><span>Profile</span></a
+            <a class="dropdown-item" href="/dashboard"
+              ><i class="bx bx-user"></i><span>Account</span></a
             >
           </li>
           <li>
@@ -518,7 +521,7 @@
           <li>
             <div class="dropdown-divider mb-0"></div>
           </li>
-          <li>
+          <li (click)="onLogout()">
             <a class="dropdown-item" href="javascript:;"
               ><i class="bx bx-log-out-circle"></i><span>Logout</span></a
             >

@@ -244,6 +244,8 @@
               type="text"
               placeholder="Short Name"
               formControlName="short_name"
+              minlength="1"
+              maxlength="5"
             />
             <div
               class="text-danger"
@@ -255,6 +257,9 @@
             >
               <div *ngIf="companyForm.get('short_name')?.hasError('required')">
                 Short name is required.
+              </div>
+              <div *ngIf="companyForm.get('short_name')?.hasError('maxlength')">
+                Short name must not exceed 5 characters.
               </div>
             </div>
           </div>
@@ -327,7 +332,12 @@
       </div>
 
       <ng-template #indicatorTemplate
-        ><i nz-icon nzType="loading" style="font-size: 150px"></i
+        ><i
+          nz-icon
+          [nzType]="'sync'"
+          [nzSpin]="true"
+          style="font-size: 150px"
+        ></i
       ></ng-template>
       <nz-spin
         nzSimple

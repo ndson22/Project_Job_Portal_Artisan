@@ -16,7 +16,7 @@ class CompanyFormRequest extends FormRequest
         return [
             'user_id' => 'required|digits',
             'name' => 'required',
-            'short_name' => 'required',
+            'short_name' => 'required|min:1|max:5',
             'email' => 'required',
             'phone' => 'nullable|digits',
             'image' => 'nullable|mimes:jpg,jpeg,bmp,png|max:10240',

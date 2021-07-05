@@ -155,7 +155,7 @@ class JobController extends Controller
     public function getJobByCompany($page, $size = 20)
     {
         $size = 100;
-        $companyId = Company::where('user_id', Auth::id())->pluck('id')[0];
+        $companyId = Company::where('user_id', Auth::id())->first()->id;
         $jobPosts = JobPost::where('company_id', $companyId)->latest()->skip(($page - 1) * $size)->take($size)->get();
         $totalPage = ceil(JobPost::where('company_id', $companyId)->count() / $size);
         return response()->json(compact('jobPosts', 'totalPage'));

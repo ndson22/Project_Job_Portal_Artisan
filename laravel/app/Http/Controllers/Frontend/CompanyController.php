@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CompanyFormRequest;
+use App\Mail\VerifyCompany;
 use App\Models\Company;
 use App\Traits\ImageTrait;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class CompanyController extends Controller
 {
@@ -14,7 +16,7 @@ class CompanyController extends Controller
 
     public function index()
     {
-        $companies = Company::all();
+        $companies = Company::with(['province', 'user'])->get();
         return response()->json($companies);
     }
 
@@ -45,5 +47,17 @@ class CompanyController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function verify(Request $request, Company $company)
+    {
+        $this->authorize('verify', $company);
+
+        $company->verified_at = $company->verified_at ? null : now();
+        $company->update();
+
+        Mail::to($company->user->email)->queue(new VerifyCompany($company));
+
+        return response()->json($company);
     }
 }
