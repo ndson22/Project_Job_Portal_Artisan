@@ -1,0 +1,205 @@
+<nz-table #basicTable [nzData]="listOfData" [nzPageSize]=20>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Expire</th>
+      <th>Created at</th>
+      <th>Updated at</th>
+      <th>Active</th>
+      <th colspan="2">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of basicTable.data">
+      <td>{{ data.title }}</td>
+      <td>{{ data.expire | timeago }}</td>
+      <td>{{ data.created_at | timeago }}</td>
+      <td>{{ data.updated_at | timeago }}</td>
+      <td>
+        <input type="checkbox" [checked]="data.is_active" nz-popconfirm
+          nzPopconfirmTitle="Are you sure change this acitve?" (nzOnConfirm)="changeActive(data.id)"
+          nzPopconfirmPlacement="top" nzOkText="Change">
+      </td>
+      <td>
+        <button nz-button (click)="showModal(data.id)">
+          <i nz-icon [nzType]="'edit'" [nzTheme]="'fill'"></i>
+        </button>
+      </td>
+      <td>
+        <button nz-popconfirm nzPopconfirmTitle="Are you sure delete this post?" (nzOnConfirm)="confirm(data.id)"
+          nzPopconfirmPlacement="top" nzOkType="danger" nzOkText="Delete" nz-button>
+          <i nz-icon nzType="delete" nzTheme="fill"></i>
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</nz-table>
+<nz-modal [(nzVisible)]="isVisible" [nzWidth]="1000" [nzTitle]="modalTitle" [nzContent]="modalContent" nzOkText="Edit"
+  [nzOkDisabled]="updateForm.invalid" (nzOnOk)="handleOk()" (nzOnCancel)="handleCancel()">
+  <ng-template #modalTitle>Job Information</ng-template>
+
+  <ng-template #modalContent>
+    <form nz-form nzLayout="vertical" [formGroup]="updateForm" class="ant-advanced-search-form">
+      <div nz-row>
+        <div nz-col [nzSpan]="24">
+          <nz-form-item>
+            <nz-form-label nzRequired [nzSpan]="24">Title</nz-form-label>
+            <nz-form-control nzHasFeedback [nzSpan]="24" [nzErrorTip]="title">
+              <input nz-input formControlName="title" />
+              <ng-template #title let-control>
+                <ng-container *ngIf="control.hasError('maxlength')">MaxLength is 255</ng-container>
+                <ng-container *ngIf="control.hasError('required')">Title is required</ng-container>
+              </ng-template>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+      <div nz-row nzJustify="space-between" [nzGutter]="30">
+        <div nz-col [nzSpan]="12">
+          <nz-form-item>
+            <nz-form-label nzRequired>Job type</nz-form-label>
+            <nz-form-control nzHasFeedback [nzErrorTip]="jobType">
+              <nz-select formControlName="job_type_id">
+                <nz-option nzValue="" nzLabel="Job Type"></nz-option>
+                <nz-option *ngFor="let jobType of jobTypes" [nzValue]="jobType.id" [nzLabel]="jobType.name"></nz-option>
+              </nz-select>
+              <ng-template #jobType let-control>
+                <ng-container *ngIf="control.hasError('required')">Job type is required</ng-container>
+              </ng-template>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div nz-col [nzSpan]="12">
+          <nz-form-item>
+            <nz-form-label nzRequired >Job position</nz-form-label>
+            <nz-form-control nzHasFeedback [nzErrorTip]="employeePosition">
+              <nz-select formControlName="employee_position_id">
+                <nz-option nzValue="" nzLabel="Job position"></nz-option>
+                <nz-option *ngFor="let employeePosition of employeePositions" [nzValue]="employeePosition.id"
+                  [nzLabel]="employeePosition.name"></nz-option>
+              </nz-select>
+              <ng-template #employeePosition let-control>
+                <ng-container *ngIf="control.hasError('required')">Employee position is required</ng-container>
+              </ng-template>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+      <div nz-row nzJustify="space-between" [nzGutter]="30">
+        <div nz-col [nzSpan]="12">
+          <nz-form-item>
+            <nz-form-label nzRequired>Type of employment</nz-form-label>
+            <nz-form-control nzHasFeedback [nzErrorTip]="typeOfEmployment">
+              <nz-select formControlName="type_of_employment_id">
+                <nz-option nzValue="" nzLabel="Job Type"></nz-option>
+                <nz-option *ngFor="let typeOfEmployment of typeOfEmployments" [nzValue]="typeOfEmployment.id"
+                  [nzLabel]="typeOfEmployment.name"></nz-option>
+              </nz-select>
+              <ng-template #typeOfEmployment let-control>
+                <ng-container *ngIf="control.hasError('required')">Type of employment is required</ng-container>
+              </ng-template>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div nz-col [nzSpan]="6">
+          <nz-form-item>
+            <nz-form-label nzRequired>Gender</nz-form-label>
+            <nz-form-control nzHasFeedback [nzErrorTip]="gender">
+              <nz-select formControlName="employee_position_id">
+                <nz-option nzValue="" nzLabel="Job position"></nz-option>
+                <nz-option *ngFor="let gender of genders" [nzValue]="gender.id" [nzLabel]="gender.name"></nz-option>
+              </nz-select>
+              <ng-template #gender let-control>
+                <ng-container *ngIf="control.hasError('required')">Gender is required</ng-container>
+              </ng-template>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div nz-col [nzSpan]="6">
+          <nz-form-item >
+            <nz-form-label nzRequired>Expire</nz-form-label>
+            <nz-form-control nzHasFeedback [nzSpan]="24" [nzErrorTip]="expire">
+              <nz-date-picker formControlName="expire" style="width: 100%;"></nz-date-picker>
+              <ng-template #expire let-control>
+                <ng-container *ngIf="control.hasError('required')">Expire is required</ng-container>
+              </ng-template>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+      <div nz-row nzJustify="space-between">
+        <div nz-col>
+          <nz-form-item>
+            <nz-form-label nzRequired >Experience</nz-form-label>
+            <nz-form-control nzHasFeedback [nzSpan]="24" [nzErrorTip]="experience">
+              <input nz-input formControlName="experience" />
+              <ng-template #experience let-control>
+                <ng-container *ngIf="control.hasError('required')">Experience is required</ng-container>
+              </ng-template>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div nz-col>
+          <nz-form-item>
+            <nz-form-label nzRequired >Employers</nz-form-label>
+            <nz-form-control nzHasFeedback [nzSpan]="24" [nzErrorTip]="employers">
+              <input nz-input formControlName="employee_quantity" />
+              <ng-template #employers let-control>
+                <ng-container *ngIf="control.hasError('required')">Employers is required</ng-container>
+              </ng-template>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div nz-col >
+          <nz-form-item>
+            <nz-form-label nzRequired >From salary</nz-form-label>
+            <nz-form-control nzHasFeedback [nzSpan]="24" [nzErrorTip]="from_salary">
+              <input nz-input formControlName="from_salary" />
+              <ng-template #from_salary let-control>
+                <ng-container *ngIf="control.hasError('required')">From salary is required</ng-container>
+              </ng-template>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div nz-col>
+          <nz-form-item>
+            <nz-form-label nzRequired >To salary</nz-form-label>
+            <nz-form-control nzHasFeedback [nzSpan]="24" [nzErrorTip]="to_salary">
+              <input nz-input formControlName="to_salary" />
+              <ng-template #to_salary let-control>
+                <ng-container *ngIf="control.hasError('required')">To salary is required</ng-container>
+              </ng-template>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+      <div nz-row>
+        <div nz-col [nzSpan]="24">
+          <nz-form-item>
+            <nz-form-label nzRequired>Job description</nz-form-label>
+            <ng-template #description let-control>
+              <ng-container *ngIf="control.hasError('required')">Job description is required</ng-container>
+            </ng-template>
+            <nz-form-control nzHasFeedback [nzErrorTip]="description">
+              <editor formControlName="description" apiKey="kwzv7sdzx3mxt9miqs949uzirazxaljvelvgncytz7h8exuf"
+                    [init]="{
+                    height: 350,
+                    menubar: false,
+                    content_style: 'body {font-size: 12pt;}',
+                    plugins: [
+                      'advlist autolink lists link image charmap print preview anchor',
+                      'searchreplace visualblocks code fullscreen',
+                      'insertdatetime media table paste code help wordcount'
+                    ],
+                    toolbar:
+                      'undo redo | fontsizeselect | formatselect | bold italic backcolor | \
+                      alignleft aligncenter alignright alignjustify | \
+                      bullist numlist outdent indent | removeformat | help'
+                  }"></editor>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+    </form>
+  </ng-template>
+</nz-modal>
