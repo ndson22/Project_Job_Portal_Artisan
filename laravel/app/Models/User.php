@@ -34,9 +34,19 @@ class User extends Authenticatable
         return $this->belongsTo(Role::class);
     }
 
+    function seeker()
+    {
+        return $this->hasOne(Seeker::class);
+    }
+
+    function company()
+    {
+        return $this->hasOne(Company::class);
+    }
+
     public static function withRelationships($id = null)
     {
         $id = $id ?? auth('sanctum')->id();
-        return User::with('role')->findOrFail($id);
+        return User::with(['role', 'seeker', 'company'])->findOrFail($id);
     }
 }

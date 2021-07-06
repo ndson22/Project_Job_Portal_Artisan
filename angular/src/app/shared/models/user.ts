@@ -1,3 +1,5 @@
+import { Company } from './company';
+import { Seeker } from './seeker';
 import { Role } from './role';
 
 export class User {
@@ -10,6 +12,8 @@ export class User {
     public avatar: string,
     public created_at: string,
     public updated_at: string,
-    public role: Role
+    public role: Role,
+    public seeker: Seeker,
+    public company: Company,
   ) {}
 }

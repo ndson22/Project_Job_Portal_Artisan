@@ -1,3 +1,4 @@
+import { SeekerDetailComponent } from './profiles/seeker-detail/seeker-detail.component';
 import { CompanyGuard } from './../shared/guards/company.guard';
 import { CompanyDetailComponent } from './profiles/company-detail/company-detail.component';
 import { AboutUsComponent } from './_layouts/about-us/about-us.component';
@@ -32,6 +33,10 @@ const routes: Routes = [
         path: 'company',
         canActivate: [CompanyGuard],
         component: CompanyDetailComponent,
+      },
+      {
+        path: 'seeker',
+        component: SeekerDetailComponent,
       },
       {
         path: 'account',

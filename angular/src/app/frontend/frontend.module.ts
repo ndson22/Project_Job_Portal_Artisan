@@ -73,6 +73,7 @@ import { GoogleMapComponent } from './_partials/google-map/google-map.component'
 import { AboutUsComponent } from './_layouts/about-us/about-us.component';
 import { ContactUsComponent } from './_layouts/contact-us/contact-us.component';
 import { CompanyDetailComponent } from './profiles/company-detail/company-detail.component';
+import { SeekerDetailComponent } from './profiles/seeker-detail/seeker-detail.component';
 
 @NgModule({
   declarations: [
@@ -104,6 +105,7 @@ import { CompanyDetailComponent } from './profiles/company-detail/company-detail
     AboutUsComponent,
     ContactUsComponent,
     CompanyDetailComponent,
+    SeekerDetailComponent,
   ],
   imports: [
     // Zorro

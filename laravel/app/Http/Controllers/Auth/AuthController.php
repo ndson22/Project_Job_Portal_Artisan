@@ -8,6 +8,7 @@ use App\Http\Requests\RegisterFormRequest;
 use App\Mail\VerifyUser;
 use App\Models\Company;
 use App\Models\User;
+use App\Models\Seeker;
 use App\Traits\ArrayTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cookie;
@@ -27,6 +28,10 @@ class AuthController extends Controller
             ['password' => bcrypt($request->password)]
         ));
 
+        Seeker::create(array_merge(
+            $request->only('name', 'email'),
+            ['user_id' => $user->id]
+        ));
         $user = User::withRelationships($user->id);
         Mail::to($user->email)->queue(new VerifyUser($request->validated(), $user));
 
@@ -73,6 +78,7 @@ class AuthController extends Controller
         $token = $user->createToken($request->email, [$tokenAbility])->plainTextToken;
         $cookie = cookie('sanctum_token', $token, 60);
 
+        $user = User::withRelationships($user->id);
         return response()->json($user)->withCookie($cookie);
     }
 
