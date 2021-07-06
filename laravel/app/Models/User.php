@@ -34,8 +34,14 @@ class User extends Authenticatable
         return $this->belongsTo(Role::class);
     }
 
+    public function contact()
+    {
+        return $this->hasMany(Contact::class);
+    }
+
     public static function getWithRole()
     {
         return User::findOrFail(auth()->user()->id)->with('role')->first();
     }
+
 }

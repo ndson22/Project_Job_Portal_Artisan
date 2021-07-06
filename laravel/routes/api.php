@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Backend;
 use App\Http\Controllers\Frontend;
 use App\Http\Controllers\Frontend\JobController;
+
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -45,6 +46,10 @@ Route::prefix('/jobs')->group(function () {
     Route::get('/types', [Frontend\JobTypeController::class, 'getJobTypes']);
     Route::get('/provinces', [Frontend\ProvinceController::class, 'index']);
     Route::get('/{id}', [Frontend\JobController::class, 'getDetail'])->name('jobs.get');
+});
+
+Route::prefix('/contact')->group(function (){
+    Route::post('/store', [Frontend\ContactController::class, 'store']);
 });
 
 Route::prefix('/dashboard')->group(function() {

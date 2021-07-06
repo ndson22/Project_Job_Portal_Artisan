@@ -6,9 +6,11 @@ import { environment } from 'src/environments/environment.prod';
 import { Job } from '../models/job';
 import { jobTypes } from '../models/jobType';
 import { JobProvinces } from '../models/jobProvince';
+import { Contact } from '../models/contact';
 
 const baseUrl = `${environment.frontendUrl}/jobs`;
 const baseDashboardUrl = `${environment.frontendUrl}/dashboard`;
+
 
 @Injectable({
   providedIn: 'root',
@@ -30,7 +32,6 @@ export class JobService {
   }
 
   store(data: any): Observable<any> {
-
     return this.http.post(`${baseUrl}/store`, data);
   }
 
@@ -66,4 +67,5 @@ export class JobService {
   changeActive(id: number): Observable<any> {
     return this.http.put<any>(`${baseDashboardUrl}/jobs/active`, {id: id});
   }
+
 }

@@ -4,6 +4,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 // import { NgbPagination } from '@ng-bootstrap/ng-bootstrap';
 import { FrontendRoutingModule } from './frontend-routing.module';
 
+import {NgxPaginationModule} from 'ngx-pagination';
+
 // Extra
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TimeagoModule } from 'ngx-timeago';
@@ -97,6 +99,7 @@ const QuestionOutline: IconDefinition[] = [EditFill, DeleteFill];
     DashboardJobListComponent,
   ],
   imports: [
+    NgxPaginationModule,
     // Zorro
     NzButtonModule,
     NzIconModule.forChild(QuestionOutline),

@@ -5,7 +5,8 @@
       <div class="col-md-8">
         <h2>{{ jobPost?.title }}</h2>
         <div class="ptext">Date Posted: {{ jobPost?.created_at | date }}</div>
-        <div class="salary">Monthly Salary: <strong>{{ jobPost?.from_salary | currency : 'USD'}} - {{ jobPost?.to_salary | currency : 'USD' }}</strong></div>
+        <div class="salary">Monthly Salary: <strong>{{ jobPost?.from_salary | currency : 'USD'}} - {{ jobPost?.to_salary
+            | currency : 'USD' }}</strong></div>
       </div>
       <div class="col-md-4">
         <div class="companyinfo">
@@ -21,22 +22,12 @@
     </div>
   </div>
   <div class="jobButtons">
-    <a href="#." class="btn apply"
-      ><i class="fa fa-paper-plane" aria-hidden="true"></i> Apply Now</a
-    >
-    <a href="#." class="btn"
-      ><i class="fa fa-envelope" aria-hidden="true"></i> Email to Friend</a
-    >
-    <a href="#." class="btn"
-      ><i class="fa fa-black-tie" aria-hidden="true"></i> Job Aleart</a
-    >
-    <a href="#." class="btn"
-      ><i class="fa fa-floppy-o" aria-hidden="true"></i> Save This Job</a
-    >
-    <a href="#." class="btn report"
-      ><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Report
-      Abuse</a
-    >
+    <a class="btn apply" (click)="toContact()"><i class="fa fa-paper-plane" aria-hidden="true"></i> Apply Now</a>
+    <a href="#." class="btn"><i class="fa fa-envelope" aria-hidden="true"></i> Email to Friend</a>
+    <a href="#." class="btn"><i class="fa fa-black-tie" aria-hidden="true"></i> Job Aleart</a>
+    <a href="#." class="btn"><i class="fa fa-floppy-o" aria-hidden="true"></i> Save This Job</a>
+    <a href="#." class="btn report"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Report
+      Abuse</a>
   </div>
 </div>
 
@@ -64,7 +55,7 @@
                 <img src="assets/frontend/images/jobs/jobimg.jpg" alt="Job Name" />
               </div>
               <div class="jobinfo">
-                <h3><a [routerLink]="['/jobs', job.id]" >{{ job.title }}</a></h3>
+                <h3><a [routerLink]="['/jobs', job.id]">{{ job.title }}</a></h3>
                 <div class="companyName">
                   <a>{{ job.name }}</a>
                 </div>
@@ -76,7 +67,7 @@
               <div class="clearfix"></div>
             </div>
             <div class="col-md-4 col-sm-4">
-              <div class="listbtn"><a [routerLink]="['/jobs', job.id]" >Apply Now</a></div>
+              <div class="listbtn"><a [routerLink]="['/jobs', job.id]">Apply Now</a></div>
             </div>
           </div>
           <p>
@@ -109,6 +100,10 @@
             <div class="col-md-6 col-xs-6"><span>{{ jobPost?.employee_quantity }}</span></div>
           </li>
           <li class="row">
+            <div class="col-md-6 col-xs-6">Type</div>
+            <div class="col-md-6 col-xs-6"><span>{{ jobPost?.jobTypes }}</span></div>
+          </li>
+          <li class="row">
             <div class="col-md-6 col-xs-6">Experience</div>
             <div class="col-md-6 col-xs-6"><span>{{ jobPost?.experience }} Years</span></div>
           </li>
@@ -127,38 +122,34 @@
     </div>
 
     <!-- Contact Company start -->
-    <div class="job-header">
-      <div class="jobdetail">
-        <h3>Contact Themeforest</h3>
-        <div class="formpanel">
-          <div class="formrow">
-            <input type="text" class="form-control" placeholder="Your Name">
+    <form [formGroup]="createForm"  (ngSubmit)="onAddContact()">
+      <div class="job-header" id="apply_scroll">
+        <div class="jobdetail">
+          <h3>Contact</h3>
+          <div class="formpanel">
+            <div class="formrow">
+              <input type="text" class="form-control" placeholder="Your Name" formControlName="name">
+            </div>
+            <div class="formrow">
+              <input type="email" class="form-control" placeholder="Your Email" formControlName="email">
+            </div>
+            <div class="formrow">
+              <input type="number" class="form-control" placeholder="Phone" formControlName="phone">
+            </div>
+            <div class="formrow">
+              <textarea class="form-control" placeholder="Message" formControlName="message"></textarea>
+            </div>
+            <input type="submit" class="btn" value="Submit">
           </div>
-          <div class="formrow">
-            <input type="text" class="form-control" placeholder="Your Email">
-          </div>
-          <div class="formrow">
-            <input type="text" class="form-control" placeholder="Phone">
-          </div>
-          <div class="formrow">
-            <input type="text" class="form-control" placeholder="Subject">
-          </div>
-          <div class="formrow">
-            <textarea class="form-control" placeholder="Message"></textarea>
-          </div>
-          <input type="submit" class="btn" value="Submit">
         </div>
       </div>
-    </div>
+    </form>
     <!-- Google Map start -->
     <div class="job-header">
       <div class="jobdetail">
         <h3>Google Map</h3>
         <div class="gmap">
-          <iframe
-            src="https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d13276.272465119835!2d72.97962462269287!3d33.70718629417979!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2s!4v1480401216309"
-            allowfullscreen
-          ></iframe>
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3724.4962240003656!2d105.79772571430779!3d21.01282189369948!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135ab5f56141f4f%3A0xf7f31741c041d055!2zTmfDtSAxMDAgVHLhuqduIER1eSBIxrBuZywgVHJ1bmcgSG_DoCwgQ-G6p3UgR2nhuqV5LCBIw6AgTuG7mWksIFZp4buHdCBOYW0!5e0!3m2!1svi!2s!4v1625494540032!5m2!1svi!2s" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
         </div>
       </div>
     </div>
