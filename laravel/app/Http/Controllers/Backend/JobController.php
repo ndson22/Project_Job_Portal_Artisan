@@ -73,7 +73,7 @@ class JobController extends Controller
 
     public function isPromote(Request $request, JobPost $job)
     {
-        $job->is_promote = $job->is_promote === 0 ? 1 : 0;
+        $job->promoted_at = $job->promoted_at ? null : now();
         $job->save();
         return response()->json($job);
     }

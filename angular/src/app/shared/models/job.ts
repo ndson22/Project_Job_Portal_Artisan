@@ -22,6 +22,6 @@ export class Job {
     public updated_at: Date,
     public companyImg: string,
     public sponsored: string,
-    public is_promote: boolean,
+    public promoted_at: Date,
   ) {}
 }

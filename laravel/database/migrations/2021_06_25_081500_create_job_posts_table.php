@@ -28,7 +28,7 @@ class CreateJobPostsTable extends Migration
             $table->integer('employee_quantity');
             $table->unsignedBigInteger('gender_id');
             $table->boolean('is_active')->default(1);
-            $table->boolean('is_promote')->default(0);
+            $table->timestamp('promoted_at')->nullable();
             $table->string('job_code');
             $table->timestamps();
 

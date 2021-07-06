@@ -31,7 +31,7 @@
           nzPopconfirmPlacement="bottom" nzOkText="Change"></nz-switch>
       </td>
       <td [nzAlign]="'center'">
-        <nz-switch [ngModel]="job.is_promote" [nzControl]="true" nz-popconfirm
+        <nz-switch [ngModel]="job.promoted_at" [nzControl]="true" nz-popconfirm
           nzPopconfirmTitle="Are you sure to set this job's promoted?" (nzOnConfirm)="onPromote(job)"
           nzPopconfirmPlacement="bottom" nzOkText="Change"></nz-switch>
       </td>

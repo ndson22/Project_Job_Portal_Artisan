@@ -41,7 +41,7 @@ export class JobListComponent implements OnInit {
       .changePromote(job.id)
       .subscribe(
         (res: Job) => {
-          job.is_promote = res.is_promote;
+          job.promoted_at = res.promoted_at;
           this.toastr.success('Change status sucessfully!');
         },
         (err) => {
