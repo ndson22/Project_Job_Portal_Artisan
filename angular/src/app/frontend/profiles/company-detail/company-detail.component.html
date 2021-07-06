@@ -1,0 +1,145 @@
+<div class="col-12">
+  <div class="userccount">
+    <!-- Change Avatar -->
+    <div>
+      <h5>Company General Information</h5>
+      <hr />
+      <div [nzGutter]="24" nz-row nzAlign="middle">
+        <div [nzSpan]="6" nz-col>
+          <img nz-image width="200px" height="200px"
+            nzSrc="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png" alt="" />
+        </div>
+        <div [nzSpan]="6" nz-col>
+          <div id="hide">
+            <label >
+              <input type="file"  />
+              <span><i nz-icon nzType="camera" nzTheme="fill" style="font-size: 36px" nz-popover nzPopoverContent="Change image"></i></span>
+            </label>
+          </div>
+        </div>
+      </div>
+      <!-- Account Basic Information Form -->
+      <form [formGroup]="companyForm" (ngSubmit)="onSubmit()" nz-form nzLayout="vertical">
+        <hr />
+        <div [nzGutter]="24" nz-row>
+          <div [nzSpan]="12" nz-col>
+            <nz-form-item>
+              <nz-form-label [nzSpan]="24">Company name</nz-form-label>
+              <nz-form-control nzHasFeedback nzErrorTip="Input is required">
+                <nz-input-group nzPrefixIcon="shop">
+                  <input type="text" nz-input formControlName="name" />
+                </nz-input-group>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+          <div [nzSpan]="12" nz-col>
+            <nz-form-item>
+              <nz-form-label [nzSpan]="24">Short name</nz-form-label>
+              <nz-form-control nzHasFeedback nzErrorTip="Input is required">
+                <nz-input-group nzPrefixIcon="shop">
+                  <input type="text" nz-input formControlName="short_name" />
+                </nz-input-group>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+        </div>
+        <div [nzGutter]="24" nz-row>
+          <div [nzSpan]="12" nz-col>
+            <nz-form-item>
+              <nz-form-label [nzSpan]="24">Email</nz-form-label>
+              <nz-form-control nzHasFeedback nzErrorTip="Input is required">
+                <nz-input-group nzPrefixIcon="mail">
+                  <input type="email" nz-input formControlName="email" />
+                </nz-input-group>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+          <div [nzSpan]="12" nz-col>
+            <nz-form-item>
+              <nz-form-label [nzSpan]="24">Province</nz-form-label>
+              <nz-form-control nzHasFeedback nzErrorTip="Input is required">
+                <select class="form-control" formControlName="province_id">
+                  <option value="">--Select--</option>
+                  <!-- <option *ngFor="let jobType of jobTypes" value="{{ jobType.id }}">{{ jobType.name }}</option> -->
+                </select>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+        </div>
+        <div [nzGutter]="24" nz-row>
+          <div [nzSpan]="12" nz-col>
+            <nz-form-item>
+              <nz-form-label [nzSpan]="24">Phone number</nz-form-label>
+              <nz-form-control nzHasFeedback nzErrorTip="Input is required">
+                <nz-input-group nzPrefixIcon="phone">
+                  <input type="number" nz-input formControlName="facebook" />
+                </nz-input-group>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+          <div [nzSpan]="12" nz-col>
+            <nz-form-item>
+              <nz-form-label [nzSpan]="24">Website</nz-form-label>
+              <nz-form-control nzHasFeedback nzErrorTip="Input is required">
+                <nz-input-group nzPrefixIcon="global">
+                  <input type="text" nz-input formControlName="website" />
+                </nz-input-group>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+        </div>
+        <div [nzGutter]="24" nz-row>
+          <div [nzSpan]="12" nz-col>
+            <nz-form-item>
+              <nz-form-label [nzSpan]="24">Map link</nz-form-label>
+              <nz-form-control nzHasFeedback nzErrorTip="Input is required">
+                <nz-input-group nzPrefixIcon="global">
+                  <input type="text" nz-input formControlName="map_link" />
+                </nz-input-group>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+          <div [nzSpan]="12" nz-col>
+            <nz-form-item>
+              <nz-form-label [nzSpan]="24">Branch</nz-form-label>
+              <nz-form-control nzHasFeedback nzErrorTip="Input is required">
+                <nz-input-group nzPrefixIcon="branches">
+                  <input type="text" nz-input formControlName="branch" />
+                </nz-input-group>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+        </div>
+        <div [nzGutter]="24" nz-row>
+          <div [nzSpan]="12" nz-col>
+            <nz-form-item>
+              <nz-form-label [nzSpan]="24">Facebook</nz-form-label>
+              <nz-form-control nzHasFeedback nzErrorTip="Input is required">
+                <nz-input-group nzPrefixIcon="facebook">
+                  <input type="text" nz-input formControlName="facebook" />
+                </nz-input-group>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+          <div [nzSpan]="12" nz-col>
+            <nz-form-item>
+              <nz-form-label [nzSpan]="24">Description</nz-form-label>
+              <nz-form-control nzHasFeedback nzErrorTip="Input is required">
+                <textarea rows="5" nz-input formControlName="description"></textarea>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+        </div>
+        <nz-form-item style="text-align: right">
+          <nz-form-control>
+            <button [disabled]="
+              companyForm.invalid || isLoading || !companyForm.dirty
+              " type="submit" nz-button nzType="primary">
+              Update and Save
+            </button>
+          </nz-form-control>
+        </nz-form-item>
+      </form>
+    </div>
+  </div>
+</div>
