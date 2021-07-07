@@ -33,7 +33,7 @@ export class JobListComponent implements OnInit, OnDestroy {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private jobService: JobService,
+    public jobService: JobService,
     private formBuilder: FormBuilder
   ) { }
 

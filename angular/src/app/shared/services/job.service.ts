@@ -65,5 +65,4 @@ export class JobService {
   changeActive(id: number): Observable<any> {
     return this.http.put<any>(`${baseDashboardUrl}/jobs/active`, {id: id});
   }
-
 }

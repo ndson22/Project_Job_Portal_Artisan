@@ -22,7 +22,12 @@ class JobController extends Controller
 {
     public function getAll()
     {
-        $jobPosts = JobPost::where('is_active', 1)->latest()->take(20)->get();
+        $companyIds = Company::select('id')->whereNull('verified_at')->orWhereNotNull('locked_at')->get();
+        $jobPosts = JobPost::where('is_active', 1)
+                    ->whereNotIn('company_id', $companyIds)
+                    ->latest()
+                    ->get();
+
         foreach ($jobPosts as $key => $jobPost) {
             $jobPost->name = $jobPost->company->name;
             $jobPost->location = $jobPost->company->province->name;
@@ -30,6 +35,7 @@ class JobController extends Controller
             $jobPost->jobTypes = $jobPost->jobType->name;
             $jobPost->employeePositions = $jobPost->employeePosition->name;
             $jobPost->typeOfEmployments = $jobPost->typeOfEmployment->name;
+            $jobPost->sponsored = $jobPost->company->sponsored_at;
         }
         return response()->json($jobPosts);
     }
@@ -178,6 +184,4 @@ class JobController extends Controller
         $jobPosts = JobPost::where('company_id', $companyId)->latest()->get();
         return response()->json($jobPosts);
     }
-
-
 }

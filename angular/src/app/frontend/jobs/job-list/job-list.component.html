@@ -181,14 +181,14 @@
       totalItems: count
   }; ">
       <!-- job start -->
-      <li>
+      <li [ngClass]="{'company-sponsored': job.sponsored !== null}">
         <div class="row">
           <div class="col-md-8 col-sm-8">
             <div class="jobimg">
               <img src="assets/frontend/images/jobs/jobimg.jpg" alt="Job Name" />
             </div>
             <div class="jobinfo">
-              <h3><a [routerLink]="['/jobs', job.id]">{{ job.title }}</a></h3>
+              <h3><a [ngClass]="job.promoted_at !== null ? 'job-promoted' : ''" [routerLink]="['/jobs', job.id]">{{ job.title }}</a></h3>
               <div class="companyName">
                 <a>{{ job.name }}</a>
               </div>
