@@ -1,0 +1,50 @@
+<div class="sidebar-wrapper" data-simplebar="true">
+  <div class="sidebar-header">
+    <div>
+      <img
+        src="assets/backend/images/logo-icon.png"
+        class="logo-icon"
+        alt="logo icon"
+      />
+    </div>
+    <div>
+      <h4 class="logo-text">Rocker</h4>
+    </div>
+    <div class="toggle-icon ms-auto"><i class="bx bx-arrow-to-left"></i></div>
+  </div>
+  <!--navigation-->
+  <ul class="metismenu" id="menu">
+    <li class="menu-label">Management</li>
+    <li
+      routerLinkActive="mm-active"
+      [routerLinkActiveOptions]="{ exact: true }"
+    >
+      <a href="javascript:;" class="has-arrow">
+        <div class="parent-icon"><i class="bx bx-cart"></i></div>
+        <div class="menu-title">test</div>
+      </a>
+      <ul>
+        <li
+          routerLinkActive="mm-active"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+          <a routerLink="/backend/product"
+            ><i class="bx bx-right-arrow-alt"></i>Test</a
+          >
+        </li>
+        <li>
+          <a href="ecommerce-add-new-products.html"
+            ><i class="bx bx-right-arrow-alt"></i>Add New Product</a
+          >
+        </li>
+      </ul>
+    </li>
+    <li routerLinkActive="mm-active">
+      <a routerLink="/backend/companies">
+        <div class="parent-icon"><i class="bx bx-cart"></i></div>
+        <div class="menu-title">Companies</div>
+      </a>
+    </li>
+  </ul>
+  <!--end navigation-->
+</div>
