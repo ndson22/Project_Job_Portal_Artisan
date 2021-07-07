@@ -1,0 +1,41 @@
+<!-- title start -->
+<div class="titleTop">
+  <div class="subtitle">Here You Can See</div>
+  <h3>Featured <span>Jobs</span></h3>
+</div>
+<!-- title end -->
+
+<!--Featured Job start-->
+<ul class="jobslist row">
+  <!--Job start-->
+  <li class="col-md-6" *ngFor="let jobPost of jobPosts">
+    <div class="jobint">
+      <div class="row" style="height: 100px;">
+        <div class="col-md-2 col-sm-2">
+          <img src="assets/frontend/images/employers/emplogo1.jpg" alt="Job Name" />
+        </div>
+        <div class="col-md-7 col-sm-7">
+          <h4><a [routerLink]="['/jobs', jobPost.id]">{{ jobPost?.title }}</a></h4>
+          <div class="company">
+            <a href="#.">{{ jobPost?.name }}</a>
+          </div>
+          <div class="jobloc">
+            <label class="fulltime">{{ jobPost?.typeOfEmployments }}</label> -
+            <span>{{ jobPost?.location }}</span>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-3">
+          <a [routerLink]="['/jobs', jobPost.id]" class="applybtn">Apply Now</a>
+        </div>
+      </div>
+    </div>
+  </li>
+  <!--Job end-->
+</ul>
+<!--Featured Job end-->
+
+<!--button start-->
+<div class="viewallbtn">
+  <a [routerLink]="['/jobs']">View All Featured Jobs</a>
+</div>
+<!--button end-->
