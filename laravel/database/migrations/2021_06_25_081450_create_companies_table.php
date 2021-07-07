@@ -26,7 +26,9 @@ class CreateCompaniesTable extends Migration
             $table->string('address');
             $table->integer('scale')->nullable();
             $table->boolean('is_active')->default(0);
-            $table->date('verified_at')->nullable();
+            $table->timestamp('verified_at')->nullable();
+            $table->timestamp('locked_at')->nullable();
+            $table->timestamp('sponsored_at')->nullable();
             $table->unsignedBigInteger('province_id');
             $table->string('facebook')->nullable();
             $table->string('website')->nullable();

@@ -49,7 +49,7 @@ export class JobCreateComponent implements OnInit {
         this.genders = res.genders;
       },
       error: (res) => {
-        console.log(res);
+        this.toastr.error('Loading fail');
       }
     });
   }
@@ -60,9 +60,8 @@ export class JobCreateComponent implements OnInit {
     }
     this.jobService.store(this.createForm.value).subscribe({
       next: (res) => {
-        console.log(res);
         // thong bao thanh cong
-        this.toastr.success('Success', 'Created Successfully!');
+        this.toastr.success('Created Successfully!');
         //reset form
         Object.keys(this.createForm.controls).forEach((key) => {
           this.createForm.get(key)?.setValue('');
@@ -70,7 +69,7 @@ export class JobCreateComponent implements OnInit {
         });
       },
       error: () => {
-        this.toastr.error('Error', 'Created Fail! Try again');
+        this.toastr.error('Created Fail! Try again');
       }
     });
   }

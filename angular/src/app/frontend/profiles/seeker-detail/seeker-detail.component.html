@@ -106,7 +106,7 @@
           <nz-form-control>
             <button [disabled]="
                 seekerForm.invalid || isLoading || !seekerForm.dirty
-              " type="submit" nz-button nzType="primary">
+              " type="submit" nz-button nzType="primary" [nzLoading]="isLoading">
               Update and Save
             </button>
           </nz-form-control>
@@ -147,7 +147,7 @@
               seekerExperienceForm.invalid ||
                 isLoading ||
                 !seekerExperienceForm.dirty
-              " type="submit" nz-button nzType="primary">
+              " type="submit" nz-button nzType="primary" [nzLoading]="isLoading">
               Update and Save
             </button>
           </nz-form-control>

@@ -3,7 +3,7 @@
     <nav class="navbar navbar-expand">
       <div class="mobile-toggle-menu"><i class="bx bx-menu"></i></div>
       <div class="search-bar flex-grow-1">
-        <div class="position-relative search-bar-box">
+        <div class="position-relative search-bar-box" [hidden]="true">
           <input
             type="text"
             class="form-control search-control"
@@ -18,7 +18,7 @@
         </div>
       </div>
       <div class="top-menu ms-auto">
-        <ul class="navbar-nav align-items-center">
+        <ul class="navbar-nav align-items-center" [hidden]="true">
           <li class="nav-item mobile-search-icon">
             <a class="nav-link" href="#"> <i class="bx bx-search"></i> </a>
           </li>
@@ -495,10 +495,10 @@
         <ul class="dropdown-menu dropdown-menu-end">
           <li>
             <a class="dropdown-item" href="/dashboard"
-              ><i class="bx bx-user"></i><span>Account</span></a
+              ><i class="bx bx-user"></i><span>My Account</span></a
             >
           </li>
-          <li>
+          <!-- <li>
             <a class="dropdown-item" href="javascript:;"
               ><i class="bx bx-cog"></i><span>Settings</span></a
             >
@@ -520,7 +520,7 @@
           </li>
           <li>
             <div class="dropdown-divider mb-0"></div>
-          </li>
+          </li> -->
           <li (click)="onLogout()">
             <a class="dropdown-item" href="javascript:;"
               ><i class="bx bx-log-out-circle"></i><span>Logout</span></a

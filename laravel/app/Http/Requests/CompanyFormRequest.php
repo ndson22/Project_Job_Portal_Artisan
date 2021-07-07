@@ -14,15 +14,15 @@ class CompanyFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'user_id' => 'required|digits',
-            'name' => 'required',
-            'short_name' => 'required|min:1|max:5',
-            'email' => 'required',
-            'phone' => 'nullable|digits',
+            'user_id' => 'required|digits_between:1,10000000',
+            'name' => 'required|max:255',
+            'short_name' => 'required|max:5',
+            'email' => 'required|email',
+            'phone' => 'nullable|digits:10',
             'image' => 'nullable|mimes:jpg,jpeg,bmp,png|max:10240',
-            'description' => 'nullable',
-            'address' => 'required',
-            'province_id' => 'required'
+            'description' => 'nullable|max:1000',
+            'address' => 'required|max:255',
+            'province_id' => 'required|digits_between:1,2'
         ];
     }
 }

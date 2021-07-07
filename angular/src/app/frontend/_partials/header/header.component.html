@@ -50,29 +50,27 @@
           <!-- <li><a href="contact-us.html">Contact</a></li> -->
 
           <!-- Two Big Button -->
-          <li
-            class="postjob"
-            *ngIf="userService.isRole('company'); else firstButtonNotUser"
-          >
+          <li class="postjob" *ngIf="userService.isRole('company')">
             <a routerLink="/dashboard/jobs/create">Post a job</a>
           </li>
-          <li
-            class="jobseeker"
-            *ngIf="userService.isRole('company'); else secondButtonNotUser"
-          >
+          <li class="jobseeker" *ngIf="userService.isRole('company')">
             <a routerLink="/dashboard/account">View CV</a>
           </li>
 
-          <ng-template #firstButtonNotUser>
-            <li class="postjob">
-              <a routerLink="/login">Login</a>
-            </li>
-          </ng-template>
-          <ng-template #secondButtonNotUser>
-            <li class="jobseeker" #secondButtonNotUser>
-              <a routerLink="/register">Register</a>
-            </li>
-          </ng-template>
+          <li class="postjob" *ngIf="userService.isRole('admin')">
+            <a href="/backend">Admin Page</a>
+          </li>
+
+          <li class="postjob" *ngIf="userService.isRole('seeker')">
+            <a routerLink="/dashboard/account">Write CV</a>
+          </li>
+
+          <li class="postjob" *ngIf="!userService.isUser()">
+            <a routerLink="/login">Login</a>
+          </li>
+          <li class="jobseeker" *ngIf="!userService.isUser()">
+            <a routerLink="/register">Register</a>
+          </li>
 
           <!-- Admin Small Circle -->
           <li
@@ -90,14 +88,9 @@
             /></a>
             <ul class="dropdown-menu">
               <li>
-                <a href="/backend"
-                  ><i class="fa fa-pencil" aria-hidden="true"></i> Edit
+                <a href="/dashboard/account"
+                  ><i class="fa fa-pencil" aria-hidden="true"></i> My
                   Account</a
-                >
-              </li>
-              <li>
-                <a href="/backend"
-                  ><i class="fa fa-briefcase" aria-hidden="true"></i> My Jobs</a
                 >
               </li>
               <li role="separator" class="divider"></li>
@@ -124,7 +117,7 @@
               <ul class="dropdown-menu">
                 <li routerLinkActive="active">
                   <a routerLink="/dashboard/account"
-                    ><i class="fa fa-pencil" aria-hidden="true"></i> Edit
+                    ><i class="fa fa-pencil" aria-hidden="true"></i> My
                     Account</a
                   >
                 </li>

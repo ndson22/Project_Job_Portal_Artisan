@@ -49,7 +49,7 @@ export class SeekerDetailComponent implements OnInit {
   ) {
     this.seekerService.getCurrentSeeker().subscribe((res) => {
       this.seeker = res;
-      this.avatar = `${environment.storageUrl}/${res.image}` ?? this.avatar;
+      this.avatar = `${environment.storageUrl}${res.image}` ?? this.avatar;
       this.seekerForm.patchValue({
         name: res.name,
         gender_id: res.gender?.id ?? 3,
@@ -80,7 +80,7 @@ export class SeekerDetailComponent implements OnInit {
     data.append('image', event.target.files[0]);
     this.seekerService.changeAvatar(data).subscribe((res: Seeker) => {
       this.toastr.success('Change avatar successfully!');
-      this.avatar = `${environment.storageUrl}/${res.image}`;
+      this.avatar = `${environment.storageUrl}${res.image}`;
     });
   }
 
@@ -106,6 +106,7 @@ export class SeekerDetailComponent implements OnInit {
 
   // Update seeker experiences
   onSubmitSeekerExperience() {
+    this.isLoading = true;
     if (!this.seeker.seeker_experience) {
       this.seekerExperienceForm.addControl('seeker_id', this.formBuilder.control(this.seeker.id, Validators.required));
       this.seekerExperienceService
@@ -113,12 +114,14 @@ export class SeekerDetailComponent implements OnInit {
         .subscribe(
           (res) => {
             this.seeker = res;
-            this.isLoading = true;
             this.toastr.success('Update experience successfully');
             this.seekerExperienceForm.markAsPristine();
           },
           (err) => {
             this.toastr.error('Update experience fail');
+          },
+          () => {
+            this.isLoading = false;
           }
         );
     } else {
@@ -127,7 +130,6 @@ export class SeekerDetailComponent implements OnInit {
         .subscribe(
           (res) => {
             this.seeker = res;
-            this.isLoading = true;
             this.toastr.success('Update experience successfully');
             this.seekerExperienceForm.markAsPristine();
           },

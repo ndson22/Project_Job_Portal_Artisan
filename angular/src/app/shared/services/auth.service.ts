@@ -32,11 +32,21 @@ export class AuthService {
   login(data: any): Observable<any> {
     return this.http.post<User>(`${baseUrl}/login`, data).pipe(
       map((res: User) => {
-        if (res.email_verified_at) {
-          this.localStorageService.setItem('user', JSON.stringify(res));
-          return res;
+        if (res.email_verified_at === null) {
+          this.localStorageService.removeItem('user');
+          throw new Error('Your email is not verified yet!');
         }
-        throw new Error('Your email is not verified yet!');
+        if (res.role.slug === 'company') {
+          if (res.company.verified_at === null) {
+            this.localStorageService.removeItem('user');
+            throw new Error(
+              'Your company is not verified by our team yet. Please be patient!!!'
+            );
+          }
+        }
+
+        this.localStorageService.setItem('user', JSON.stringify(res));
+        return res;
       }),
       catchError((err) => {
         return throwError(err);
@@ -71,8 +81,9 @@ export class AuthService {
       .pipe(first())
       .subscribe(
         (res) => {
-          if (localStorage.hasOwnProperty('user'))
+          if (localStorage.hasOwnProperty('user')) {
             this.localStorageService.setItem('user', JSON.stringify(res));
+          }
           this.toastr.success(
             'Please login to your account',
             'Your email is verified succesfully!'

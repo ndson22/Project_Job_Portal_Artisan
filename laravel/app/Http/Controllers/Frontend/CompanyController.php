@@ -28,20 +28,24 @@ class CompanyController extends Controller
         $this->storeImage($request, $company, 'image', 'company');
         $company->save();
 
-        $company->code = $company->short_name . $company->id;
+        $company->code = $company->short_name . $company->id . str_pad(rand(0, 9999), 6, '0', STR_PAD_LEFT);
         $company->save();
 
-        return response()->json($company, 201);
+        return response()->json($company->withRelationships($company), 201);
     }
 
     public function show(Company $company)
     {
-        return response()->json($company);
+        return response()->json($company->withRelationships($company));
     }
 
-    public function update(Request $request, $id)
+    public function update(CompanyFormRequest $request, Company $company)
     {
-        //
+        $company->fill($request->all());
+        $company->code = $company->short_name . $company->id . str_pad(rand(0, 9999), 6, '0', STR_PAD_LEFT);
+        $company->update();
+        $company = $company->withRelationships($company);
+        return response()->json($company);
     }
 
     public function destroy($id)
@@ -55,8 +59,38 @@ class CompanyController extends Controller
 
         $company->verified_at = $company->verified_at ? null : now();
         $company->update();
-
         Mail::to($company->user->email)->queue(new VerifyCompany($company));
+        return response()->json($company);
+    }
+
+    public function lock(Request $request, Company $company)
+    {
+        $this->authorize('verify', $company);
+
+        $company->locked_at = $company->locked_at ? null : now();
+        $company->update();
+        // Mail::to($company->user->email)->queue(new VerifyCompany($company));
+        return response()->json($company);
+    }
+
+    public function sponsor(Request $request, Company $company)
+    {
+        $this->authorize('verify', $company);
+
+        $company->sponsored_at = $company->sponsored_at ? null : now();
+        $company->update();
+        // Mail::to($company->user->email)->queue(new VerifyCompany($company));
+        return response()->json($company);
+    }
+
+    public function uploadImage(Request $request, Company $company)
+    {
+        if (!$request->has('file')) {
+            return response()->json($request, 400);
+        }
+        $this->storeImageZorro($request, $company, 'file', 'company');
+        $company->update();
+        $company = $company->withRelationships($company);
 
         return response()->json($company);
     }

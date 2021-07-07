@@ -77,8 +77,8 @@ class AuthController extends Controller
         $tokenAbility = $user->role->slug;
         $token = $user->createToken($request->email, [$tokenAbility])->plainTextToken;
         $cookie = cookie('sanctum_token', $token, 60);
-
         $user = User::withRelationships($user->id);
+
         return response()->json($user)->withCookie($cookie);
     }
 

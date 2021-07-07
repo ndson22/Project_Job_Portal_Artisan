@@ -11,7 +11,7 @@ class Company extends Model
     use HasFactory;
     protected $table = 'companies';
 
-    protected $fillable = ['user_id', 'name', 'short_name', 'email', 'description', 'address', 'province_id'];
+    protected $fillable = ['user_id', 'name', 'short_name', 'email', 'description', 'address', 'province_id', 'phone_number', 'facebook', 'website', 'map_link', 'branch', 'scale'];
 
     public function jobPost()
     {
@@ -26,5 +26,10 @@ class Company extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function withRelationships(Company $company)
+    {
+        return $this->with(['user', 'province'])->findOrFail($company->id);
     }
 }

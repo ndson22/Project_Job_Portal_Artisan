@@ -58,7 +58,11 @@ export class LoginComponent implements OnInit {
       .subscribe(
         (res) => {
           // this.toastr.success('Success', 'Logged in successfully!');
-          this.location.back();
+          // this.location.back();
+          // if (this.router.url.startsWith('/verify-email/')) {
+          //   this.router.navigateByUrl('/');
+          // }
+          this.router.navigateByUrl('/');
         },
         (err) => {
           console.log(err);

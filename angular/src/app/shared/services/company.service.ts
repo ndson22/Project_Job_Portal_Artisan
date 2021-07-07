@@ -16,7 +16,23 @@ export class CompanyService {
     return this.http.get<Company[]>(baseUrl);
   }
 
-  changeVerify(id: number): Observable<Company> {
-    return this.http.put<Company>(`${baseUrl}/${id}/verify`, null);
+  changeVerify(company: Company): Observable<Company> {
+    return this.http.put<Company>(`${baseUrl}/${company.id}/verify`, null);
+  }
+
+  changeLock(company: Company): Observable<Company> {
+    return this.http.put<Company>(`${baseUrl}/${company.id}/lock`, null);
+  }
+
+  changeSponsor(company: Company): Observable<Company> {
+    return this.http.put<Company>(`${baseUrl}/${company.id}/sponsor`, null);
+  }
+
+  update(data: any): Observable<Company> {
+    return this.http.put<Company>(`${baseUrl}/${data.id}`, data);
+  }
+
+  updateImage(data: any, company: Company): Observable<Company> {
+    return this.http.post<Company>(`${baseUrl}/${company.id}/image`, data);
   }
 }

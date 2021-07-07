@@ -60,7 +60,7 @@ class JobController extends Controller
             DB::beginTransaction();
             $jobPost = new JobPost();
             $jobPost->fill($request->all());
-            $jobPost->company_id = Company::where('user_id', Auth::id())->pluck('id')[0];
+            $jobPost->company_id = Company::where('user_id', Auth::id())->first()->id;
             $jobPost->job_code = "CODE" . $jobPost->company_id;
             $jobPost->save();
             $jobPost->job_code = $jobPost->job_code . $jobPost->id;
@@ -77,7 +77,7 @@ class JobController extends Controller
     {
         $jobPost = JobPost::find($id);
         $jobPost->update($request->all());
-        $companyId = Company::where('user_id', Auth::id())->pluck('id')[0];
+        $companyId = Company::where('user_id', Auth::id())->first()->id;
         $jobPosts = JobPost::where('company_id', $companyId)->latest()->get();
         return response()->json($jobPosts);
     }
@@ -164,7 +164,7 @@ class JobController extends Controller
     public function delete($id)
     {
         JobPost::destroy($id);
-        $companyId = Company::where('user_id', Auth::id())->pluck('id')[0];
+        $companyId = Company::where('user_id', Auth::id())->first()->id;
         $jobPosts = JobPost::where('company_id', $companyId)->latest()->get();
         return response()->json($jobPosts);
     }
@@ -174,7 +174,7 @@ class JobController extends Controller
         $jobPost = JobPost::find($request->id);
         $jobPost->is_active = $jobPost->is_active === 0 ? 1 : 0;
         $jobPost->save();
-        $companyId = Company::where('user_id', Auth::id())->pluck('id')[0];
+        $companyId = Company::where('user_id', Auth::id())->first()->id;
         $jobPosts = JobPost::where('company_id', $companyId)->latest()->get();
         return response()->json($jobPosts);
     }

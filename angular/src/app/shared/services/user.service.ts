@@ -35,15 +35,18 @@ export class UserService {
         return true;
       }),
       catchError((err) => {
-        this.toastr.error('Unknow errors!');
+        this.toastr.error('Please try again!');
         return throwError(err);
       })
     );
   }
 
   isUser(): any {
-    this.user = JSON.parse(localStorage.getItem('user')!);
-    return localStorage.hasOwnProperty('user');
+    const userCheck = localStorage.hasOwnProperty('user');
+    if (userCheck) {
+      this.user = JSON.parse(localStorage.getItem('user')!);
+    }
+    return userCheck;
   }
 
   isRole(slug: string): any {
@@ -72,7 +75,7 @@ export class UserService {
         return true;
       }),
       catchError((err) => {
-        this.toastr.error('Unknow errors!');
+        this.toastr.error('Please try again!');
         return throwError(err);
       })
     );
@@ -85,7 +88,7 @@ export class UserService {
         return true;
       }),
       catchError((err) => {
-        this.toastr.error('Unknow errors!');
+        this.toastr.error('Please try again!');
         return throwError(err);
       })
     );

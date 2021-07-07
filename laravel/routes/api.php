@@ -48,10 +48,14 @@ Route::prefix('/dashboard')->group(function () {
     Route::put('/jobs/active', [Frontend\JobController::class, 'changeStatus'])->middleware('auth:sanctum');
 });
 
-Route::put('/companies/{company}/verify/', [Frontend\CompanyController::class, 'verify'])->middleware('auth:sanctum');
+Route::put('/companies/{company}/verify', [Frontend\CompanyController::class, 'verify'])->middleware('auth:sanctum');
+Route::put('/companies/{company}/lock', [Frontend\CompanyController::class, 'lock'])->middleware('auth:sanctum');
+Route::put('/companies/{company}/sponsor', [Frontend\CompanyController::class, 'sponsor'])->middleware('auth:sanctum');
+Route::post('/companies/{company}/image', [Frontend\CompanyController::class, 'uploadImage'])->middleware('auth:sanctum');
 
 Route::apiResource('companies', Frontend\CompanyController::class);
 Route::apiResource('provinces', Frontend\ProvinceController::class)->only('index');
+
 Route::apiResource('experiences', Frontend\SeekerExperienceController::class)->middleware('auth:sanctum');
 Route::apiResource('seekers', Frontend\SeekerController::class)->middleware('auth:sanctum');
 Route::post('/seekers/{seeker}/avatar', [Frontend\SeekerController::class, 'changeAvatar'])->middleware('auth:sanctum');

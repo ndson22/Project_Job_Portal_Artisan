@@ -24,8 +24,9 @@ import { NZ_I18N, en_US } from 'ng-zorro-antd/i18n';
     NgxSpinnerModule,
     ToastrModule.forRoot({
       preventDuplicates: false,
-      maxOpened: 5,
+      maxOpened: 3,
       autoDismiss: true,
+      positionClass: 'toast-top-right'
     }),
   ],
   providers: [

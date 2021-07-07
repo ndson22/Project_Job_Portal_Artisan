@@ -1,5 +1,5 @@
 <div class="col-md-3 col-sm-4">
-  <div class="switchbox">
+  <div class="switchbox" [hidden]="true">
     <div class="txtlbl">
       Immediate Available
       <i
@@ -25,7 +25,7 @@
   <ul class="usernavdash">
     <li routerLinkActive="active">
       <a routerLink="/dashboard/account"
-        ><i class="fa fa-user" aria-hidden="true"></i> Account</a
+        ><i class="fa fa-user" aria-hidden="true"></i> My Account</a
       >
     </li>
     <li routerLinkActive="active" *ngIf="userService.isRole('company')">
@@ -35,7 +35,7 @@
     </li>
     <li routerLinkActive="active" *ngIf="userService.isRole('seeker')">
       <a routerLink="/dashboard/seeker"
-        ><i class="fa fa-user" aria-hidden="true"></i> My Profile</a
+        ><i class="fa fa-user" aria-hidden="true"></i> My Seeker Profile</a
       >
     </li>
     <li routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" *ngIf="userService.isRole('company')">

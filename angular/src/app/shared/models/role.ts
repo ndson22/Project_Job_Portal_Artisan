@@ -5,6 +5,6 @@ export class Role {
     public slug: string,
     public description: string,
     public created_at: string,
-    public updated_at: string
+    public updated_at: Date
   ) {}
 }

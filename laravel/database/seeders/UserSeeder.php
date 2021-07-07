@@ -35,5 +35,22 @@ class UserSeeder extends Seeder
             'role_id' => 3,
             'email_verified_at' => now(),
         ]);
+
+        // Company Extra
+        User::create([
+            'name' => 'FPT MTV',
+            'email' => 'fpt.mtv@fpt.vn',
+            'password' => bcrypt('password'),
+            'role_id' => 2,
+            'email_verified_at' => now(),
+        ]);
+
+        User::create([
+            'name' => 'Double VN',
+            'email' => 'doublevn@double.vn',
+            'password' => bcrypt('password'),
+            'role_id' => 2,
+            'email_verified_at' => now(),
+        ]);
     }
 }
