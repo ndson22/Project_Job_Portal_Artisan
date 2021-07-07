@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers\Frontend;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\CompanyFormRequest;
-use App\Mail\VerifyCompany;
 use App\Models\Company;
+use App\Models\JobPost;
 use App\Traits\ImageTrait;
+use App\Mail\VerifyCompany;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Mail;
+use App\Http\Requests\CompanyFormRequest;
 
 class CompanyController extends Controller
 {
@@ -18,6 +20,13 @@ class CompanyController extends Controller
     {
         $companies = Company::with(['province', 'user'])->get();
         return response()->json($companies);
+    }
+
+    public function getCompany()
+    {
+        $jobCompany = JobPost::with('company')->groupBy('company_id')
+        ->select('company_id', DB::raw('count(*) as total'))->orderBy('total', 'desc')->take(20)->get();
+        return response()->json($jobCompany);
     }
 
     public function store(CompanyFormRequest $request)
@@ -56,7 +65,6 @@ class CompanyController extends Controller
     public function verify(Request $request, Company $company)
     {
         $this->authorize('verify', $company);
-
         $company->verified_at = $company->verified_at ? null : now();
         $company->update();
         Mail::to($company->user->email)->queue(new VerifyCompany($company));
@@ -76,7 +84,6 @@ class CompanyController extends Controller
     public function sponsor(Request $request, Company $company)
     {
         $this->authorize('verify', $company);
-
         $company->sponsored_at = $company->sponsored_at ? null : now();
         $company->update();
         // Mail::to($company->user->email)->queue(new VerifyCompany($company));
@@ -91,7 +98,6 @@ class CompanyController extends Controller
         $this->storeImageZorro($request, $company, 'file', 'company');
         $company->update();
         $company = $company->withRelationships($company);
-
         return response()->json($company);
     }
 }

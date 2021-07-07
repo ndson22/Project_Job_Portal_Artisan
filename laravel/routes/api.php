@@ -56,6 +56,7 @@ Route::put('/companies/{company}/verify', [Frontend\CompanyController::class, 'v
 Route::put('/companies/{company}/lock', [Frontend\CompanyController::class, 'lock'])->middleware('auth:sanctum');
 Route::put('/companies/{company}/sponsor', [Frontend\CompanyController::class, 'sponsor'])->middleware('auth:sanctum');
 Route::post('/companies/{company}/image', [Frontend\CompanyController::class, 'uploadImage'])->middleware('auth:sanctum');
+Route::get('/companies/top', [Frontend\CompanyController::class, 'getCompany']);
 
 Route::apiResource('companies', Frontend\CompanyController::class);
 Route::apiResource('provinces', Frontend\ProvinceController::class)->only('index');

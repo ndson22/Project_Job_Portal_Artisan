@@ -3,6 +3,7 @@ import { environment } from 'src/environments/environment.prod';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Company } from '../models/company';
+import { Job } from '../models/job';
 
 const baseUrl = `${environment.frontendUrl}/companies`;
 
@@ -14,6 +15,10 @@ export class CompanyService {
 
   getAll(): Observable<Company[]> {
     return this.http.get<Company[]>(baseUrl);
+  }
+
+  getCompanyTop(): Observable<Job[]> {
+    return this.http.get<Job[]>(`${baseUrl}/top`);
   }
 
   changeVerify(company: Company): Observable<Company> {

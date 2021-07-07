@@ -185,7 +185,7 @@
         <div class="row">
           <div class="col-md-8 col-sm-8">
             <div class="jobimg">
-              <img src="assets/frontend/images/jobs/jobimg.jpg" alt="Job Name" />
+              <img [src]="job.company.image ? (storageUrl + job.company.image) : 'assets/frontend/images/employers/emplogo1.jpg'" alt="Job Name" />
             </div>
             <div class="jobinfo">
               <h3><a [routerLink]="['/jobs', job.id]">{{ job.title }}</a></h3>

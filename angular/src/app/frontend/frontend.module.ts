@@ -76,6 +76,8 @@ import { AboutUsComponent } from './_layouts/about-us/about-us.component';
 import { ContactUsComponent } from './_layouts/contact-us/contact-us.component';
 import { CompanyDetailComponent } from './profiles/company-detail/company-detail.component';
 import { SeekerDetailComponent } from './profiles/seeker-detail/seeker-detail.component';
+import { TopEmployersComponent } from './home/top-employers/top-employers.component';
+import { SearchComponent } from './home/search/search.component';
 
 @NgModule({
   declarations: [
@@ -108,6 +110,8 @@ import { SeekerDetailComponent } from './profiles/seeker-detail/seeker-detail.co
     ContactUsComponent,
     CompanyDetailComponent,
     SeekerDetailComponent,
+    TopEmployersComponent,
+    SearchComponent,
   ],
   imports: [
     NgxPaginationModule,
