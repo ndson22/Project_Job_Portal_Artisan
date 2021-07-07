@@ -1,0 +1,148 @@
+<div class="row">
+  <div class="col-md-2 col-sm-3 col-xs-12">
+    <a routerLink="/" class="logo"
+      ><img src="assets/frontend/images/logo.png" alt=""
+    /></a>
+    <div class="navbar-header">
+      <button
+        type="button"
+        class="navbar-toggle"
+        data-toggle="collapse"
+        data-target=".navbar-collapse"
+      >
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span> <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+  <div class="col-md-10 col-sm-12 col-xs-12">
+    <!-- Nav start -->
+    <div class="navbar navbar-default" role="navigation">
+      <div class="navbar-collapse collapse" id="nav-main">
+        <ul class="nav navbar-nav">
+          <!-- Navbar Item -->
+          <li
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            <a routerLink="/">Home</a>
+          </li>
+          <li
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            <a routerLink="/about-us">About us</a>
+          </li>
+          <li
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            <a routerLink="/jobs">Job List</a>
+          </li>
+          <li
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            <a routerLink="/contact-us">Contact Us</a>
+          </li>
+          <!-- <li><a href="contact-us.html">Contact</a></li> -->
+
+          <!-- Two Big Button -->
+          <li class="postjob" *ngIf="userService.isRole('company')">
+            <a routerLink="/dashboard/jobs/create">Post a job</a>
+          </li>
+          <li class="jobseeker" *ngIf="userService.isRole('company')">
+            <a routerLink="/dashboard/account">View CV</a>
+          </li>
+
+          <li class="postjob" *ngIf="userService.isRole('admin')">
+            <a href="/backend">Admin Page</a>
+          </li>
+
+          <li class="postjob" *ngIf="userService.isRole('seeker')">
+            <a routerLink="/dashboard/account">Write CV</a>
+          </li>
+
+          <li class="postjob" *ngIf="!userService.isUser()">
+            <a routerLink="/login">Login</a>
+          </li>
+          <li class="jobseeker" *ngIf="!userService.isUser()">
+            <a routerLink="/register">Register</a>
+          </li>
+
+          <!-- Admin Small Circle -->
+          <li
+            class="dropdown userbtn"
+            *ngIf="userService.isRole('admin'); else smallCircle"
+          >
+            <a href="/backend"
+              ><img
+                [src]="
+                  userService.user?.avatar ??
+                  'assets/frontend/images/candidates/01.jpg'
+                "
+                alt=""
+                class="userimg"
+            /></a>
+            <ul class="dropdown-menu">
+              <li>
+                <a href="/dashboard/account"
+                  ><i class="fa fa-pencil" aria-hidden="true"></i> My
+                  Account</a
+                >
+              </li>
+              <li role="separator" class="divider"></li>
+              <li (click)="onLogout()">
+                <a href="javascript:void(0)"
+                  ><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a
+                >
+              </li>
+            </ul>
+          </li>
+
+          <!-- Small Circle -->
+          <ng-template #smallCircle>
+            <li class="dropdown userbtn" *ngIf="userService.isUser()">
+              <a href="/dashboard/account"
+                ><img
+                  [src]="
+                    userService.user?.avatar ??
+                    'assets/frontend/images/candidates/01.jpg'
+                  "
+                  alt=""
+                  class="userimg"
+              /></a>
+              <ul class="dropdown-menu">
+                <li routerLinkActive="active">
+                  <a routerLink="/dashboard/account"
+                    ><i class="fa fa-pencil" aria-hidden="true"></i> My
+                    Account</a
+                  >
+                </li>
+                <li routerLinkActive="active">
+                  <a routerLink="/dashboard/jobs"
+                    ><i class="fa fa-briefcase" aria-hidden="true"></i> My
+                    Jobs</a
+                  >
+                </li>
+                <li role="separator" class="divider"></li>
+                <li (click)="onLogout()">
+                  <a href="javascript:void(0)"
+                    ><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a
+                  >
+                </li>
+              </ul>
+            </li>
+          </ng-template>
+        </ul>
+
+        <!-- Nav collapes end -->
+      </div>
+      <div class="clearfix"></div>
+    </div>
+    <!-- Nav end -->
+  </div>
+</div>
+<!-- row end -->
