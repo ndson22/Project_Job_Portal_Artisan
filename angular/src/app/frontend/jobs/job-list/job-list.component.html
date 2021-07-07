@@ -1,0 +1,223 @@
+<!-- Page Title start -->
+<div class="pageSearch">
+  <div class="row">
+    <div class="col-md-3">
+      <a href="#." class="btn"><i class="fa fa-file-text" aria-hidden="true"></i> Upload Your
+        Resume</a>
+    </div>
+    <form [formGroup]="searchForm">
+      <div class="col-md-9">
+        <div class="searchform">
+          <div class="row">
+            <div class="col-md-3 col-sm-3">
+              <input type="text" class="form-control" placeholder="Job Title" formControlName="search" />
+            </div>
+            <div class="col-md-2 col-sm-2">
+              <select class="form-control" formControlName="job_type_id">
+                <option value=null>Categories</option>
+                <option *ngFor="let jobType of jobTypes" value="{{ jobType.id }}">{{ jobType.name }}</option>
+              </select>
+            </div>
+            <div class="col-md-3 col-sm-3">
+              <select class="form-control" formControlName="province_id">
+                <option value=null>Province</option>
+                <option *ngFor="let jobProvince of jobProvinces" value="{{ jobProvince.id }}">{{
+                  jobProvince.name_with_type }}</option>
+              </select>
+            </div>
+            <div class="col-md-3 col-sm-3">
+              <select class="form-control">
+                <option>Min. Salary</option>
+              </select>
+            </div>
+            <div class="col-md-1 col-sm-2">
+              <button class="btn">
+                <i class="fa fa-search" aria-hidden="true"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<!-- Page Title end -->
+
+<!-- Search Result and sidebar start -->
+<div class="row">
+  <div class="col-md-3 col-sm-6">
+    <!-- Side Bar start -->
+    <div class="sidebar">
+      <!-- Jobs By Title -->
+      <div class="widget">
+        <h4 class="widget-title">Jobs By Title</h4>
+        <ul class="optionlist">
+          <li>
+            <input type="checkbox" name="checkname" id="webdesigner" />
+            <label for="webdesigner"></label>
+            Web Designer <span>12</span>
+          </li>
+        </ul>
+        <!-- title end -->
+        <a href="#.">View More</a>
+      </div>
+
+      <!-- Jobs By City -->
+      <div class="widget">
+        <h4 class="widget-title">Jobs By City</h4>
+        <ul class="optionlist">
+          <li>
+            <input type="checkbox" name="checkname" id="newyork" />
+            <label for="newyork"></label>
+            New York <span>12</span>
+          </li>
+        </ul>
+        <a href="#.">View More</a>
+      </div>
+      <!-- Jobs By City end-->
+
+      <!-- Jobs By Experience -->
+      <div class="widget">
+        <h4 class="widget-title">Jobs By Experience</h4>
+        <ul class="optionlist">
+          <li>
+            <input type="checkbox" name="checkname" id="permanent" />
+            <label for="permanent"></label>
+            Full Time/Permanent <span>12</span>
+          </li>
+        </ul>
+        <a href="#.">View More</a>
+      </div>
+      <!-- Jobs By Experience end -->
+
+      <!-- Jobs By Industry -->
+      <div class="widget">
+        <h4 class="widget-title">Jobs By Industry</h4>
+        <ul class="optionlist">
+          <li>
+            <input type="checkbox" name="checkname" id="infotech" />
+            <label for="infotech"></label>
+            Information Technology <span>22</span>
+          </li>
+        </ul>
+        <a href="#.">View More</a>
+      </div>
+      <!-- Jobs By Industry end -->
+
+      <!-- Top Companies -->
+      <div class="widget">
+        <h4 class="widget-title">Top Companies</h4>
+        <ul class="optionlist">
+          <li>
+            <input type="checkbox" name="checkname" id="Envato" />
+            <label for="Envato"></label>
+            Envato <span>12</span>
+          </li>
+        </ul>
+        <a href="#.">View More</a>
+      </div>
+      <!-- Top Companies end -->
+
+      <!-- Salary -->
+      <div class="widget">
+        <h4 class="widget-title">Salary Range</h4>
+        <ul class="optionlist">
+          <li>
+            <input type="checkbox" name="checkname" id="price1" />
+            <label for="price1"></label>
+            0 to $100 <span>12</span>
+          </li>
+        </ul>
+        <a href="#.">View More</a>
+      </div>
+      <!-- Salary end -->
+
+      <!-- button -->
+      <div class="searchnt">
+        <button class="btn">
+          <i class="fa fa-search" aria-hidden="true"></i> Search Jobs
+        </button>
+      </div>
+      <!-- button end-->
+    </div>
+    <!-- Side Bar end -->
+  </div>
+  <div class="col-md-3 col-sm-6 pull-right">
+    <!-- Social Icons -->
+    <div class="sidebar">
+      <h4 class="widget-title">Follow Us</h4>
+      <div class="social">
+        <a href="http://www.twitter.com/" target="_blank"><i class="fa fa-twitter-square" aria-hidden="true"></i></a>
+        <a href="http://www.plus.google.com/" target="_blank"><i class="fa fa-google-plus-square"
+            aria-hidden="true"></i></a>
+        <a href="http://www.facebook.com/" target="_blank">
+          <i class="fa fa-facebook-square" aria-hidden="true"></i></a>
+        <a href="https://www.pinterest.com/" target="_blank"><i class="fa fa-pinterest-square"
+            aria-hidden="true"></i></a>
+        <a href="https://www.youtube.com/" target="_blank"><i class="fa fa-youtube-square" aria-hidden="true"></i></a>
+        <a href="https://www.linkedin.com/" target="_blank"><i class="fa fa-linkedin-square" aria-hidden="true"></i></a>
+      </div>
+      <!-- Social Icons end -->
+    </div>
+
+    <!-- Sponsored By -->
+    <div class="sidebar">
+      <h4 class="widget-title">Sponsored By</h4>
+      <div class="gad">
+        <img src="assets/frontend/images/googlead2.jpg" alt="your alt text" />
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6 col-sm-12">
+    <ul class="searchList" *ngIf="jobs?.length === 0">
+      <li>
+        <h3 style="color: red;">Nothing found.</h3>
+      </li>
+    </ul>
+    <!-- Search List -->
+    <ul class="searchList" *ngFor="let job of jobs  | paginate : {
+      itemsPerPage: pageSize,
+      currentPage: page,
+      totalItems: count
+  }; ">
+      <!-- job start -->
+      <li [ngClass]="{'company-sponsored': job.sponsored !== null}">
+        <div class="row">
+          <div class="col-md-8 col-sm-8">
+            <div class="jobimg">
+              <img src="assets/frontend/images/jobs/jobimg.jpg" alt="Job Name" />
+            </div>
+            <div class="jobinfo">
+              <h3><a [ngClass]="job.promoted_at !== null ? 'job-promoted' : ''" [routerLink]="['/jobs', job.id]">{{ job.title }}</a></h3>
+              <div class="companyName">
+                <a>{{ job.name }}</a>
+              </div>
+              <div class="location">
+                <label class="fulltime">{{ job.typeOfEmployments}}</label> -
+                <span>{{ job?.location }}</span>
+              </div>
+            </div>
+            <div class="clearfix"></div>
+          </div>
+          <div class="col-md-4 col-sm-4">
+            <div class="listbtn"><a [routerLink]="['/jobs', job.id]">Apply Now</a></div>
+          </div>
+        </div>
+      </li>
+      <!-- job end -->
+    </ul>
+    <!-- Pagination Start -->
+    <div class="pagiWrap">
+      <div class="row">
+
+        <div class="col-md-12 col-sm-12 text-right">
+          <ul class="pagination">
+            <pagination-controls previousLabel="Prev" nextLabel="Next" (pageChange)="onTableDataChange($event)">
+            </pagination-controls>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <!-- Pagination end -->
+  </div>
+</div>
