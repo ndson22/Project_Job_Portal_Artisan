@@ -1,6 +1,13 @@
+import { ChangeDetectorRef } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NzUploadChangeParam, NzUploadFile } from 'ng-zorro-antd/upload';
+import {
+  NzTableFilterFn,
+  NzTableFilterList,
+  NzTableSortFn,
+  NzTableSortOrder,
+} from 'ng-zorro-antd/table';
 import { ToastrService } from 'ngx-toastr';
 import { first } from 'rxjs/operators';
 import { Company } from 'src/app/shared/models/company';
@@ -18,26 +25,42 @@ export class CompanyListComponent implements OnInit {
   frontendUrl = `${environment.frontendUrl}/companies/`;
   storageUrl = environment.storageUrl;
 
+  companyForm!: FormGroup;
   companies!: Company[];
+  provinces!: Province[];
   editedCompany!: Company;
   companyFormStatus = {
     visible: false,
     loading: false,
   };
-  companyForm!: FormGroup;
-  provinces!: Province[];
 
+  searchVisible: boolean = false;
+  searchValue: string = '';
+  // listOfColumn = [
+  //   {
+  //     title: 'Chinese Score',
+  //     compare: (a: Company, b: Company) => a.name - b.name,
+  //     priority: 3,
+  //   },
+  // ];
   fileList: NzUploadFile[] = [];
+  listOfDisplayData!: Company[];
+  listOfSorts: any = {
+    word: {
+      sortOrder: null,
+      sortFn: (a: Company, b: Company) => a.name.localeCompare(b.name),
+      sortDirections: ['ascend', 'descend', null],
+    },
+  };
 
   constructor(
     private companyService: CompanyService,
     private provinceService: ProvincesService,
     private toastr: ToastrService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private changeDetection: ChangeDetectorRef
   ) {
-    this.companyService.getAll().subscribe((companies: Company[]) => {
-      this.companies = companies;
-    });
+    this.updateCompaniesData();
     this.provinceService.getAll().subscribe((provinces: Province[]) => {
       this.provinces = provinces;
     });
@@ -45,6 +68,12 @@ export class CompanyListComponent implements OnInit {
 
   ngOnInit(): void {}
 
+  updateCompaniesData(): void {
+    this.companyService.getAll().subscribe((companies: Company[]) => {
+      this.companies = companies;
+      this.listOfDisplayData = [...this.companies];
+    });
+  }
   onVerify(company: Company): void {
     company.verifyLoading = true;
     this.companyService
@@ -153,18 +182,16 @@ export class CompanyListComponent implements OnInit {
       .subscribe(
         (company: Company) => {
           // const foundIndex = this.companies.findIndex((x) => x.id == data.id);
-          this.companyService.getAll().subscribe((companies: Company[]) => {
-            this.companies = companies;
-            this.companyFormStatus.visible = false;
-            this.companyFormStatus.loading = false;
-            this.companyForm.markAsPristine();
-          });
+          this.updateCompaniesData();
+          this.companyFormStatus.visible = false;
+          this.companyForm.markAsPristine();
           this.toastr.success('Updated successfully!');
         },
         (err) => {
-          this.companyFormStatus.visible = false;
-          this.companyFormStatus.loading = false;
           this.toastr.error('Please try again!');
+        },
+        () => {
+          this.companyFormStatus.loading = false;
         }
       );
   }
@@ -178,13 +205,25 @@ export class CompanyListComponent implements OnInit {
       // console.log(info.file, info.fileList);
     }
     if (info.file.status === 'done') {
+      console.log(info.file.response);
+
       this.editedCompany = info.file.response;
-      this.companyService.getAll().subscribe((companies: Company[]) => {
-        this.companies = companies;
-      });
+      this.updateCompaniesData();
       this.toastr.success(`${info.file.name} file uploaded successfully`);
     } else if (info.file.status === 'error') {
       this.toastr.error(`${info.file.name} file upload failed.`);
     }
+  }
+
+  reset(): void {
+    this.searchValue = '';
+    this.search();
+  }
+
+  search(): void {
+    this.searchVisible = false;
+    this.listOfDisplayData = this.companies.filter((company: Company) =>
+      company.name.toLowerCase().includes(this.searchValue.toLowerCase())
+    );
   }
 }

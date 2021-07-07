@@ -1,24 +1,36 @@
-<nz-table #companyTable nzShowSizeChanger [nzData]="companies">
+<nz-table #companyTable nzShowSizeChanger [nzData]="listOfDisplayData">
   <thead>
     <tr>
+      <th [nzAlign]="'center'">ID</th>
+      <th [nzAlign]="'center'">
+        Company Name
+        <nz-filter-trigger
+          [(nzVisible)]="searchVisible"
+          [nzActive]="searchValue.length > 0"
+          [nzDropdownMenu]="menu"
+        >
+          <i nz-icon nzType="search"></i>
+        </nz-filter-trigger>
+      </th>
       <th
         [nzAlign]="'center'"
+        [nzSortOrder]="listOfSorts.word.sortOrder"
+        [nzSortFn]="listOfSorts.word.sortFn"
+        [nzSortDirections]="listOfSorts.word.sortDirections"
         *ngFor="
           let fieldName of [
-            'ID',
-            'Company Name',
             'Province',
             'Registered',
             'Email verified',
             'Verify',
             'Lock',
-            'Sponsored',
-            'Action'
+            'Sponsored'
           ]
         "
       >
         {{ fieldName }}
       </th>
+      <th [nzAlign]="'center'">Action</th>
     </tr>
   </thead>
   <tbody>
@@ -97,6 +109,28 @@
     </tr>
   </tbody>
 </nz-table>
+<nz-dropdown-menu #menu="nzDropdownMenu">
+  <div class="ant-table-filter-dropdown">
+    <div class="search-box">
+      <input
+        type="text"
+        nz-input
+        placeholder="Search name"
+        [(ngModel)]="searchValue"
+      />
+      <button
+        nz-button
+        nzSize="small"
+        nzType="primary"
+        (click)="search()"
+        class="search-button"
+      >
+        Search
+      </button>
+      <button nz-button nzSize="small" (click)="reset()">Reset</button>
+    </div>
+  </div>
+</nz-dropdown-menu>
 
 <!-- Edit Form Modal -->
 <nz-modal

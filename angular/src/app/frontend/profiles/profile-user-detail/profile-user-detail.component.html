@@ -58,7 +58,7 @@
               <nz-form-control nzHasFeedback nzErrorTip="Input is required">
                 <nz-input-group nzPrefixIcon="mail">
                   <input [value]="
-                      (this.user.email_verified_at | timeago) ??
+                      (this.user.email_verified_at | timeago:false) ??
                       'Please verify your email'
                     " type="text" nz-input disabled />
                 </nz-input-group>
@@ -72,7 +72,7 @@
               <nz-form-label [nzSpan]="24">Created</nz-form-label>
               <nz-form-control nzHasFeedback nzErrorTip="Input is required">
                 <nz-input-group nzPrefixIcon="calendar">
-                  <input [value]="this.user.created_at | timeago" type="email" nz-input disabled />
+                  <input [value]="this.user.created_at | timeago:false" type="email" nz-input disabled />
                 </nz-input-group>
 
               </nz-form-control>
@@ -83,7 +83,7 @@
               <nz-form-label [nzSpan]="24">Updated</nz-form-label>
               <nz-form-control nzHasFeedback nzErrorTip="Input is required">
                 <nz-input-group nzPrefixIcon="calendar">
-                  <input [value]="this.user.updated_at | timeago" type="text" nz-input disabled />
+                  <input [value]="this.user.updated_at | timeago:false" type="text" nz-input disabled />
                 </nz-input-group>
               </nz-form-control>
             </nz-form-item>

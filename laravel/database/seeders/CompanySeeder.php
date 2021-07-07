@@ -37,7 +37,7 @@ class CompanySeeder extends Seeder
             'province_id' => 1
         ]);
 
-        for ($i = 0; $i < 100; $i++) {
+        for ($i = 0; $i < 32; $i++) {
             Company::create([
                 'user_id' => '5',
                 'name' => 'Công ty cổ phần công nghệ Double Việt Nam',
