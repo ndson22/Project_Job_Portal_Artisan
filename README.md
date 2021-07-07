@@ -13,6 +13,7 @@ git commit -m "First commit"
 git remote add origin https://github.com/ndson22/Project_Job_Portal_Artisan.git
 git remote -v
 git push origin <branch-name>
+git merge origin <branch-name> --allow-unrelated-histories
 ```
 
 # Angular
