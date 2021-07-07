@@ -17,7 +17,7 @@ export class Company {
     public phone_number: number,
     public created_at: string,
     public updated_at: string,
-    public verified_at: string,
+    public verified_at: Date,
     public image: string,
     public description: string,
     public facebook: string,

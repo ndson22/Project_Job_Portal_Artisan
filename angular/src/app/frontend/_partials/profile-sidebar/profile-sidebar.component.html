@@ -23,14 +23,19 @@
   </div>
 
   <ul class="usernavdash">
-    <li>
-      <a href="#"
-        ><i class="fa fa-tachometer" aria-hidden="true"></i> Dashboard</a
+    <li routerLinkActive="active">
+      <a routerLink="/dashboard/account"
+        ><i class="fa fa-user" aria-hidden="true"></i> Account</a
       >
     </li>
-    <li routerLinkActive="active">
-      <a routerLink="/dashboard/acount"
-        ><i class="fa fa-user" aria-hidden="true"></i> Account</a
+    <li routerLinkActive="active" *ngIf="userService.isRole('company')">
+      <a routerLink="/dashboard/company"
+        ><i class="fa fa-user" aria-hidden="true"></i> My Company</a
+      >
+    </li>
+    <li routerLinkActive="active" *ngIf="userService.isRole('seeker')">
+      <a routerLink="/dashboard/seeker"
+        ><i class="fa fa-user" aria-hidden="true"></i> My Profile</a
       >
     </li>
     <li routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" *ngIf="userService.isRole('company')">

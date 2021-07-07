@@ -45,6 +45,7 @@ import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { NzBackTopModule } from 'ng-zorro-antd/back-top';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { CompanyListComponent } from './companies/company-list/company-list.component';
+import { JobListComponent } from './jobs/job-list/job-list.component';
 
 @NgModule({
   declarations: [
@@ -55,6 +56,7 @@ import { CompanyListComponent } from './companies/company-list/company-list.comp
     ErrorsComponent,
     MainComponent,
     CompanyListComponent,
+    JobListComponent,
   ],
   imports: [
     // Angular

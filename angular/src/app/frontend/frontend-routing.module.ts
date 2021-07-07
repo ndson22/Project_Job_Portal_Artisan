@@ -1,3 +1,6 @@
+import { SeekerDetailComponent } from './profiles/seeker-detail/seeker-detail.component';
+import { CompanyGuard } from './../shared/guards/company.guard';
+import { CompanyDetailComponent } from './profiles/company-detail/company-detail.component';
 import { AboutUsComponent } from './_layouts/about-us/about-us.component';
 import { AuthGuard } from '../shared/guards/auth.guard';
 import { DashboardJobListComponent } from './profiles/dashboard-job-list/dashboard-job-list.component';
@@ -16,7 +19,6 @@ import { ProfileUserDetailComponent } from './profiles/profile-user-detail/profi
 import { RegisterComponent } from './auth/register/register.component';
 import { RouterModule, Routes } from '@angular/router';
 import { ContactUsComponent } from './_layouts/contact-us/contact-us.component';
-import { CompanyGuard } from '../shared/guards/company.guard';
 
 const routes: Routes = [
   {
@@ -27,6 +29,15 @@ const routes: Routes = [
     path: 'dashboard',
     component: ProfileComponent,
     children: [
+      {
+        path: 'company',
+        canActivate: [CompanyGuard],
+        component: CompanyDetailComponent,
+      },
+      {
+        path: 'seeker',
+        component: SeekerDetailComponent,
+      },
       {
         path: 'account',
         component: ProfileUserDetailComponent,

@@ -5,6 +5,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AdminGuard } from '../shared/guards/admin.guard';
 import { CompanyListComponent } from './companies/company-list/company-list.component';
+import { JobListComponent } from './jobs/job-list/job-list.component';
 
 const routes: Routes = [
   {
@@ -20,6 +21,17 @@ const routes: Routes = [
         path: '',
         component: CompanyListComponent,
         data: { title: 'Companies' },
+      },
+    ],
+  },
+  {
+    path: 'jobs',
+    component: MainComponent,
+    children: [
+      {
+        path: '',
+        component: JobListComponent,
+        data: { title: 'Jobs' },
       },
     ],
   },

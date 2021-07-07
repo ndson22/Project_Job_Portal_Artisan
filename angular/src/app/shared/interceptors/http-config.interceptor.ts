@@ -27,7 +27,7 @@ export class HttpConfigInterceptor implements HttpInterceptor {
     const clonedReq = request.clone({
       withCredentials: true,
       setHeaders: {
-        'Content-Type': 'application/json',
+        // 'Content-Type': 'application/json',
         Accept: 'application/json',
       },
     });

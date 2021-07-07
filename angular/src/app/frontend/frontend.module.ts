@@ -40,6 +40,7 @@ import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { NzBackTopModule } from 'ng-zorro-antd/back-top';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
+import { NzPopoverModule } from 'ng-zorro-antd/popover';
 
 // Partials
 import { HeaderComponent } from './_partials/header/header.component';
@@ -71,6 +72,8 @@ import { PostPipePipe } from '../shared/pipes/post-pipe.pipe';
 import { GoogleMapComponent } from './_partials/google-map/google-map.component';
 import { AboutUsComponent } from './_layouts/about-us/about-us.component';
 import { ContactUsComponent } from './_layouts/contact-us/contact-us.component';
+import { CompanyDetailComponent } from './profiles/company-detail/company-detail.component';
+import { SeekerDetailComponent } from './profiles/seeker-detail/seeker-detail.component';
 
 @NgModule({
   declarations: [
@@ -101,6 +104,8 @@ import { ContactUsComponent } from './_layouts/contact-us/contact-us.component';
     GoogleMapComponent,
     AboutUsComponent,
     ContactUsComponent,
+    CompanyDetailComponent,
+    SeekerDetailComponent,
   ],
   imports: [
     // Zorro
@@ -136,6 +141,7 @@ import { ContactUsComponent } from './_layouts/contact-us/contact-us.component';
     NzSpinModule,
     NzBackTopModule,
     NzDividerModule,
+    NzPopoverModule,
 
     // Angular
     CommonModule,

@@ -25,6 +25,10 @@ Route::prefix('backend')->group(function () {
         Route::get('/is-authenticated', [Auth\AuthController::class, 'checkAuthenticated']);
         Route::post('/logout', [Auth\AuthController::class, 'logout']);
     });
+
+    Route::apiResource('jobs', Backend\JobController::class)->middleware('auth:sanctum');
+    Route::put('/jobs/{job}/active', [Backend\JobController::class, 'isActive'])->middleware('auth:sanctum');
+    Route::put('/jobs/{job}/promote', [Backend\JobController::class, 'isPromote'])->middleware('auth:sanctum');
 });
 
 Route::prefix('/jobs')->group(function () {
@@ -45,8 +49,13 @@ Route::prefix('/dashboard')->group(function () {
 });
 
 Route::put('/companies/{company}/verify/', [Frontend\CompanyController::class, 'verify'])->middleware('auth:sanctum');
+
 Route::apiResource('companies', Frontend\CompanyController::class);
 Route::apiResource('provinces', Frontend\ProvinceController::class)->only('index');
+Route::apiResource('experiences', Frontend\SeekerExperienceController::class)->middleware('auth:sanctum');
+Route::apiResource('seekers', Frontend\SeekerController::class)->middleware('auth:sanctum');
+Route::post('/seekers/{seeker}/avatar', [Frontend\SeekerController::class, 'changeAvatar'])->middleware('auth:sanctum');
+Route::apiResource('genders', Frontend\GenderController::class)->only('index');
 Route::prefix('/users')->middleware('auth:sanctum')->group(function () {
     Route::get('/{id?}', [Frontend\UserController::class, 'show']);
     Route::put('/update/info', [Frontend\UserController::class, 'updateInfo']);

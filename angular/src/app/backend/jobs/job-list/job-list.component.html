@@ -1,0 +1,42 @@
+<nz-table #rowSelectionTable nzShowSizeChanger [nzData]="jobs">
+  <thead>
+    <tr>
+      <th [nzAlign]="'center'" *ngFor="
+          let fieldName of [
+            'ID',
+            'Title',
+            'Employers',
+            'Experience',
+            'Expire',
+            'Active',
+            'Promotion',
+            'Created at',
+            'Update at',
+          ]
+        ">
+        {{ fieldName }}
+    </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let job of rowSelectionTable.data">
+      <td [nzAlign]="'center'">{{ job.id }}</td>
+      <td [nzAlign]="'center'">{{ job.title }}</td>
+      <td [nzAlign]="'center'">{{ job.employee_quantity }}</td>
+      <td [nzAlign]="'center'">{{ job.experience }}</td>
+      <td [nzAlign]="'center'">{{ job.expire | date }}</td>
+      <td [nzAlign]="'center'">
+        <nz-switch [ngModel]="job.is_active" [nzControl]="true" nz-popconfirm
+          nzPopconfirmTitle="Are you sure to change this job's active status?" (nzOnConfirm)="onActive(job)"
+          nzPopconfirmPlacement="bottom" nzOkText="Change"></nz-switch>
+      </td>
+      <td [nzAlign]="'center'">
+        <nz-switch [ngModel]="job.promoted_at" [nzControl]="true" nz-popconfirm
+          nzPopconfirmTitle="Are you sure to set this job's promoted?" (nzOnConfirm)="onPromote(job)"
+          nzPopconfirmPlacement="bottom" nzOkText="Change"></nz-switch>
+      </td>
+      <td [nzAlign]="'center'">{{ job.created_at | timeago:false }}</td>
+      <td [nzAlign]="'center'">{{ job.updated_at | timeago:false }}</td>
+    </tr>
+  </tbody>
+</nz-table>

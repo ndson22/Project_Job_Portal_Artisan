@@ -9,7 +9,6 @@ import { JobProvinces } from '../models/jobProvince';
 
 const baseUrl = `${environment.frontendUrl}/jobs`;
 const baseDashboardUrl = `${environment.frontendUrl}/dashboard`;
-
 @Injectable({
   providedIn: 'root',
 })
