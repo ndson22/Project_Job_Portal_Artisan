@@ -2,44 +2,43 @@
 <div class="pageSearch">
   <div class="row">
     <div class="col-md-3">
-      <a href="#." class="btn"
-        ><i class="fa fa-file-text" aria-hidden="true"></i> Upload Your
-        Resume</a
-      >
+      <a href="#." class="btn"><i class="fa fa-file-text" aria-hidden="true"></i> Upload Your
+        Resume</a>
     </div>
     <form [formGroup]="searchForm">
-    <div class="col-md-9">
-      <div class="searchform">
-        <div class="row">
-          <div class="col-md-3 col-sm-3">
-            <input type="text" class="form-control" placeholder="Job Title" formControlName="search" />
-          </div>
-          <div class="col-md-2 col-sm-2">
-            <select class="form-control" formControlName="job_type_id">
-              <option value=null>Categories</option>
-              <option *ngFor="let jobType of jobTypes" value="{{ jobType.id }}">{{ jobType.name }}</option>
-            </select>
-          </div>
-          <div class="col-md-3 col-sm-3">
-            <select class="form-control" formControlName="province_id">
-              <option value=null>Province</option>
-              <option *ngFor="let jobProvince of jobProvinces" value="{{ jobProvince.id }}">{{ jobProvince.name_with_type }}</option>
-            </select>
-          </div>
-          <div class="col-md-3 col-sm-3">
-            <select class="form-control">
-              <option>Min. Salary</option>
-            </select>
-          </div>
-          <div class="col-md-1 col-sm-2">
-            <button class="btn">
-              <i class="fa fa-search" aria-hidden="true"></i>
-            </button>
+      <div class="col-md-9">
+        <div class="searchform">
+          <div class="row">
+            <div class="col-md-3 col-sm-3">
+              <input type="text" class="form-control" placeholder="Job Title" formControlName="search" />
+            </div>
+            <div class="col-md-2 col-sm-2">
+              <select class="form-control" formControlName="job_type_id">
+                <option value=null>Categories</option>
+                <option *ngFor="let jobType of jobTypes" value="{{ jobType.id }}">{{ jobType.name }}</option>
+              </select>
+            </div>
+            <div class="col-md-3 col-sm-3">
+              <select class="form-control" formControlName="province_id">
+                <option value=null>Province</option>
+                <option *ngFor="let jobProvince of jobProvinces" value="{{ jobProvince.id }}">{{
+                  jobProvince.name_with_type }}</option>
+              </select>
+            </div>
+            <div class="col-md-3 col-sm-3">
+              <select class="form-control">
+                <option>Min. Salary</option>
+              </select>
+            </div>
+            <div class="col-md-1 col-sm-2">
+              <button class="btn">
+                <i class="fa fa-search" aria-hidden="true"></i>
+              </button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </form>
+    </form>
   </div>
 </div>
 <!-- Page Title end -->
@@ -148,24 +147,15 @@
     <div class="sidebar">
       <h4 class="widget-title">Follow Us</h4>
       <div class="social">
-        <a href="http://www.twitter.com/" target="_blank"
-          ><i class="fa fa-twitter-square" aria-hidden="true"></i
-        ></a>
-        <a href="http://www.plus.google.com/" target="_blank"
-          ><i class="fa fa-google-plus-square" aria-hidden="true"></i
-        ></a>
+        <a href="http://www.twitter.com/" target="_blank"><i class="fa fa-twitter-square" aria-hidden="true"></i></a>
+        <a href="http://www.plus.google.com/" target="_blank"><i class="fa fa-google-plus-square"
+            aria-hidden="true"></i></a>
         <a href="http://www.facebook.com/" target="_blank">
-          <i class="fa fa-facebook-square" aria-hidden="true"></i
-        ></a>
-        <a href="https://www.pinterest.com/" target="_blank"
-          ><i class="fa fa-pinterest-square" aria-hidden="true"></i
-        ></a>
-        <a href="https://www.youtube.com/" target="_blank"
-          ><i class="fa fa-youtube-square" aria-hidden="true"></i
-        ></a>
-        <a href="https://www.linkedin.com/" target="_blank"
-          ><i class="fa fa-linkedin-square" aria-hidden="true"></i
-        ></a>
+          <i class="fa fa-facebook-square" aria-hidden="true"></i></a>
+        <a href="https://www.pinterest.com/" target="_blank"><i class="fa fa-pinterest-square"
+            aria-hidden="true"></i></a>
+        <a href="https://www.youtube.com/" target="_blank"><i class="fa fa-youtube-square" aria-hidden="true"></i></a>
+        <a href="https://www.linkedin.com/" target="_blank"><i class="fa fa-linkedin-square" aria-hidden="true"></i></a>
       </div>
       <!-- Social Icons end -->
     </div>
@@ -173,15 +163,6 @@
     <!-- Sponsored By -->
     <div class="sidebar">
       <h4 class="widget-title">Sponsored By</h4>
-      <div class="gad">
-        <img src="assets/frontend/images/googlead.jpg" alt="your alt text" />
-      </div>
-      <div class="gad">
-        <img src="assets/frontend/images/googlead.jpg" alt="your alt text" />
-      </div>
-      <div class="gad">
-        <img src="assets/frontend/images/googlead2.jpg" alt="your alt text" />
-      </div>
       <div class="gad">
         <img src="assets/frontend/images/googlead2.jpg" alt="your alt text" />
       </div>
@@ -194,21 +175,22 @@
       </li>
     </ul>
     <!-- Search List -->
-    <ul class="searchList"  *ngFor="let job of jobs" [routerLink]="['/jobs', job.id]" >
+    <ul class="searchList" *ngFor="let job of jobs  | paginate : {
+      itemsPerPage: pageSize,
+      currentPage: page,
+      totalItems: count
+  }; ">
       <!-- job start -->
       <li>
         <div class="row">
           <div class="col-md-8 col-sm-8">
             <div class="jobimg">
-              <img
-                src="assets/frontend/images/jobs/jobimg.jpg"
-                alt="Job Name"
-              />
+              <img src="assets/frontend/images/jobs/jobimg.jpg" alt="Job Name" />
             </div>
             <div class="jobinfo">
-              <h3><a [routerLink]="['/jobs', job.id]" >{{ job.title }}</a></h3>
+              <h3><a [routerLink]="['/jobs', job.id]">{{ job.title }}</a></h3>
               <div class="companyName">
-                <a >{{ job.name }}</a>
+                <a>{{ job.name }}</a>
               </div>
               <div class="location">
                 <label class="fulltime">{{ job.typeOfEmployments}}</label> -
@@ -218,7 +200,7 @@
             <div class="clearfix"></div>
           </div>
           <div class="col-md-4 col-sm-4">
-            <div class="listbtn"><a  [routerLink]="['/jobs', job.id]">Apply Now</a></div>
+            <div class="listbtn"><a [routerLink]="['/jobs', job.id]">Apply Now</a></div>
           </div>
         </div>
       </li>
@@ -227,19 +209,11 @@
     <!-- Pagination Start -->
     <div class="pagiWrap">
       <div class="row">
-        <div class="col-md-4 col-sm-4">
-          <div class="showreslt">Showing 1-10</div>
-        </div>
-        <div class="col-md-8 col-sm-8 text-right">
+
+        <div class="col-md-12 col-sm-12 text-right">
           <ul class="pagination">
-            <li class="active"><a href="#.">1</a></li>
-            <li><a href="#.">2</a></li>
-            <li><a href="#.">3</a></li>
-            <li><a href="#.">4</a></li>
-            <li><a href="#.">5</a></li>
-            <li><a href="#.">6</a></li>
-            <li><a href="#.">7</a></li>
-            <li><a href="#.">8</a></li>
+            <pagination-controls previousLabel="Prev" nextLabel="Next" (pageChange)="onTableDataChange($event)">
+            </pagination-controls>
           </ul>
         </div>
       </div>

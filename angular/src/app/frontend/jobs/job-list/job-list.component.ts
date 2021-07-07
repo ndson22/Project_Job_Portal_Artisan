@@ -20,6 +20,10 @@ export class JobListComponent implements OnInit, OnDestroy {
   jobTypes!: jobTypes[];
   jobProvinces!: JobProvinces[];
 
+  page = 1;
+  count = 0;
+  pageSize = 5;
+
   searchForm = this.formBuilder.group({
     search: [''],
     job_type_id: [null],
@@ -74,10 +78,22 @@ export class JobListComponent implements OnInit, OnDestroy {
     })
   };
 
+  toContact()
+  {
+    document.getElementById("apply_scroll")?.scrollIntoView({
+      behavior:"smooth"
+    });
+  }
+
   ngOnDestroy() {
     if (this.subscription) {
       this.subscription.unsubscribe();
     }
+  }
+
+  onTableDataChange(e:any){
+    this.page = e;
+    console.log(e);
   }
 
 }

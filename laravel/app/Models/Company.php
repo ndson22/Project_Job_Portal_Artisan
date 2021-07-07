@@ -18,6 +18,11 @@ class Company extends Model
         return $this->hasMany(JobPost::class);
     }
 
+    public function contact()
+    {
+        return $this->hasMany(Contact::class);
+    }
+
     public function province()
     {
         return $this->belongsTo(Province::class);

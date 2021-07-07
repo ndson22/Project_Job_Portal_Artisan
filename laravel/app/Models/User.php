@@ -49,4 +49,5 @@ class User extends Authenticatable
         $id = $id ?? auth('sanctum')->id();
         return User::with(['role', 'seeker', 'company'])->findOrFail($id);
     }
+
 }

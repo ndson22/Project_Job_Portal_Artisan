@@ -43,9 +43,13 @@ Route::prefix('/jobs')->group(function () {
     Route::get('/{id}', [Frontend\JobController::class, 'getDetail'])->name('jobs.get');
 });
 
-Route::prefix('/dashboard')->group(function () {
-    Route::get('/jobs/{page}/{size?}', [Frontend\JobController::class, 'getJobByCompany'])->middleware('auth:sanctum');
-    Route::put('/jobs/active', [Frontend\JobController::class, 'changeStatus'])->middleware('auth:sanctum');
+Route::prefix('/contact')->group(function (){
+    Route::post('/store', [Frontend\ContactController::class, 'store']);
+});
+
+Route::prefix('/dashboard')->group(function() {
+    Route::get('/jobs/{page}/{size?}', [JobController::class, 'getJobByCompany'])->middleware('auth:sanctum');
+    Route::put('/jobs/active', [JobController::class, 'changeStatus'])->middleware('auth:sanctum');
 });
 
 Route::put('/companies/{company}/verify', [Frontend\CompanyController::class, 'verify'])->middleware('auth:sanctum');

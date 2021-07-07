@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FrontendRoutingModule } from './frontend-routing.module';
 
+import {NgxPaginationModule} from 'ngx-pagination';
+
 // Extra
 import { TimeagoModule } from 'ngx-timeago';
 import { EditorModule } from '@tinymce/tinymce-angular';
@@ -108,6 +110,7 @@ import { SeekerDetailComponent } from './profiles/seeker-detail/seeker-detail.co
     SeekerDetailComponent,
   ],
   imports: [
+    NgxPaginationModule,
     // Zorro
     NzButtonModule,
     NzIconModule,

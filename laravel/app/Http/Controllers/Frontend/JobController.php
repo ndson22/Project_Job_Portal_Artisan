@@ -178,4 +178,6 @@ class JobController extends Controller
         $jobPosts = JobPost::where('company_id', $companyId)->latest()->get();
         return response()->json($jobPosts);
     }
+
+
 }
