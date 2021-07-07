@@ -6,11 +6,11 @@ import { environment } from 'src/environments/environment.prod';
 import { Seeker } from '../models/seeker';
 
 const baseUrl = `${environment.frontendUrl}/seekers`;
-
 @Injectable({
   providedIn: 'root'
 })
 export class SeekerService {
+  user = this.userService.getUserFromLocalStorage();
 
   constructor(
     private http: HttpClient,
@@ -18,11 +18,14 @@ export class SeekerService {
   ) { }
 
   getCurrentSeeker(): Observable<Seeker> {
-    const user = this.userService.getUserFromLocalStorage();
-    return this.http.get<Seeker>(`${baseUrl}/${user.seeker.id}`);
+    return this.http.get<Seeker>(`${baseUrl}/${this.user.seeker.id}`);
   }
 
   changeAvatar(data: FormData): Observable<Seeker> {
-    return this.http.post<Seeker>(`${baseUrl}/${data.get('id')}/avatar`, data);
+    return this.http.post<Seeker>(`${baseUrl}/${this.user.seeker.id}/avatar`, data);
+  }
+
+  updateSeeker(data: any): Observable<Seeker> {
+    return this.http.put<Seeker>(`${baseUrl}/${this.user.seeker.id}`, data);
   }
 }

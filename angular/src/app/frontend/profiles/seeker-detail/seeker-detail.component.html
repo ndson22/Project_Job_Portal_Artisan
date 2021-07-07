@@ -18,7 +18,7 @@
           </div>
         </div>
       </div>
-      <!-- Account Basic Information Form -->
+      <!-- Seeker Basic Information Form -->
       <form [formGroup]="seekerForm" (ngSubmit)="onSubmitSeeker()" nz-form nzLayout="vertical">
         <hr />
         <div [nzGutter]="24" nz-row>
@@ -68,9 +68,13 @@
           <div [nzSpan]="12" nz-col>
             <nz-form-item>
               <nz-form-label [nzSpan]="24">Phone number</nz-form-label>
-              <nz-form-control nzHasFeedback nzErrorTip="Input is required">
+              <nz-form-control nzHasFeedback [nzErrorTip]="phone_number">
                 <nz-input-group nzPrefixIcon="phone">
                   <input type="number" nz-input formControlName="phone_number" />
+                  <ng-template #phone_number let-control>
+                    <ng-container *ngIf="control.hasError('pattern')">Phone number invalid</ng-container>
+                    <ng-container *ngIf="control.hasError('required')">Phone number is required</ng-container>
+                  </ng-template>
                 </nz-input-group>
               </nz-form-control>
             </nz-form-item>
@@ -108,76 +112,47 @@
           </nz-form-control>
         </nz-form-item>
       </form>
-      <!-- Change Password Form -->
-      <!-- <form
-        [formGroup]="changePasswordForm"
-        (ngSubmit)="onSubmitPassword()"
-        nz-form
-        nzLayout="vertical"
-      >
-        <h5>Change Password</h5>
-        <hr />
-        <div [nzGutter]="24" nz-row>
-          <div [nzSpan]="12" nz-col>
+      <hr />
+      <!-- Seeker Experience Form -->
+      <form [formGroup]="seekerExperienceForm" (ngSubmit)="onSubmitSeekerExperience()" nz-form nzLayout="vertical">
+        <h5>Change Experience</h5>
+        <ng-template #description let-control>
+          <ng-container *ngIf="control.hasError('required')">Experience is required</ng-container>
+        </ng-template>
+        <div nz-row>
+          <div nz-col [nzSpan]="24">
             <nz-form-item>
-              <nz-form-label [nzSpan]="24">Current password</nz-form-label>
-              <nz-form-control nzHasFeedback nzErrorTip="Input is required">
-                <nz-input-group nzPrefixIcon="lock">
-                  <input
-                    type="password"
-                    nz-input
-                    formControlName="current_password"
-                  />
-                </nz-input-group>
-              </nz-form-control>
-            </nz-form-item>
-          </div>
-        </div>
-        <div [nzGutter]="24" nz-row>
-          <div [nzSpan]="12" nz-col>
-            <nz-form-item>
-              <nz-form-label [nzSpan]="24">New password</nz-form-label>
-              <nz-form-control nzHasFeedback nzErrorTip="Input is required">
-                <nz-input-group nzPrefixIcon="lock">
-                  <input type="password" nz-input formControlName="password" />
-                </nz-input-group>
-              </nz-form-control>
-            </nz-form-item>
-          </div>
-          <div [nzSpan]="12" nz-col>
-            <nz-form-item>
-              <nz-form-label [nzSpan]="24"
-                >New password confirmation</nz-form-label
-              >
-              <nz-form-control nzHasFeedback nzErrorTip="Input is required">
-                <nz-input-group nzPrefixIcon="lock">
-                  <input
-                    type="password"
-                    nz-input
-                    formControlName="password_confirmation"
-                  />
-                </nz-input-group>
+              <nz-form-control nzHasFeedback [nzErrorTip]="description">
+                <editor formControlName="description" apiKey="kwzv7sdzx3mxt9miqs949uzirazxaljvelvgncytz7h8exuf" [init]="{
+                      height: 350,
+                      menubar: false,
+                      content_style: 'body {font-size: 12pt;}',
+                      plugins: [
+                        'advlist autolink lists link image charmap print preview anchor',
+                        'searchreplace visualblocks code fullscreen',
+                        'insertdatetime media table paste code help wordcount'
+                      ],
+                      toolbar:
+                        'undo redo | fontsizeselect | formatselect | bold italic backcolor | \
+                        alignleft aligncenter alignright alignjustify | \
+                        bullist numlist outdent indent | removeformat | help'
+                    }"></editor>
               </nz-form-control>
             </nz-form-item>
           </div>
         </div>
         <nz-form-item style="text-align: right">
           <nz-form-control>
-            <button
-              [disabled]="
-                changePasswordForm.invalid ||
+            <button [disabled]="
+              seekerExperienceForm.invalid ||
                 isLoading ||
-                !changePasswordForm.dirty
-              "
-              type="submit"
-              nz-button
-              nzType="primary"
-            >
+                !seekerExperienceForm.dirty
+              " type="submit" nz-button nzType="primary">
               Update and Save
             </button>
           </nz-form-control>
         </nz-form-item>
-      </form> -->
+      </form>
     </div>
   </div>
 </div>

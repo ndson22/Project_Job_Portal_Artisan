@@ -12,7 +12,7 @@ class SeekerExperience extends Model
 
     protected $table = 'seeker_experiences';
 
-    protected $fillable = ['description'];
+    protected $fillable = ['description', 'seeker_id'];
 
     public function seeker()
     {

@@ -52,6 +52,7 @@ Route::put('/companies/{company}/verify/', [Frontend\CompanyController::class, '
 
 Route::apiResource('companies', Frontend\CompanyController::class);
 Route::apiResource('provinces', Frontend\ProvinceController::class)->only('index');
+Route::apiResource('experiences', Frontend\SeekerExperienceController::class)->middleware('auth:sanctum');
 Route::apiResource('seekers', Frontend\SeekerController::class)->middleware('auth:sanctum');
 Route::post('/seekers/{seeker}/avatar', [Frontend\SeekerController::class, 'changeAvatar'])->middleware('auth:sanctum');
 Route::apiResource('genders', Frontend\GenderController::class)->only('index');

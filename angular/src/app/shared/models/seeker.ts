@@ -12,6 +12,6 @@ export class Seeker {
     public facebook: string,
     public address: string,
     public image: string,
-    public seekerExperience: SeekerExperience,
+    public seeker_experience: SeekerExperience,
   ) {}
 }
