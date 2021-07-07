@@ -14,12 +14,16 @@
       </th>
       <th
         [nzAlign]="'center'"
-        [nzSortOrder]="listOfSorts.word.sortOrder"
-        [nzSortFn]="listOfSorts.word.sortFn"
-        [nzSortDirections]="listOfSorts.word.sortDirections"
+        [nzSortOrder]="listOfSorts.province.sortOrder"
+        [nzSortFn]="listOfSorts.province.sortFn"
+        [nzSortDirections]="listOfSorts.province.sortDirections"
+      >
+        Province
+      </th>
+      <th
+        [nzAlign]="'center'"
         *ngFor="
           let fieldName of [
-            'Province',
             'Registered',
             'Email verified',
             'Verify',
@@ -276,6 +280,8 @@
             <nz-form-control nzHasFeedback nzErrorTip="Input has errors">
               <nz-input-group>
                 <input
+                  minlength="10"
+                  maxlength="10"
                   nz-input
                   formControlName="phone_number"
                   type="number"

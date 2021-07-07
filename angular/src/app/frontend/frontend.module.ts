@@ -67,7 +67,7 @@ import { ProfileUserDetailComponent } from './profiles/profile-user-detail/profi
 import { FeatureJobsComponent } from './home/feature-jobs/feature-jobs.component';
 import { DashboardJobListComponent } from './profiles/dashboard-job-list/dashboard-job-list.component';
 import { IconDefinition } from '@ant-design/icons-angular';
-import { HomeMobileAppComponent } from './_partials/home-mobile-app/home-mobile-app.component';
+import { HomeMobileAppComponent } from './home/home-mobile-app/home-mobile-app.component';
 
 // Pipes
 import { PostPipePipe } from '../shared/pipes/post-pipe.pipe';
@@ -76,6 +76,7 @@ import { AboutUsComponent } from './_layouts/about-us/about-us.component';
 import { ContactUsComponent } from './_layouts/contact-us/contact-us.component';
 import { CompanyDetailComponent } from './profiles/company-detail/company-detail.component';
 import { SeekerDetailComponent } from './profiles/seeker-detail/seeker-detail.component';
+import { HomeSuccessStoriesComponent } from './home/home-success-stories/home-success-stories.component';
 
 @NgModule({
   declarations: [
@@ -108,6 +109,7 @@ import { SeekerDetailComponent } from './profiles/seeker-detail/seeker-detail.co
     ContactUsComponent,
     CompanyDetailComponent,
     SeekerDetailComponent,
+    HomeSuccessStoriesComponent,
   ],
   imports: [
     NgxPaginationModule,

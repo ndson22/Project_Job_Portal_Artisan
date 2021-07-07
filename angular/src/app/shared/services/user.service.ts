@@ -53,6 +53,15 @@ export class UserService {
     return this.isUser() && this.user?.role?.slug === slug;
   }
 
+  isGuestOrSeeker(): any {
+    if (!localStorage.hasOwnProperty('user')) {
+      return true;
+    } else {
+      this.user = JSON.parse(localStorage.getItem('user')!);
+      return this.user?.role?.slug === 'seeker';
+    }
+  }
+
   getUserFromServer(id?: number): Observable<User> {
     const url = id ? `${frontUrl}/users/${id}` : `${frontUrl}/users/`;
     return this.http.get<User>(url);

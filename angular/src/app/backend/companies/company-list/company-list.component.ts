@@ -46,9 +46,10 @@ export class CompanyListComponent implements OnInit {
   fileList: NzUploadFile[] = [];
   listOfDisplayData!: Company[];
   listOfSorts: any = {
-    word: {
+    province: {
       sortOrder: null,
-      sortFn: (a: Company, b: Company) => a.name.localeCompare(b.name),
+      sortFn: (a: Company, b: Company) =>
+        a.province.name.localeCompare(b.province.name),
       sortDirections: ['ascend', 'descend', null],
     },
   };
@@ -153,10 +154,7 @@ export class CompanyListComponent implements OnInit {
         company.email,
         [Validators.required, Validators.email, Validators.maxLength(100)],
       ],
-      phone_number: [
-        company.phone_number,
-        [Validators.minLength(9), Validators.maxLength(11)],
-      ],
+      phone_number: [company.phone_number, [Validators.pattern('^[0-9]{10}$')]],
       address: [
         company.address,
         [Validators.required, Validators.maxLength(255)],

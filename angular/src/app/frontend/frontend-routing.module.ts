@@ -72,6 +72,7 @@ const routes: Routes = [
   {
     path: '',
     component: MainComponent,
+    canActivate: [IsLoggedInGuard],
     children: [
       {
         path: 'verify-email/:id',

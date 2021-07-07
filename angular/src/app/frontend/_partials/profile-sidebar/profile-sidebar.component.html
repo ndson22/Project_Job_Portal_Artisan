@@ -30,7 +30,7 @@
     </li>
     <li routerLinkActive="active" *ngIf="userService.isRole('company')">
       <a routerLink="/dashboard/company"
-        ><i class="fa fa-user" aria-hidden="true"></i> My Company</a
+        ><i class="fa fa-building" aria-hidden="true"></i> My Company</a
       >
     </li>
     <li routerLinkActive="active" *ngIf="userService.isRole('seeker')">
@@ -38,14 +38,18 @@
         ><i class="fa fa-user" aria-hidden="true"></i> My Seeker Profile</a
       >
     </li>
-    <li routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" *ngIf="userService.isRole('company')">
+    <li
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+      *ngIf="userService.isRole('company')"
+    >
       <a routerLink="/dashboard/jobs"
-        ><i class="fa fa-user" aria-hidden="true"></i> My Job Posts</a
+        ><i class="fa fa-sticky-note" aria-hidden="true"></i> My Job Posts</a
       >
     </li>
     <li routerLinkActive="active" *ngIf="userService.isRole('company')">
       <a routerLink="/dashboard/jobs/create"
-        ><i class="fa fa-user" aria-hidden="true"></i> New Job Post</a
+        ><i class="fa fa-sticky-note" aria-hidden="true"></i> New Job Post</a
       >
     </li>
     <!-- <li>

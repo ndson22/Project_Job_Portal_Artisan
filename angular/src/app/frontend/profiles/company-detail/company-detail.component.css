@@ -16,3 +16,9 @@
   background-color: #2d6c7a;
   color: #ffffff;
 }
+
+.super-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

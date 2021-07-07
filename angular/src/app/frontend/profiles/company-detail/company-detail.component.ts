@@ -11,6 +11,7 @@ import { environment } from 'src/environments/environment.prod';
 import { CompanyService } from 'src/app/shared/services/company.service';
 import { ProvincesService } from 'src/app/shared/services/provinces.service';
 import { Province } from 'src/app/shared/models/province';
+import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-company-detail',
@@ -18,14 +19,33 @@ import { Province } from 'src/app/shared/models/province';
   styleUrls: ['./company-detail.component.css'],
 })
 export class CompanyDetailComponent implements OnInit {
-  companyForm!: FormGroup;
-  isLoading = false;
-  company!: Company;
   frontendUrl = `${environment.frontendUrl}/companies/`;
   storageUrl = environment.storageUrl;
-  editedCompany!: Company;
-  provinces!: Province[];
 
+  companyForm: FormGroup = this.fb.group({
+    id: [''],
+    user_id: [''],
+    name: [''],
+    short_name: [''],
+    scale: [''],
+    email: [''],
+    phone_number: [''],
+    address: [''],
+    province_id: [''],
+    branch: [''],
+    map_link: [''],
+    website: [''],
+    facebook: [''],
+    description: [''],
+  });
+
+  isLoading = false;
+  company!: Company;
+  companyFormStatus = {
+    visible: false,
+    loading: false,
+  };
+  provinces!: Province[];
 
   constructor(
     private fb: FormBuilder,
@@ -36,16 +56,59 @@ export class CompanyDetailComponent implements OnInit {
     private companyService: CompanyService,
     private provinceService: ProvincesService
   ) {
-    this.company = this.userService.getUserFromLocalStorage().company;
+    this.userService.getUserFromServer().subscribe((user: User) => {
+      this.company = user.company;
+      this.initForm();
+    });
 
     this.provinceService.getAll().subscribe((provinces: Province[]) => {
       this.provinces = provinces;
     });
-
-
   }
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
+
+  onSubmit() {
+    this.isLoading = true;
+    const data = this.companyForm.value;
+    this.companyService
+      .update(data)
+      .pipe(first())
+      .subscribe(
+        (company: Company) => {
+          console.log(data, company);
+          this.company = company;
+          this.companyFormStatus.visible = false;
+          this.companyForm.markAsPristine();
+          this.toastr.success('Updated successfully!');
+        },
+        (err) => {
+          this.toastr.error('Please try again!');
+        },
+        () => {
+          this.companyFormStatus.loading = false;
+        }
+      );
+  }
+
+  handleChange(info: NzUploadChangeParam): void {
+    if (info.file.status !== 'uploading') {
+      // console.log(info.file, info.fileList);
+    }
+    if (info.file.status === 'done') {
+      this.company = info.file.response;
+      this.toastr.success(`${info.file.name} file uploaded successfully`);
+    } else if (info.file.status === 'error') {
+      this.toastr.error(`${info.file.name} file upload failed.`);
+    }
+  }
+
+  resetForm(): void {
+    this.companyForm.reset();
+    this.initForm();
+  }
+
+  initForm(): void {
     this.companyForm = this.fb.group({
       id: [this.company.id, [Validators.required]],
       user_id: [
@@ -83,29 +146,5 @@ export class CompanyDetailComponent implements OnInit {
       facebook: [this.company.facebook, [Validators.maxLength(255)]],
       description: [this.company.description, [Validators.maxLength(1000)]],
     });
-  }
-
-  onSubmit() {
-    this.isLoading = true;
-    this.userService.updateGeneralInfo(this.companyForm.value).subscribe(
-      (res) => {
-        this.isLoading = false;
-      },
-      (err) => {
-        this.isLoading = false;
-      }
-    );
-  }
-
-  handleChange(info: NzUploadChangeParam): void {
-    if (info.file.status !== 'uploading') {
-      // console.log(info.file, info.fileList);
-    }
-    if (info.file.status === 'done') {
-      this.editedCompany = info.file.response;
-      this.toastr.success(`${info.file.name} file uploaded successfully`);
-    } else if (info.file.status === 'error') {
-      this.toastr.error(`${info.file.name} file upload failed.`);
-    }
   }
 }
