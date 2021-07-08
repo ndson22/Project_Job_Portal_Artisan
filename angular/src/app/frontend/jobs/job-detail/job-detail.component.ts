@@ -4,11 +4,11 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Job } from 'src/app/shared/models/job';
 import { JobService } from 'src/app/shared/services/job.service';
-import { Subscription } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 import { Contact } from 'src/app/shared/models/contact';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ContactService } from 'src/app/shared/services/contact.service';
+import { EmailService } from 'src/app/shared/services/email.service';
 
 @Component({
   selector: 'app-job-detail',
@@ -24,14 +24,20 @@ export class JobDetailComponent implements OnInit {
   contact!: Contact;
 
   createForm = this.formBuilder.group({
-    name: ['', [Validators.required, Validators.maxLength(255)]],
-    email: ['', [Validators.required, Validators.email, Validators.maxLength(255)]],
-    phone_number: ['', [Validators.required, Validators.maxLength(10)]],
-    message: ['', [Validators.required, Validators.maxLength(1000)]],
+    name: ['', [Validators.required]],
+    email: [
+      '',
+      [Validators.required, Validators.email],
+    ],
+    phone_number: ['', [Validators.required]],
+    message: ['', [Validators.required]],
   });
 
   forwardToEmailForm!: FormGroup;
-  forwardToEmailFromVisible: boolean = false;
+  forwardToEmailFromStatus = {
+    visible: false,
+    loading: false,
+  };
 
   constructor(
     private route: ActivatedRoute,
@@ -40,6 +46,7 @@ export class JobDetailComponent implements OnInit {
     private toastr: ToastrService,
     private contactService: ContactService,
     private formBuilder: FormBuilder,
+    private emailService: EmailService,
     public userService: UserService
   ) {}
 
@@ -94,26 +101,44 @@ export class JobDetailComponent implements OnInit {
   }
 
   showForwardToEmailModal(): void {
-    this.forwardToEmailForm = this.formBuilder.group({
-      email: [
-        this.company.email,
-        [Validators.required, Validators.email, Validators.maxLength(255)],
-      ],
-    });
-    this.forwardToEmailFromVisible = true;
+    if (!this.forwardToEmailFromStatus.loading) {
+      this.forwardToEmailForm = this.formBuilder.group({
+        email: [
+          '',
+          [Validators.required, Validators.email, Validators.maxLength(255)],
+        ],
+        job_post_id: [this.jobPost.id, [Validators.required]],
+      });
+    }
+    this.forwardToEmailFromStatus.visible = true;
   }
 
   resetForwardToEmailModal(): void {
-    this.forwardToEmailFromVisible = false;
+    this.forwardToEmailFromStatus.visible = false;
     this.forwardToEmailForm.reset();
   }
 
   handleOkForwardToEmailModal(): void {
-    console.log(this.forwardToEmailForm.value);
-    this.resetForwardToEmailModal();
+    this.forwardToEmailFromStatus.loading = true;
+    const data = this.forwardToEmailForm.value;
+    console.log(data);
+    this.emailService.forwardJobDetail(data).subscribe(
+      (res) => {
+        this.resetForwardToEmailModal();
+        this.toastr.success('Sending successfully!');
+      },
+      (err) => {
+        this.toastr.error('Sending unsuccessfully, please try again!');
+      },
+      () => {
+        this.forwardToEmailFromStatus.loading = false;
+      }
+    );
   }
 
   handleCancleForwardToEmailModal(): void {
-    this.resetForwardToEmailModal();
+    if (!this.forwardToEmailFromStatus.loading) {
+      this.resetForwardToEmailModal();
+    }
   }
 }

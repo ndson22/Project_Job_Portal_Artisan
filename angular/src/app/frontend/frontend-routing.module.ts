@@ -46,6 +46,7 @@ const routes: Routes = [
       {
         path: 'seeker',
         component: SeekerDetailComponent,
+        data: { title: 'My Seeker Profile' },
       },
       {
         path: 'account',

@@ -47,4 +47,9 @@ class JobPost extends Model
     {
         return $this->belongsTo(Gender::class);
     }
+
+    public static function withRelationships($id)
+    {
+        return self::with(['company', 'jobType', 'employeePosition', 'typeOfEmployment', 'gender'])->findOrFail($id);
+    }
 }

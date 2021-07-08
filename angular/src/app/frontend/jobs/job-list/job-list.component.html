@@ -179,7 +179,7 @@
       totalItems: count
   };">
       <!-- job start -->
-      <li>
+      <li [ngClass]="{'rainbow-box': job.sponsored !== null}">
         <div class="row">
           <div class="col-md-8 col-sm-8">
             <div class="jobimg">

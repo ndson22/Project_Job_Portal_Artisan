@@ -9,8 +9,6 @@ import { JobProvinces } from 'src/app/shared/models/jobProvince';
 import { UserService } from 'src/app/shared/services/user.service';
 import { environment } from 'src/environments/environment.prod';
 
-
-
 @Component({
   selector: 'app-job-list',
   templateUrl: './job-list.component.html',

@@ -7,8 +7,10 @@
         <div class="ptext">Date Posted: {{ jobPost?.created_at | date }}</div>
         <div class="salary">
           Monthly Salary:
-          <strong *ngIf="userService.isUser(); else login">{{ jobPost?.from_salary | currency: "USD" }} -
-            {{ jobPost?.to_salary | currency: "USD" }}</strong>
+          <strong *ngIf="userService.isUser(); else login"
+            >{{ jobPost?.from_salary | currency: "USD" }} -
+            {{ jobPost?.to_salary | currency: "USD" }}</strong
+          >
         </div>
         <ng-template #login>
           <a routerLink="/login">Login to see salaray</a>
@@ -17,7 +19,10 @@
       <div class="col-md-4">
         <div class="companyinfo">
           <div class="companylogo">
-            <img src="assets/frontend/images/employers/emplogo1.jpg" alt="your alt text" />
+            <img
+              src="assets/frontend/images/employers/emplogo1.jpg"
+              alt="your alt text"
+            />
           </div>
           <div class="title">
             <a href="#.">{{ company?.name }}</a>
@@ -32,14 +37,24 @@
     </div>
   </div>
   <div class="jobButtons" *ngIf="userService.isGuestOrSeeker()">
-    <a *ngIf="userService.isRole('seeker'); else guest" class="btn apply" nz-popconfirm
-      nzPopconfirmTitle="Are you want to send your Cv?" nzPopconfirmPlacement="bottom" nzOkText="Send"
-      (nzOnConfirm)="confirm()"><i class=" fa fa-paper-plane" aria-hidden="true"></i> Apply Now</a>
+    <a
+      *ngIf="userService.isRole('seeker'); else guest"
+      class="btn apply"
+      nz-popconfirm
+      nzPopconfirmTitle="Are you want to send your Cv?"
+      nzPopconfirmPlacement="bottom"
+      nzOkText="Send"
+      (nzOnConfirm)="confirm()"
+      ><i class="fa fa-paper-plane" aria-hidden="true"></i> Apply Now</a
+    >
     <ng-template #guest>
-      <a class="btn apply" (click)="toContact()"><i class="fa fa-paper-plane" aria-hidden="true"></i> Apply Now</a>
+      <a class="btn apply" (click)="toContact()"
+        ><i class="fa fa-paper-plane" aria-hidden="true"></i> Apply Now</a
+      >
     </ng-template>
-    <a href="javascript:;" class="btn" (click)="showForwardToEmailModal()"><i class="fa fa-envelope"
-        aria-hidden="true"></i> Forward to Email</a>
+    <a href="javascript:;" class="btn" (click)="showForwardToEmailModal()"
+      ><i class="fa fa-envelope" aria-hidden="true"></i> Forward to Email</a
+    >
     <!-- <a href="#." class="btn"
       ><i class="fa fa-black-tie" aria-hidden="true"></i> Job Aleart</a
     >
@@ -54,12 +69,47 @@
 </div>
 
 <!-- Forward Email Modal -->
-<nz-modal [(nzVisible)]="forwardToEmailFromVisible" (nzOnOk)="handleOkForwardToEmailModal()"
-  (nzOnCancel)="handleCancleForwardToEmailModal()" nzTitle="Forward to Email" nzWidth="500px" nzCentered>
+<nz-modal
+  [(nzVisible)]="forwardToEmailFromStatus.visible"
+  (nzOnCancel)="handleCancleForwardToEmailModal()"
+  nzTitle="Forward to Email"
+  nzWidth="500px"
+  nzCentered
+>
   <ng-container *nzModalContent>
-    <p>Content one</p>
-    <p>Content two</p>
-    <p>Content three</p>
+    <form [formGroup]="forwardToEmailForm" nz-form nzLayout="vertical">
+      <div [nzGutter]="24" nz-row>
+        <div [nzSpan]="24" nz-col>
+          <nz-form-item>
+            <nz-form-label nzFor="email-forward">Email</nz-form-label>
+            <nz-form-control nzHasFeedback nzErrorTip="Input has errors">
+              <nz-input-group nzPrefixIcon="mail">
+                <input
+                  id="email-forward"
+                  type="text"
+                  maxlength="100"
+                  nz-input
+                  formControlName="email"
+                />
+              </nz-input-group>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+    </form>
+  </ng-container>
+  <ng-container *nzModalFooter>
+    <button
+      [disabled]="
+        forwardToEmailForm.invalid || forwardToEmailFromStatus.loading || !forwardToEmailForm.dirty
+      "
+      [nzLoading]="forwardToEmailFromStatus.loading"
+      (click)="handleOkForwardToEmailModal()"
+      nz-button
+      nzType="primary"
+    >
+      Submit
+    </button>
   </ng-container>
 </nz-modal>
 
@@ -84,10 +134,13 @@
           <div class="row">
             <div class="col-md-8 col-sm-8">
               <div class="jobimg">
-                <img [src]="
+                <img
+                  [src]="
                     job.companyImg ??
                     'assets/frontend/images/employers/emplogo1.jpg'
-                  " alt="Job Name" />
+                  "
+                  alt="Job Name"
+                />
               </div>
               <div class="jobinfo">
                 <h3>
@@ -171,24 +224,56 @@
     </div>
 
     <!-- Contact Company start -->
-    <form [formGroup]="createForm" (ngSubmit)="onAddContact()" *ngIf="userService.isGuestOrSeeker()">
+    <form
+      [formGroup]="createForm"
+      (ngSubmit)="onAddContact()"
+      *ngIf="userService.isGuestOrSeeker()"
+    >
       <div class="job-header" id="apply_scroll">
         <div class="jobdetail">
           <h3>Contact</h3>
           <div class="formpanel">
             <div class="formrow">
-              <input maxlength="255" type="text" class="form-control" placeholder="Your Name" formControlName="name" />
+              <input
+                maxlength="255"
+                type="text"
+                class="form-control"
+                placeholder="Your Name"
+                formControlName="name"
+              />
             </div>
             <div class="formrow">
-              <input maxlength="255" type="email" class="form-control" placeholder="Your Email" formControlName="email" />
+              <input
+                maxlength="255"
+                type="email"
+                class="form-control"
+                placeholder="Your Email"
+                formControlName="email"
+              />
             </div>
             <div class="formrow">
-              <input maxlength="10" type="number" class="form-control" placeholder="Phone" formControlName="phone_number" />
+              <input
+                maxlength="10"
+                type="number"
+                class="form-control"
+                placeholder="Phone"
+                formControlName="phone_number"
+              />
             </div>
             <div class="formrow">
-              <textarea maxlength="1000" class="form-control" placeholder="Message" formControlName="message"></textarea>
+              <textarea
+                maxlength="1000"
+                class="form-control"
+                placeholder="Message"
+                formControlName="message"
+              ></textarea>
             </div>
-            <input type="submit" class="btn" value="Submit" [disabled]="createForm.invalid" />
+            <input
+              type="submit"
+              class="btn"
+              value="Submit"
+              [disabled]="createForm.invalid || !createForm.dirty"
+            />
           </div>
         </div>
       </div>
@@ -200,7 +285,12 @@
         <div class="gmap">
           <iframe
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3724.4962240003656!2d105.79772571430779!3d21.01282189369948!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135ab5f56141f4f%3A0xf7f31741c041d055!2zTmfDtSAxMDAgVHLhuqduIER1eSBIxrBuZywgVHJ1bmcgSG_DoCwgQ-G6p3UgR2nhuqV5LCBIw6AgTuG7mWksIFZp4buHdCBOYW0!5e0!3m2!1svi!2s!4v1625494540032!5m2!1svi!2s"
-            width="600" height="450" style="border: 0" allowfullscreen="" loading="lazy"></iframe>
+            width="600"
+            height="450"
+            style="border: 0"
+            allowfullscreen=""
+            loading="lazy"
+          ></iframe>
         </div>
       </div>
     </div>

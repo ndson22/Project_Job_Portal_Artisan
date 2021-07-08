@@ -11,23 +11,17 @@ class ForwardJobDetail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    /**
-     * Create a new message instance.
-     *
-     * @return void
-     */
-    public function __construct()
+    public $jobPost, $company;
+
+    public function __construct($jobPost)
     {
-        //
+        $this->jobPost = $jobPost;
+        $this->company = $jobPost->company;
     }
 
-    /**
-     * Build the message.
-     *
-     * @return $this
-     */
     public function build()
     {
-        return $this->view('view.name');
+        $subject = '[Artisans] ' . $this->company->name . ' - ' . $this->jobPost->title;
+        return $this->subject($subject)->view('emails.forward-job-post');
     }
 }
