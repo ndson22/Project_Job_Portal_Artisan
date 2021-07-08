@@ -78,4 +78,15 @@ export class JobDetailComponent implements OnInit {
       },
     });
   }
+
+  confirm() {
+    this.contactService.seekerContactStore(this.company.id).subscribe(
+      (res) => {
+        this.toastr.success('Send Cv successfully');
+      },
+      (err) => {
+        this.toastr.error('You have applied to this job');
+      }
+    );
+  }
 }

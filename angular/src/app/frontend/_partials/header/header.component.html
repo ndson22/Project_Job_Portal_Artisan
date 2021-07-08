@@ -54,7 +54,7 @@
             <a routerLink="/dashboard/jobs/create">Post a job</a>
           </li>
           <li class="jobseeker" *ngIf="userService.isRole('company')">
-            <a routerLink="/dashboard/account">View CV</a>
+            <a routerLink="/dashboard/company/cv">View CV</a>
           </li>
 
           <li class="postjob" *ngIf="userService.isRole('admin')">

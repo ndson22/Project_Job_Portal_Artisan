@@ -17,15 +17,12 @@ class CreateContactsTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('email');
-            $table->string('phone');
+            $table->bigInteger('phone_number');
             $table->string('message');
             $table->unsignedBigInteger('company_id')->nullable();
-            $table->unsignedBigInteger('user_id')->nullable();
+            $table->timestamps();
 
             $table->foreign('company_id')->references('id')->on('companies');
-            $table->foreign('user_id')->references('id')->on('users');
-
-            $table->timestamps();
         });
     }
 

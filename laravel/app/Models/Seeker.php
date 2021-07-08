@@ -25,6 +25,11 @@ class Seeker extends Model
         return $this->belongsTo(Gender::class);
     }
 
+    public function company()
+    {
+        return $this->belongsToMany(Company::class)->withPivot('company_id', 'seeker_id', 'created_at', 'updated_at');
+    }
+
     public static function withRelationships($id)
     {
         return Seeker::with(['gender', 'seekerExperience'])->findOrFail($id);

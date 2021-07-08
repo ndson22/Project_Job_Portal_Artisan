@@ -28,9 +28,14 @@
         ><i class="fa fa-user" aria-hidden="true"></i> My Account</a
       >
     </li>
-    <li routerLinkActive="active" *ngIf="userService.isRole('company')">
+    <li routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" *ngIf="userService.isRole('company')">
       <a routerLink="/dashboard/company"
         ><i class="fa fa-building" aria-hidden="true"></i> My Company</a
+      >
+    </li>
+    <li routerLinkActive="active" *ngIf="userService.isRole('company')">
+      <a routerLink="/dashboard/company/cv"
+        ><i class="fa fa-building" aria-hidden="true"></i> My CV</a
       >
     </li>
     <li routerLinkActive="active" *ngIf="userService.isRole('seeker')">

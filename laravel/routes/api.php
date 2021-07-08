@@ -57,6 +57,12 @@ Route::put('/companies/{company}/lock', [Frontend\CompanyController::class, 'loc
 Route::put('/companies/{company}/sponsor', [Frontend\CompanyController::class, 'sponsor'])->middleware('auth:sanctum');
 Route::post('/companies/{company}/image', [Frontend\CompanyController::class, 'uploadImage'])->middleware('auth:sanctum');
 
+Route::apiResource('company-contacts', Frontend\CompanyCvController::class)->middleware('auth:sanctum');
+Route::post('/company-contacts/contacts/{company}/store/{seeker}', [Frontend\CompanyCvController::class, 'storeSeekerContact'])->middleware('auth:sanctum');
+Route::get('/company-contacts/contacts/{company}', [Frontend\CompanyCvController::class, 'getContactByCompany'])->middleware('auth:sanctum');
+Route::get('/company-contacts/contacts/seekers/{seeker}', [Frontend\CompanyCvController::class, 'getSeekerContact'])->middleware('auth:sanctum');
+Route::get('/company-contacts/contacts/anonymous/{anonymous}', [Frontend\CompanyCvController::class, 'getAnonymousContact'])->middleware('auth:sanctum');
+
 Route::apiResource('companies', Frontend\CompanyController::class);
 Route::apiResource('provinces', Frontend\ProvinceController::class)->only('index');
 

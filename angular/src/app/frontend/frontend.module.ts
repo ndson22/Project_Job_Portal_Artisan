@@ -66,8 +66,9 @@ import { LoginComponent } from './auth/login/login.component';
 import { ProfileUserDetailComponent } from './profiles/profile-user-detail/profile-user-detail.component';
 import { FeatureJobsComponent } from './home/feature-jobs/feature-jobs.component';
 import { DashboardJobListComponent } from './profiles/dashboard-job-list/dashboard-job-list.component';
-import { IconDefinition } from '@ant-design/icons-angular';
 import { HomeMobileAppComponent } from './home/home-mobile-app/home-mobile-app.component';
+import { NzDrawerModule } from 'ng-zorro-antd/drawer';
+import { NzDescriptionsModule } from 'ng-zorro-antd/descriptions';
 
 // Pipes
 import { PostPipePipe } from '../shared/pipes/post-pipe.pipe';
@@ -77,6 +78,7 @@ import { ContactUsComponent } from './_layouts/contact-us/contact-us.component';
 import { CompanyDetailComponent } from './profiles/company-detail/company-detail.component';
 import { SeekerDetailComponent } from './profiles/seeker-detail/seeker-detail.component';
 import { HomeSuccessStoriesComponent } from './home/home-success-stories/home-success-stories.component';
+import { CompanyCvComponent } from './profiles/company-cv/company-cv.component';
 
 @NgModule({
   declarations: [
@@ -110,6 +112,7 @@ import { HomeSuccessStoriesComponent } from './home/home-success-stories/home-su
     CompanyDetailComponent,
     SeekerDetailComponent,
     HomeSuccessStoriesComponent,
+    CompanyCvComponent,
   ],
   imports: [
     NgxPaginationModule,
@@ -147,6 +150,8 @@ import { HomeSuccessStoriesComponent } from './home/home-success-stories/home-su
     NzBackTopModule,
     NzDividerModule,
     NzPopoverModule,
+    NzDrawerModule,
+    NzDescriptionsModule,
 
     // Angular
     CommonModule,

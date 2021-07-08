@@ -1,3 +1,4 @@
+import { CompanyCvComponent } from './profiles/company-cv/company-cv.component';
 import { SeekerDetailComponent } from './profiles/seeker-detail/seeker-detail.component';
 import { AboutUsComponent } from './_layouts/about-us/about-us.component';
 import { AuthGuard } from '../shared/guards/auth.guard';
@@ -30,6 +31,12 @@ const routes: Routes = [
     component: ProfileComponent,
     canActivate: [AuthGuard],
     children: [
+      {
+        path: 'company/cv',
+        canActivate: [CompanyGuard],
+        component: CompanyCvComponent,
+        data: { title: 'My CV' },
+      },
       {
         path: 'company',
         canActivate: [CompanyGuard],

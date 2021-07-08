@@ -33,6 +33,11 @@ class Company extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function seeker()
+    {
+        return $this->belongsToMany(Seeker::class)->withTimestamps();
+    }
+
     public function withRelationships(Company $company)
     {
         return $this->with(['user', 'province'])->findOrFail($company->id);
