@@ -7,7 +7,7 @@ import { Subscription } from 'rxjs';
 import { jobTypes } from 'src/app/shared/models/jobType';
 import { JobProvinces } from 'src/app/shared/models/jobProvince';
 import { UserService } from 'src/app/shared/services/user.service';
-
+import { environment } from 'src/environments/environment.prod';
 
 
 
@@ -22,6 +22,13 @@ export class JobListComponent implements OnInit, OnDestroy {
   jobTypes!: jobTypes[];
   jobProvinces!: JobProvinces[];
   jobSalary! : Job[];
+  jobSides!: Job[];
+  storageUrl = environment.storageUrl;
+
+
+  page = 1;
+  count = 0;
+  pageSize = 8;
 
   searchForm = this.formBuilder.group({
     search: [''],
@@ -47,7 +54,6 @@ export class JobListComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-
     this.getJobTypes();
     this.getJobProvince();
     this.getMinSalary();
@@ -60,6 +66,7 @@ export class JobListComponent implements OnInit, OnDestroy {
       this.getAllPost()
     }
     this.jobService.flag = false;
+    this.getJobSider()
   }
 
 
@@ -79,6 +86,14 @@ export class JobListComponent implements OnInit, OnDestroy {
     this.jobService.getJobType().subscribe(
       (res: any) => {
         this.jobTypes = res;
+      }
+    )
+  };
+
+  getJobSider() {
+    this.jobService.getJobSider().subscribe(
+      (res: any) => {
+        this.jobSides = res;
       }
     )
   };
@@ -137,4 +152,7 @@ export class JobListComponent implements OnInit, OnDestroy {
     }
   }
 
+  onTableDataChange(e:any){
+    this.page = e;
+  }
 }

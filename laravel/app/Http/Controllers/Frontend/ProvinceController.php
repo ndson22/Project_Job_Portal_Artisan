@@ -12,4 +12,10 @@ class ProvinceController extends Controller
         $provinces = Province::orderBy('name')->get();
         return response()->json($provinces);
     }
+
+    public function getProvin()
+    {
+        $provinceSearch = Province::take(21)->get();
+        return response()->json($provinceSearch);
+    }
 }

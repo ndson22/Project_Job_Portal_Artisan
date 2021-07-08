@@ -81,6 +81,7 @@ import { HomeSuccessStoriesComponent } from './home/home-success-stories/home-su
 import { CompanyCvComponent } from './profiles/company-cv/company-cv.component';
 import { TopEmployersComponent } from './home/top-employers/top-employers.component';
 import { SearchComponent } from './home/search/search.component';
+import { PopularSearchComponent } from './home/popular-search/popular-search.component';
 
 @NgModule({
   declarations: [
@@ -117,6 +118,7 @@ import { SearchComponent } from './home/search/search.component';
     CompanyCvComponent,
     TopEmployersComponent,
     SearchComponent,
+    PopularSearchComponent,
   ],
   imports: [
     NgxPaginationModule,

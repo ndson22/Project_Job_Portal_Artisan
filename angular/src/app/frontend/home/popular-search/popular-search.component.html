@@ -1,0 +1,35 @@
+<div class="section">
+  <div class="container">
+    <!-- title start -->
+    <div class="titleTop">
+      <div class="subtitle">Here You Can See</div>
+      <h3>Popular <span>Searches</span></h3>
+    </div>
+    <!-- title end -->
+    <form [formGroup]="searchForm" (ngSubmit)="search()">
+      <div class="topsearchwrap row">
+        <div class="col-md-6">
+          <!--Categories start-->
+          <h4>Browse By Categories</h4>
+          <ul  class="row catelist">
+            <li class="col-md-6 col-sm-6" *ngFor="let jobType of jobTypes" value="{{ jobType.id }}">
+              <a class="text">{{ jobType.name }} </a>
+            </li>
+          </ul>
+          <!--Categories end-->
+        </div>
+        <div class="col-md-6">
+          <!--Cities start-->
+          <h5>Browse By Cities</h5>
+          <ul class="row catelist" >
+            <li class="col-md-4 col-sm-4 col-xs-6" *ngFor="let jobProvince of jobProvinces"
+              value="{{ jobProvince.id }}">
+              <a>{{ jobProvince.name }}</a>
+            </li>
+          </ul>
+          <!--Cities end-->
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

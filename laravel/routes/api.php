@@ -41,6 +41,7 @@ Route::prefix('/jobs')->group(function () {
     Route::get('/info', [Frontend\JobController::class, 'getJobInfo'])->name('jobs.getJobInfo');
     Route::get('/salary', [Frontend\JobController::class, 'getSalary']);
 
+    Route::get('/jobsider', [Frontend\JobController::class, 'getJobSider']);
     Route::post('/store', [Frontend\JobController::class, 'store'])->name('jobs.store')->middleware('auth:sanctum');
     Route::put('/edit/{id}', [Frontend\JobController::class, 'edit'])->middleware('auth:sanctum');
     Route::delete('/delete/{id}', [Frontend\JobController::class, 'delete'])->middleware('auth:sanctum');
@@ -50,7 +51,10 @@ Route::prefix('/jobs')->group(function () {
     Route::post('/search-filter', [Frontend\JobController::class, 'filter']);
 
     Route::get('/provinces', [Frontend\ProvinceController::class, 'index']);
+    Route::get('/search-provinces', [Frontend\ProvinceController::class, 'getProvin']);
+
     Route::get('/{id}', [Frontend\JobController::class, 'getDetail'])->name('jobs.get');
+
 });
 
 Route::prefix('/contact')->group(function (){

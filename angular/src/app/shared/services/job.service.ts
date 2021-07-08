@@ -29,6 +29,10 @@ export class JobService {
     return this.http.get<Job>(`${baseUrl}/${id}`);
   }
 
+  getJobSider(): Observable<Job[]> {
+    return this.http.get<Job[]>(`${baseUrl}/jobsider`);
+  }
+
   store(data: any): Observable<any> {
     return this.http.post(`${baseUrl}/store`, data);
   }
@@ -61,6 +65,10 @@ export class JobService {
 
   getJobProvince(): Observable<JobProvinces> {
     return this.http.get<JobProvinces>(`${baseUrl}/provinces`);
+  }
+
+  getJobProvinceSearch(): Observable<JobProvinces> {
+    return this.http.get<JobProvinces>(`${baseUrl}/search-provinces`);
   }
 
   getJobByCompany(page: number, size = 20): Observable<any> {

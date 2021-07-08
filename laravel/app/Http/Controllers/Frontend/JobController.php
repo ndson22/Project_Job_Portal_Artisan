@@ -298,4 +298,10 @@ class JobController extends Controller
         $getSalary = DB::table('job_posts')->select('from_salary')->groupBy('from_salary')->get();
         return response()->json($getSalary);
     }
+
+    public function getJobSider()
+    {
+        $jobSider = JobPost::with('company')->orderBy('promoted_at', 'DESC')->take(3)->get();
+        return response()->json($jobSider);
+    }
 }
