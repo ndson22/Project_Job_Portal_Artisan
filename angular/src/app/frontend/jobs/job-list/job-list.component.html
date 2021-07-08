@@ -1,11 +1,11 @@
 <!-- Page Title start -->
-<div class="pageSearch">
-  <div class="row">
-    <div class="col-md-3">
-      <a href="#." class="btn"><i class="fa fa-file-text" aria-hidden="true"></i> Upload Your
-        Resume</a>
-    </div>
-    <form [formGroup]="searchForm" (ngSubmit)="search()">
+<form [formGroup]="searchForm" (ngSubmit)="search()">
+  <div class="pageSearch">
+    <div class="row">
+      <div class="col-md-3">
+        <a href="#." class="btn"><i class="fa fa-file-text" aria-hidden="true"></i> Upload Your
+          Resume</a>
+      </div>
       <div class="col-md-9">
         <div class="searchform">
           <div class="row">
@@ -14,13 +14,13 @@
             </div>
             <div class="col-md-2 col-sm-2">
               <select class="form-control" formControlName="job_type_id">
-                <option value=null>Type</option>
+                <option value=''>Type</option>
                 <option *ngFor="let jobType of jobTypes" value="{{ jobType.id }}">{{ jobType.name }}</option>
               </select>
             </div>
             <div class="col-md-3 col-sm-3">
               <select class="form-control" formControlName="province_id">
-                <option value=null>Province</option>
+                <option value=''>Province</option>
                 <option *ngFor="let jobProvince of jobProvinces" value="{{ jobProvince.id }}">{{
                   jobProvince.name }}</option>
 
@@ -28,7 +28,7 @@
             </div>
             <div class="col-md-3 col-sm-3" *ngIf="userService.isUser()">
               <select class="form-control" formControlName="from_salary">
-                <option value=null>Min Salary</option>
+                <option value=''>Min Salary</option>
                 <option *ngFor="let jobSa of jobSalary">{{ jobSa.from_salary }}</option>
               </select>
             </div>
@@ -40,183 +40,174 @@
           </div>
         </div>
       </div>
-    </form>
+    </div>
   </div>
-</div>
-<!-- Page Title end -->
+  <!-- Page Title end -->
 
-<!-- Search Result and sidebar start -->
-<div class="row">
-  <div class="col-md-3 col-sm-6">
-    <!-- Side Bar start -->
-    <div class="sidebar" [formGroup]="searchFormFilter" (ngSubmit)="searchFilter()">
-      <!-- Jobs By Title -->
-      <div class="widget">
-        <h4 class="widget-title">Jobs By Title</h4>
-        <ul class="optionlist" formControlName="search">
-          <li>
-            <input type="checkbox" name="checkname" id="webdesigner" />
-            <label for="webdesigner"></label>
-            Web Designer <span>12</span>
-          </li>
-          <li>
-            <input type="checkbox" name="checkname" id="3dgraphic" />
-            <label for="3dgraphic"></label>
-            3D Graphic Designer <span>33</span>
-          </li>
-          <li>
-            <input type="checkbox" name="checkname" id="graphic" />
-            <label for="graphic"></label>
-            Graphic Designer <span>33</span>
-          </li>
-          <li>
-            <input type="checkbox" name="checkname" id="electronicTech" />
-            <label for="electronicTech"></label>
-            Electronics Technician <span>33</span>
-          </li>
-          <li>
-        </ul>
-        <!-- title end -->
-      </div>
-      <!-- Jobs By Experience -->
-      <div class="widget">
-        <h4 class="widget-title">Jobs By Experience</h4>
-        <ul class="optionlist" formControlName="experience">
-          <li>
-            <input type="checkbox" name="checkname" id="permanent" />
-            <label for="permanent"></label>
-            Full Time/Permanent <span>9</span>
-          </li>
-          <li>
-            <input type="checkbox" name="checkname" id="parttime" />
-            <label for="parttime"></label>
-            Part Time <span>10</span>
-          </li>
-          <li>
-            <input type="checkbox" name="checkname" id="internship" />
-            <label for="internship"></label>
-            Internship <span>1</span>
-          </li>
-          <li>
-            <input type="checkbox" name="checkname" id="freelance" />
-            <label for="freelance"></label>
-            Freelance <span>2</span>
-          </li>
-        </ul>
-      </div>
-      <!-- Jobs By Experience end -->
-      <!-- Salary -->
-      <div class="widget">
-        <h4 class="widget-title">Salary Range</h4>
-        <ul class="optionlist">
-          <li>
-            <input type="checkbox" name="checkname" id="price1" />
-            <label for="price1"></label>
-            0 to $100 <span>12</span>
-          </li>
-        </ul>
-      </div>
-      <!-- Salary end -->
+  <!-- Search Result and sidebar start -->
+  <div class="row">
+    <div class="col-md-3 col-sm-6">
+      <!-- Side Bar start -->
+      <div class="sidebar">
+        <!-- Jobs By Title -->
+        <div class="widget">
+          <h4 class="widget-title">Jobs By Title</h4>
+          <ul class="optionlist">
+            <li>
+              <input (change)="onCheckTitleChange($event)" id="webdesigner" formArrayName="title" type="checkbox"
+                value="Web Designer" />
+              <label for="webdesigner"></label>
+              Web Designer
+            </li>
+            <li>
+              <input (change)="onCheckTitleChange($event)" id="3dgraphic" formArrayName="title" type="checkbox"
+                value="3D Graphic Designer" />
+              <label for="3dgraphic"></label>
+              3D Graphic Designer
+            </li>
+            <li>
+              <input (change)="onCheckTitleChange($event)" id="graphic" formArrayName="title" type="checkbox"
+                value="Graphic Designer" />
+              <label for="graphic"></label>
+              Graphic Designer
+            </li>
+            <li>
+              <input (change)="onCheckTitleChange($event)" id="electronicTech" formArrayName="title" type="checkbox"
+                value="Electronics Technician" />
+              <label for="electronicTech"></label>
+              Electronics Technician
+            </li>
+            <li>
+          </ul>
+          <!-- title end -->
+        </div>
+        <!-- Jobs By Experience -->
+        <div class="widget">
+          <h4 class="widget-title">Jobs By Experience</h4>
+          <ul class="optionlist">
+            <li *ngFor="let ex of experiences">
+              <input id="permanent{{ ex.experience }}" (change)="onCheckExperienceChange($event)" type="checkbox"
+                [value]=ex.experience />
+              <label for="permanent{{ ex.experience }}"></label>
+              {{ ex.experience }} years
+            </li>
+          </ul>
+        </div>
+        <!-- Jobs By Experience end -->
+        <!-- Salary -->
+        <div class="widget">
+          <h4 class="widget-title">Salary Range</h4>
+          <ul class="optionlist">
+            <li>
+              <input type="range" [(ngModel)]="rangeSalary" (change)="search()" formControlName="to_salary" min="0"
+                step="50" max="10000">
+              $ {{ rangeSalary | number }}
+            </li>
+          </ul>
+        </div>
+        <!-- Salary end -->
 
-      <!-- button -->
-      <div class="searchnt">
+        <!-- button -->
+        <!-- <div class="searchnt">
         <button class="btn">
           <i class="fa fa-search" aria-hidden="true" value="Search Job"></i> Search Jobs
         </button>
+      </div> -->
+        <!-- button end-->
       </div>
-      <!-- button end-->
+      <!-- Side Bar end -->
     </div>
-    <!-- Side Bar end -->
-  </div>
-  <div class="col-md-3 col-sm-6 pull-right">
-    <!-- Social Icons -->
-    <div class="sidebar">
-      <h4 class="widget-title">Follow Us</h4>
-      <div class="social">
-        <a href="http://www.twitter.com/" target="_blank"><i class="fa fa-twitter-square" aria-hidden="true"></i></a>
-        <a href="http://www.plus.google.com/" target="_blank"><i class="fa fa-google-plus-square"
-            aria-hidden="true"></i></a>
-        <a href="http://www.facebook.com/" target="_blank">
-          <i class="fa fa-facebook-square" aria-hidden="true"></i></a>
-        <a href="https://www.pinterest.com/" target="_blank"><i class="fa fa-pinterest-square"
-            aria-hidden="true"></i></a>
-        <a href="https://www.youtube.com/" target="_blank"><i class="fa fa-youtube-square" aria-hidden="true"></i></a>
-        <a href="https://www.linkedin.com/" target="_blank"><i class="fa fa-linkedin-square" aria-hidden="true"></i></a>
-      </div>
-      <!-- Social Icons end -->
-    </div>
-
-    <!-- Sponsord By -->
-    <div class="sidebar">
-      <div class="widget jobinfo" *ngFor="let job of jobSides" [routerLink]="['/jobs', job.id]">
-        <span nz-typography nzType="secondary">
-          <a target="_blank">
-            <h4>{{ job.title }}</h4>
-            <Link />
-          </a>
-        </span>
-
+    <div class="col-md-3 col-sm-6 pull-right">
+      <!-- Social Icons -->
+      <div class="sidebar">
+        <h4 class="widget-title">Follow Us</h4>
+        <div class="social">
+          <a href="http://www.twitter.com/" target="_blank"><i class="fa fa-twitter-square" aria-hidden="true"></i></a>
+          <a href="http://www.plus.google.com/" target="_blank"><i class="fa fa-google-plus-square"
+              aria-hidden="true"></i></a>
+          <a href="http://www.facebook.com/" target="_blank">
+            <i class="fa fa-facebook-square" aria-hidden="true"></i></a>
+          <a href="https://www.pinterest.com/" target="_blank"><i class="fa fa-pinterest-square"
+              aria-hidden="true"></i></a>
+          <a href="https://www.youtube.com/" target="_blank"><i class="fa fa-youtube-square" aria-hidden="true"></i></a>
+          <a href="https://www.linkedin.com/" target="_blank"><i class="fa fa-linkedin-square"
+              aria-hidden="true"></i></a>
+        </div>
+        <!-- Social Icons end -->
       </div>
 
-      <div class="widget" *ngFor="let jobside of jobSides" [routerLink]="['/jobs', jobside.id]">
-        <a><img [src]="jobside.company.image ? (storageUrl + jobside.company.image)
+      <!-- Sponsord By -->
+      <div class="sidebar">
+        <div class="widget jobinfo" *ngFor="let job of jobSides" [routerLink]="['/jobs', job.id]">
+          <span nz-typography nzType="secondary">
+            <a target="_blank">
+              <h4>{{ job.title }}</h4>
+              <Link />
+            </a>
+          </span>
+
+        </div>
+
+        <div class="widget" *ngFor="let jobside of jobSides" [routerLink]="['/jobs', jobside.id]">
+          <a><img [src]="jobside.company.image ? (storageUrl + jobside.company.image)
              : 'assets/frontend/images/employers/emplogo1.jpg'" alt="Company Name" />
-        </a>
+          </a>
+        </div>
       </div>
     </div>
-  </div>
 
-  <div class="col-md-6 col-sm-12">
-    <ul class="searchList" *ngIf="jobs?.length === 0">
-      <li>
-        <h3 style="color: red;">Nothing found.</h3>
-      </li>
-    </ul>
-    <!-- Search List -->
-    <ul class="searchList" *ngFor="let job of jobs  | paginate : {
+    <div class="col-md-6 col-sm-12">
+      <ul class="searchList" *ngIf="jobs?.length === 0">
+        <li>
+          <h3 style="color: red;">Nothing found.</h3>
+        </li>
+      </ul>
+      <!-- Search List -->
+      <ul class="searchList" *ngFor="let job of jobs  | paginate : {
       itemsPerPage: pageSize,
       currentPage: page,
       totalItems: count
   };">
-      <!-- job start -->
-      <li [ngClass]="{'rainbow-box': job.sponsored !== null}">
+        <!-- job start -->
+        <li [ngClass]="{'rainbow-box': job.sponsored !== null}">
+          <div class="row">
+            <div class="col-md-8 col-sm-8">
+              <div class="jobimg">
+                <img src="assets/frontend/images/jobs/jobimg.jpg" alt="Job Name" />
+              </div>
+              <div class="jobinfo">
+                <h3><a [ngClass]="job.promoted_at !== null ? 'job-promoted' : ''" [routerLink]="['/jobs', job.id]">{{
+                    job.title }}</a></h3>
+                <div class="companyName">
+                  <a>{{ job.name }}</a>
+                </div>
+                <div class="location">
+                  <label class="fulltime">{{ job.typeOfEmployments}}</label> -
+                  <span>{{ job?.location }}</span>
+                </div>
+              </div>
+              <div class="clearfix"></div>
+            </div>
+            <div class="col-md-4 col-sm-4">
+              <div class="listbtn"><a [routerLink]="['/jobs', job.id]">Apply Now</a></div>
+            </div>
+          </div>
+        </li>
+        <!-- job end -->
+      </ul>
+      <!-- Pagination Start -->
+      <div class="pagiWrap">
         <div class="row">
-          <div class="col-md-8 col-sm-8">
-            <div class="jobimg">
-              <img src="assets/frontend/images/jobs/jobimg.jpg" alt="Job Name" />
-            </div>
-            <div class="jobinfo">
-              <h3><a [ngClass]="job.promoted_at !== null ? 'job-promoted' : ''" [routerLink]="['/jobs', job.id]">{{
-                  job.title }}</a></h3>
-              <div class="companyName">
-                <a>{{ job.name }}</a>
-              </div>
-              <div class="location">
-                <label class="fulltime">{{ job.typeOfEmployments}}</label> -
-                <span>{{ job?.location }}</span>
-              </div>
-            </div>
-            <div class="clearfix"></div>
-          </div>
-          <div class="col-md-4 col-sm-4">
-            <div class="listbtn"><a [routerLink]="['/jobs', job.id]">Apply Now</a></div>
-          </div>
-        </div>
-      </li>
-      <!-- job end -->
-    </ul>
-    <!-- Pagination Start -->
-    <div class="pagiWrap">
-      <div class="row">
 
-        <div class="col-md-12 col-sm-12 text-right">
-          <ul class="pagination">
-            <pagination-controls previousLabel="Prev" nextLabel="Next" (pageChange)="onTableDataChange($event)">
-            </pagination-controls>
-          </ul>
+          <div class="col-md-12 col-sm-12 text-right">
+            <ul class="pagination">
+              <pagination-controls previousLabel="Prev" nextLabel="Next" (pageChange)="onTableDataChange($event)">
+              </pagination-controls>
+            </ul>
+          </div>
         </div>
       </div>
+      <!-- Pagination end -->
     </div>
-    <!-- Pagination end -->
   </div>
-</div>
+</form>

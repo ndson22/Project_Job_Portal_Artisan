@@ -91,155 +91,51 @@ class JobController extends Controller
     public function search(Request $request)
     {
         $search = $request->search;
-        $provinceId = $request->province_id;
         $jobTypeId = $request->job_type_id;
-        $minSalary = $request->from_salary;
-        $maxSalary = $request->to_salary;
-        $experience = $request->experience;
-
-        $jobPosts = JobPost::where(function ($query) use (
-            $jobTypeId,
-            $provinceId,
-            $search,
-            $minSalary,
-            $maxSalary,
-            $experience
-        ) {
-            $query->where('title', 'like', '%' . $search . '%')
-                ->when($jobTypeId, function ($query, $jobTypeId) {
-                    return $query->where('job_type_id', $jobTypeId);
-                })
-                ->when($provinceId, function ($query, $provinceId) {
-                    $companies = Company::where('province_id', $provinceId)->get();
-                    $companiesId = [];
-                    foreach ($companies as $company) {
-                        $companiesId[] = $company->id;
-                    }
-                    return $query->whereIn('company_id', $companiesId);
-                })
-
-                ->when($minSalary, function ($query,  $minSalary) {
-                    return $query->where('from_salary', '>=', $minSalary);
-                })
-                ->when($maxSalary, function ($query, $maxSalary) {
-                    return $query->where('to_salary', '<=', $maxSalary);
-                })
-                ->when($experience, function ($query, $experience) {
-                    return $query->where('experience', $experience);
-                });
-        })
-            ->orWhere(function ($query) use (
-                $jobTypeId,
-                $provinceId,
-                $search,
-                $minSalary,
-                $maxSalary,
-                $experience
-            ) {
-                $query->where('description', 'like', '%' . $search . '%')
-                    ->when($jobTypeId, function ($query, $jobTypeId) {
-                        return $query->where('job_type_id', $jobTypeId);
-                    })
-                    ->when($provinceId, function ($query, $provinceId) {
-                        $companies = Company::where('province_id', $provinceId)->get();
-                        $companiesId = [];
-                        foreach ($companies as $company) {
-                            $companiesId[] = $company->id;
-                        }
-                        return $query->whereIn('company_id', $companiesId);
-                    })
-                    ->when($minSalary, function ($query, $minSalary) {
-                        return $query->where('from_salary', $minSalary);
-                    })
-                    ->when($maxSalary, function ($query, $maxSalary) {
-                        return $query->where('to_salary', $maxSalary);
-                    })
-                    ->when($experience, function ($query, $experience) {
-                        return $query->where('experience', $experience);
-                    });
-            })
-            ->get();
-        if (count($jobPosts) > 0) {
-            foreach ($jobPosts as $key => $jobPost) {
-                $jobPost->name = $jobPost->company->name;
-                $jobPost->address = $jobPost->company->address;
-                $jobPost->jobTypes = $jobPost->jobType->name;
-                $jobPost->employeePositions = $jobPost->employeePosition->name;
-                $jobPost->typeOfEmployments = $jobPost->typeOfEmployment->name;
-            }
-        }
-        return response()->json(compact('jobPosts', 'provinceId', 'jobTypeId', 'search'));
-    }
-
-    public function filter(Request $request)
-    {
-        $search = $request->search;
+        $provinceId = $request->province_id;
         $minSalary = $request->from_salary;
         $maxSalary = $request->to_salary;
         $experience = $request->experience;
         $title = $request->title;
-
-        // $name = DB::Table('bookinfo')
-        // ->select('BookName', 'bookId')
-        // ->Where(function ($query) use($book) {
-        //      for ($i = 0; $i < count($book); $i++){
-        //         $query->orwhere('bookname', 'like',  '%' . $book[$i] .'%');
-        //      }
-        // })->get();
-
-        $jobPosts = JobPost::where(function ($query) use (
-            $search,
-            $experience,
-            $title,
-            $minSalary,
-            $maxSalary
-        ) {
-            $query->where(function ($query) use ($title) {
-                foreach ($title as $value){
-                    $query->orWhere('title', 'like',  '%' . $value . '%');
+        $companyIds = Company::select('id')->whereNull('verified_at')->orWhereNotNull('locked_at')->get();
+        $jobPosts = JobPost::where('is_active', 1)
+            ->whereNotIn('company_id', $companyIds)
+            ->when($title, function ($query, $title) {
+                return $query->where(function ($query) use ($title) {
+                    foreach ($title as $value) {
+                        $query->orWhere('title', 'like',  '%' . $value . '%');
+                    }
+                });
+            })->when($experience, function ($query,  $experience) {
+                return $query->whereIn('experience', $experience);
+            })->when($minSalary, function ($query,  $minSalary) {
+                return $query->where('from_salary', '>=', $minSalary);
+            })->when($provinceId, function ($query,  $provinceId) {
+                $companies = Company::where('province_id', $provinceId)->get();
+                $companiesId = [];
+                foreach ($companies as $company) {
+                    $companiesId[] = $company->id;
                 }
-            })
-                ->when($experience, function ($query,  $experience) {
-                    return $query->whereIn('experience', $experience);
-                })
-                ->when($minSalary, function ($query,  $minSalary) {
-                    return $query->whereIn('from_salary',  $minSalary);
-                })
-                ->when($maxSalary, function ($query, $maxSalary) {
-                    return $query->whereIn('to_salary',  $maxSalary);
-                })
-                // ->when($experience, function ($query,  $title) {
-                //     for ($i = 0; $i < count($title); $i++) {
-                //         $query->where('title', 'like',  '%' . $title[$i] . '%');
-                //     }
-                // })
-            ;
-        })
-            ->orWhere(function ($query) use (
-                $search,
-                $experience,
-                $minSalary,
-                $maxSalary
-            ) {
-                $query->where('description', 'like', '%' . $search . '%')
-                    ->when($experience, function ($query,  $experience) {
-                        return $query->whereIn('experience', $experience);
-                    })
-                    ->when($minSalary, function ($query,  $minSalary) {
-                        return $query->whereIn('from_salary',  $minSalary);
-                    })
-                    ->when($maxSalary, function ($query, $maxSalary) {
-                        return $query->whereIn('to_salary',  $maxSalary);
-                    })
-                    // ->when($experience, function ($query,  $title) {
-                    //     for ($i = 0; $i < count($title); $i++) {
-                    //         $query->where('title', 'like',  '%' . $title[$i] . '%');
-                    //     }
-                    // })
-                ;
-            })->get();
-
-        return response()->json(compact('jobPosts'));
+                return $query->whereIn('company_id', $companiesId);
+            })->when($jobTypeId, function ($query,  $jobTypeId) {
+                return $query->where('job_type_id',  $jobTypeId);
+            })->when($maxSalary, function ($query, $maxSalary) {
+                return $query->where('to_salary', '<=', $maxSalary);
+            })->when($search, function ($query, $search) {
+                return $query->where('title', 'like', '%' . $search . '%')->orWhere('description', 'like', '%' . $search . '%');
+            })->latest()->get();
+        if (count($jobPosts) > 0) {
+            foreach ($jobPosts as $key => $jobPost) {
+                $jobPost->name = $jobPost->company->name;
+                $jobPost->location = $jobPost->company->province->name;
+                $jobPost->address = $jobPost->company->address;
+                $jobPost->jobTypes = $jobPost->jobType->name;
+                $jobPost->employeePositions = $jobPost->employeePosition->name;
+                $jobPost->typeOfEmployments = $jobPost->typeOfEmployment->name;
+                $jobPost->sponsored = $jobPost->company->sponsored_at;
+            }
+        }
+        return response()->json($jobPosts);
     }
 
     public function getDetail($id)
@@ -303,5 +199,11 @@ class JobController extends Controller
     {
         $jobSider = JobPost::with('company')->orderBy('promoted_at', 'DESC')->take(3)->get();
         return response()->json($jobSider);
+    }
+
+    public function getExperiences()
+    {
+        $experiences = JobPost::select('experience')->groupBy('experience')->get();
+        return response()->json($experiences);
     }
 }

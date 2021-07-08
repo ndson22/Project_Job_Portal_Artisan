@@ -1,7 +1,8 @@
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
+import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import  { Job } from "../../../shared/models/job";
-import  { JobService } from "../../../shared/services/job.service";
+import { Job } from '../../../shared/models/job';
+import { JobService } from '../../../shared/services/job.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { jobTypes } from 'src/app/shared/models/jobType';
@@ -12,17 +13,18 @@ import { environment } from 'src/environments/environment.prod';
 @Component({
   selector: 'app-job-list',
   templateUrl: './job-list.component.html',
-  styleUrls: ['./job-list.component.css']
+  styleUrls: ['./job-list.component.css'],
 })
 export class JobListComponent implements OnInit, OnDestroy {
   subscription!: Subscription;
   jobs!: Job[];
   jobTypes!: jobTypes[];
   jobProvinces!: JobProvinces[];
-  jobSalary! : Job[];
+  jobSalary!: Job[];
   jobSides!: Job[];
+  experiences!: any;
+  rangeSalary: number = 10000;
   storageUrl = environment.storageUrl;
-
 
   page = 1;
   count = 0;
@@ -30,118 +32,105 @@ export class JobListComponent implements OnInit, OnDestroy {
 
   searchForm = this.formBuilder.group({
     search: [''],
-    job_type_id: [null],
-    province_id: [null],
+    job_type_id: [''],
+    province_id: [''],
     from_salary: [''],
     to_salary: [''],
-    experience: ['']
+    experience: this.formBuilder.array([]),
+    title: this.formBuilder.array([]),
   });
 
   searchFormFilter = this.formBuilder.group({
     search: [''],
-    experience: ['']
+    experience: [''],
   });
-
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private jobService: JobService,
     private formBuilder: FormBuilder,
-    public userService: UserService
-  ) { }
+    public userService: UserService,
+    private toastr: ToastrService
+  ) {}
 
   ngOnInit(): void {
     this.getJobTypes();
     this.getJobProvince();
+    this.getJobExperiences();
     this.getMinSalary();
     if (this.jobService.flag) {
       this.jobs = this.jobService.jobPosts;
       this.searchForm.controls['search']?.setValue(this.jobService.searching);
-      this.searchForm.controls['job_type_id']?.setValue(this.jobService.jobTypeId);
-      this.searchForm.controls['province_id']?.setValue(this.jobService.provinceId);
+      this.searchForm.controls['job_type_id']?.setValue(
+        this.jobService.jobTypeId
+      );
+      this.searchForm.controls['province_id']?.setValue(
+        this.jobService.provinceId
+      );
     } else {
-      this.getAllPost()
+      this.getAllPost();
     }
     this.jobService.flag = false;
-    this.getJobSider()
+    this.getJobSider();
   }
 
-
-
   getAllPost() {
-   this.subscription = this.jobService.getAll().subscribe({
+    this.subscription = this.jobService.getAll().subscribe({
       next: (res) => {
         this.jobs = res;
       },
       error: (res) => {
         this.router.navigate(['error']);
-      }
+      },
     });
   }
 
   getJobTypes() {
-    this.jobService.getJobType().subscribe(
-      (res: any) => {
-        this.jobTypes = res;
-      }
-    )
-  };
+    this.jobService.getJobType().subscribe((res: any) => {
+      this.jobTypes = res;
+    });
+  }
+
+  getJobExperiences() {
+    this.jobService.getExperiences().subscribe((res: any) => {
+      this.experiences = res;
+    });
+  }
 
   getJobSider() {
-    this.jobService.getJobSider().subscribe(
-      (res: any) => {
-        this.jobSides = res;
-      }
-    )
-  };
+    this.jobService.getJobSider().subscribe((res: any) => {
+      this.jobSides = res;
+    });
+  }
 
   getJobProvince() {
     this.jobService.getJobProvince().subscribe({
       next: (res: any) => {
         this.jobProvinces = res;
-      }
-    })
-  };
-
-  getMinSalary(){
-    this.jobService.getMinSalary().subscribe({
-      next:(res: any) => {
-        this.jobSalary = res;
-      }
-    });
-   }
-
-  search()
-  {
-    this.jobService.search(this.searchForm.value).subscribe(
-      (res) => {
-        this.jobService.jobPosts = res.jobPosts;
-        this.jobService.searching = res.search;
-        this.jobService.jobTypeId = res.jobTypeId;
-        this.jobService.provinceId = res.provinceId;
-        this.jobs = res.jobPosts;
       },
-      (error) => {
-      }
-    );
+    });
   }
 
-  searchFilter()
-  {
-    console.log(this.searchFormFilter.value)
-    this.jobService.searchFilter(this.searchFormFilter.value).subscribe(
+  getMinSalary() {
+    this.jobService.getMinSalary().subscribe({
+      next: (res: any) => {
+        this.jobSalary = res;
+      },
+    });
+  }
+
+  search() {
+    this.searchForm.controls['to_salary']?.setValue(this.rangeSalary);
+    this.jobService.search(this.searchForm.value).subscribe(
       (res) => {
-        console.log(res)
-        this.jobService.searching = res.search;
-        this.jobService.jobPosts = res.jobPosts;
-        this.jobs = res.jobPosts;
-        console.log(this.jobs)
+        console.log(res);
+        this.jobs = res;
       },
       (error) => {
+        this.toastr.error('Loading data fail');
       }
     );
-
   }
 
   ngOnDestroy() {
@@ -150,7 +139,55 @@ export class JobListComponent implements OnInit, OnDestroy {
     }
   }
 
-  onTableDataChange(e:any){
+  onTableDataChange(e: any) {
     this.page = e;
+  }
+
+  onCheckExperienceChange(event: any) {
+    const formArray: FormArray = this.searchForm.get('experience') as FormArray;
+
+    /* Selected */
+    if (event.target.checked) {
+      // Add a new control in the arrayForm
+      formArray.push(new FormControl(event.target.value));
+    } else {
+    /* unselected */
+      // find the unselected element
+      let i: number = 0;
+
+      formArray.controls.forEach((ctrl) => {
+        if (ctrl.value == event.target.value) {
+          // Remove the unselected element from the arrayForm
+          formArray.removeAt(i);
+          return;
+        }
+        i++;
+      });
+    }
+    this.search();
+  }
+
+  onCheckTitleChange(event: any) {
+    const formArray: FormArray = this.searchForm.get('title') as FormArray;
+
+    /* Selected */
+    if (event.target.checked) {
+      // Add a new control in the arrayForm
+      formArray.push(new FormControl(event.target.value));
+    } else {
+    /* unselected */
+      // find the unselected element
+      let i: number = 0;
+
+      formArray.controls.forEach((ctrl) => {
+        if (ctrl.value == event.target.value) {
+          // Remove the unselected element from the arrayForm
+          formArray.removeAt(i);
+          return;
+        }
+        i++;
+      });
+    }
+    this.search();
   }
 }
