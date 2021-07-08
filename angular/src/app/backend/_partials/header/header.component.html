@@ -480,10 +480,7 @@
           aria-expanded="false"
         >
           <img
-            [src]="
-              userService.user?.avatar ??
-              'assets/frontend/images/candidates/01.jpg'
-            "
+            [src]="imageService.checkNullAvatar(userService.user!)"
             class="user-img"
             alt="user avatar"
           />

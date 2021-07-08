@@ -23,6 +23,7 @@ export class CompanyGuard implements CanActivate {
     private authService: AuthService,
     private userService: UserService,
     private toastr: ToastrService,
+    private nz: ToastrService,
     private route: ActivatedRoute,
     private router: Router,
     private location: Location
@@ -40,9 +41,24 @@ export class CompanyGuard implements CanActivate {
       this.userService.getUserFromServer().subscribe(
         (user: User) => {
           if (user.role?.slug === 'company') {
+            if (user.company.locked_at) {
+              this.toastr.error(
+                'Your company account is locked by our team, please contact us as soon as possible!'
+              );
+              this.router.navigate(['/contact-us']);
+              obs.next(false);
+            }
+            console.log(user.company.verified_at === null);
+            if (user.company.verified_at === null) {
+              this.authService.logoutNotVerified();
+              this.toastr.error(
+                'Your company account is not verified by our team, please contact us as soon as possible!'
+              );
+              obs.next(false);
+            }
             obs.next(true);
           } else {
-            this.toastr.error('You are not company!')
+            this.toastr.error('You are not company!');
             this.router.navigate(['/errors']);
             obs.next(false);
           }

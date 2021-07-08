@@ -12,6 +12,7 @@ import { CompanyService } from 'src/app/shared/services/company.service';
 import { ProvincesService } from 'src/app/shared/services/provinces.service';
 import { Province } from 'src/app/shared/models/province';
 import { first } from 'rxjs/operators';
+import { ImageService } from 'src/app/shared/services/image.service';
 
 @Component({
   selector: 'app-company-detail',
@@ -51,6 +52,7 @@ export class CompanyDetailComponent implements OnInit {
     private fb: FormBuilder,
     private userService: UserService,
     private authService: AuthService,
+    public imageService: ImageService,
     private toastr: ToastrService,
     private router: Router,
     private companyService: CompanyService,
@@ -71,15 +73,16 @@ export class CompanyDetailComponent implements OnInit {
   onSubmit() {
     this.isLoading = true;
     const data = this.companyForm.value;
+    console.log(data);
     this.companyService
       .update(data)
       .pipe(first())
       .subscribe(
         (company: Company) => {
-          console.log(data, company);
           this.company = company;
           this.companyFormStatus.visible = false;
-          this.companyForm.markAsPristine();
+          this.companyForm.reset();
+          this.initForm();
           this.toastr.success('Updated successfully!');
         },
         (err) => {

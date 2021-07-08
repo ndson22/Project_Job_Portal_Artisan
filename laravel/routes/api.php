@@ -24,11 +24,16 @@ Route::prefix('backend')->group(function () {
     Route::middleware('auth:sanctum')->group(function () {
         Route::get('/is-authenticated', [Auth\AuthController::class, 'checkAuthenticated']);
         Route::post('/logout', [Auth\AuthController::class, 'logout']);
+
+        Route::apiResource('jobs', Backend\JobController::class);
+        Route::put('/jobs/{job}/active', [Backend\JobController::class, 'isActive']);
+        Route::put('/jobs/{job}/promote', [Backend\JobController::class, 'isPromote']);
     });
 
-    Route::apiResource('jobs', Backend\JobController::class)->middleware('auth:sanctum');
-    Route::put('/jobs/{job}/active', [Backend\JobController::class, 'isActive'])->middleware('auth:sanctum');
-    Route::put('/jobs/{job}/promote', [Backend\JobController::class, 'isPromote'])->middleware('auth:sanctum');
+    Route::prefix('emails')->group(function () {
+        Route::post('/contact-us', [Backend\EmailController::class, 'contactUs']);
+        Route::post('/forward-job-detail', [Backend\EmailController::class, 'forwardJobDetail']);
+    });
 });
 
 Route::prefix('/jobs')->group(function () {
@@ -52,10 +57,12 @@ Route::prefix('/dashboard')->group(function() {
     Route::put('/jobs/active', [Frontend\JobController::class, 'changeStatus'])->middleware('auth:sanctum');
 });
 
-Route::put('/companies/{company}/verify', [Frontend\CompanyController::class, 'verify'])->middleware('auth:sanctum');
-Route::put('/companies/{company}/lock', [Frontend\CompanyController::class, 'lock'])->middleware('auth:sanctum');
-Route::put('/companies/{company}/sponsor', [Frontend\CompanyController::class, 'sponsor'])->middleware('auth:sanctum');
-Route::post('/companies/{company}/image', [Frontend\CompanyController::class, 'uploadImage'])->middleware('auth:sanctum');
+Route::prefix('companies')->middleware('auth:sanctum')->group(function () {
+    Route::put('/{company}/verify', [Frontend\CompanyController::class, 'verify']);
+    Route::put('/{company}/lock', [Frontend\CompanyController::class, 'lock']);
+    Route::put('/{company}/sponsor', [Frontend\CompanyController::class, 'sponsor']);
+    Route::post('/{company}/image', [Frontend\CompanyController::class, 'uploadImage']);
+});
 
 Route::apiResource('company-contacts', Frontend\CompanyCvController::class)->middleware('auth:sanctum');
 Route::post('/company-contacts/contacts/{company}/store/{seeker}', [Frontend\CompanyCvController::class, 'storeSeekerContact'])->middleware('auth:sanctum');
@@ -70,8 +77,10 @@ Route::apiResource('experiences', Frontend\SeekerExperienceController::class)->m
 Route::apiResource('seekers', Frontend\SeekerController::class)->middleware('auth:sanctum');
 Route::post('/seekers/{seeker}/avatar', [Frontend\SeekerController::class, 'changeAvatar'])->middleware('auth:sanctum');
 Route::apiResource('genders', Frontend\GenderController::class)->only('index');
+
 Route::prefix('/users')->middleware('auth:sanctum')->group(function () {
     Route::get('/{id?}', [Frontend\UserController::class, 'show']);
     Route::put('/update/info', [Frontend\UserController::class, 'updateInfo']);
     Route::put('/update/password', [Frontend\UserController::class, 'updatePassword']);
+    Route::post('/{user}/image', [Frontend\UserController::class, 'uploadImage']);
 });

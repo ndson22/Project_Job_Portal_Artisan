@@ -15,6 +15,7 @@ import { Province } from 'src/app/shared/models/province';
 import { CompanyService } from 'src/app/shared/services/company.service';
 import { ProvincesService } from 'src/app/shared/services/provinces.service';
 import { environment } from 'src/environments/environment.prod';
+import { ImageService } from 'src/app/shared/services/image.service';
 
 @Component({
   selector: 'app-company-list',
@@ -55,6 +56,7 @@ export class CompanyListComponent implements OnInit {
   };
 
   constructor(
+    public imageService: ImageService,
     private companyService: CompanyService,
     private provinceService: ProvincesService,
     private toastr: ToastrService,
@@ -135,9 +137,7 @@ export class CompanyListComponent implements OnInit {
       );
   }
 
-  showEditModal(company: Company): void {
-    this.editedCompany = company;
-    this.companyFormStatus.visible = true;
+  initForm(company: Company): void {
     this.companyForm = this.fb.group({
       id: [company.id, [Validators.required]],
       user_id: [
@@ -171,6 +171,12 @@ export class CompanyListComponent implements OnInit {
     });
   }
 
+  showEditModal(company: Company): void {
+    this.editedCompany = company;
+    this.companyFormStatus.visible = true;
+    this.initForm(this.editedCompany);
+  }
+
   handleOk(): void {
     this.companyFormStatus.loading = true;
     const data = this.companyForm.value;
@@ -182,7 +188,8 @@ export class CompanyListComponent implements OnInit {
           // const foundIndex = this.companies.findIndex((x) => x.id == data.id);
           this.updateCompaniesData();
           this.companyFormStatus.visible = false;
-          this.companyForm.markAsPristine();
+          this.companyForm.reset();
+          this.initForm(company);
           this.toastr.success('Updated successfully!');
         },
         (err) => {
@@ -211,6 +218,11 @@ export class CompanyListComponent implements OnInit {
     } else if (info.file.status === 'error') {
       this.toastr.error(`${info.file.name} file upload failed.`);
     }
+  }
+
+  resetForm(): void {
+    this.companyForm.reset();
+    this.initForm(this.editedCompany);
   }
 
   reset(): void {

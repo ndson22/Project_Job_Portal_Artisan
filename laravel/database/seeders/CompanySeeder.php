@@ -22,7 +22,9 @@ class CompanySeeder extends Seeder
             'address' => 'Tầng 1, tòa nhà FPT, đường Tân Thuận, Khu chế xuất Tân Thuận, phường Tân Thuận Đông, Quận 7, TPHCM.',
             'short_name' => 'FPT',
             'code' => 'FPT3',
-            'province_id' => 79
+            'province_id' => 79,
+            'verified_at' => now(),
+            'sponsored_at' => now()
         ]);
 
         Company::create([

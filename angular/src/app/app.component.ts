@@ -59,13 +59,15 @@ export class AppComponent
     'assets/frontend/js/script.js',
   ];
 
-  constructor(private router: Router, private spinner: NgxSpinnerService) {
-    this.isLoading = true;
-  }
+  constructor(private router: Router, private spinner: NgxSpinnerService) {}
 
   ngOnInit(): void {
+    this.isLoading = true;
     this.spinner.show();
+
     this.router.events.subscribe((event) => {
+      // this.isLoading = true;
+      // this.spinner.show();
       if (event instanceof NavigationEnd) {
         const CustomJsList = document.querySelectorAll('script.custom_js');
         if (CustomJsList.length > 0) {
@@ -116,6 +118,7 @@ export class AppComponent
       node.type = 'text/javascript';
       node.className = 'custom_js';
       node.async = false;
+      node.defer = true;
       node.src = scripts[i];
       document.querySelector('body')?.appendChild(node);
     }

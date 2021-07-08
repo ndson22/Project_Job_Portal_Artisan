@@ -43,6 +43,8 @@ import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { NzBackTopModule } from 'ng-zorro-antd/back-top';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { NzPopoverModule } from 'ng-zorro-antd/popover';
+import { NzDescriptionsModule } from 'ng-zorro-antd/descriptions';
+import { NzDrawerModule } from 'ng-zorro-antd/drawer';
 
 // Partials
 import { HeaderComponent } from './_partials/header/header.component';
@@ -67,8 +69,6 @@ import { ProfileUserDetailComponent } from './profiles/profile-user-detail/profi
 import { FeatureJobsComponent } from './home/feature-jobs/feature-jobs.component';
 import { DashboardJobListComponent } from './profiles/dashboard-job-list/dashboard-job-list.component';
 import { HomeMobileAppComponent } from './home/home-mobile-app/home-mobile-app.component';
-import { NzDrawerModule } from 'ng-zorro-antd/drawer';
-import { NzDescriptionsModule } from 'ng-zorro-antd/descriptions';
 
 // Pipes
 import { PostPipePipe } from '../shared/pipes/post-pipe.pipe';

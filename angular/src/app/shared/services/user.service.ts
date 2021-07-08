@@ -77,9 +77,9 @@ export class UserService {
   }
 
   updateGeneralInfo(data: any): Observable<any> {
-    return this.http.put(`${frontUrl}/users/update/info`, data).pipe(
-      map((res) => {
-        this.localStorageService.setItem('user', JSON.stringify(res));
+    return this.http.put<User>(`${frontUrl}/users/update/info`, data).pipe(
+      map((user: User) => {
+        this.localStorageService.setItem('user', JSON.stringify(user));
         this.toastr.success('General information is updated successfully!');
         return true;
       }),

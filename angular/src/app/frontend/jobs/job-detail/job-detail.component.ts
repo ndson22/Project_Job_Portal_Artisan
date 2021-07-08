@@ -7,7 +7,7 @@ import { JobService } from 'src/app/shared/services/job.service';
 import { Subscription } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 import { Contact } from 'src/app/shared/models/contact';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ContactService } from 'src/app/shared/services/contact.service';
 
 @Component({
@@ -29,6 +29,9 @@ export class JobDetailComponent implements OnInit {
     phone: [''],
     message: [''],
   });
+
+  forwardToEmailForm!: FormGroup;
+  forwardToEmailFromVisible: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -88,5 +91,28 @@ export class JobDetailComponent implements OnInit {
         this.toastr.error('You have applied to this job');
       }
     );
+
+  showForwardToEmailModal(): void {
+    this.forwardToEmailForm = this.formBuilder.group({
+      email: [
+        this.company.email,
+        [Validators.required, Validators.email, Validators.maxLength(255)],
+      ],
+    });
+    this.forwardToEmailFromVisible = true;
+  }
+
+  resetForwardToEmailModal(): void {
+    this.forwardToEmailFromVisible = false;
+    this.forwardToEmailForm.reset();
+  }
+
+  handleOkForwardToEmailModal(): void {
+    console.log(this.forwardToEmailForm.value);
+    this.resetForwardToEmailModal();
+  }
+
+  handleCancleForwardToEmailModal(): void {
+    this.resetForwardToEmailModal();
   }
 }

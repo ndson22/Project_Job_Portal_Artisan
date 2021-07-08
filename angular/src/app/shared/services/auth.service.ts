@@ -11,7 +11,8 @@ import { UserService } from './user.service';
 import { Location } from '@angular/common';
 
 const baseUrl = `${environment.backendUrl}`;
-
+const frontendUrl = `${environment.frontendUrl}`;
+const frontendSite = `http://localhost:4200/`;
 @Injectable({
   providedIn: 'root',
 })
@@ -62,8 +63,23 @@ export class AuthService {
         () => {
           this.localStorageService.removeItem('user');
           // this.toastr.success('Logout Successfully!');
-          this.router.navigateByUrl('/');
+          window.location.href = frontendSite;
           window.location.reload();
+        },
+        () => {
+          this.toastr.error('Not logged in!');
+        }
+      );
+  }
+
+  logoutNotVerified(): void {
+    this.http
+      .post(`${baseUrl}/logout`, null)
+      .pipe(first())
+      .subscribe(
+        () => {
+          this.localStorageService.removeItem('user');
+          this.router.navigateByUrl('/contact-us');
         },
         () => {
           this.toastr.error('Not logged in!');

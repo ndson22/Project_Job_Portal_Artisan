@@ -29,24 +29,24 @@
           >
             <a routerLink="/">Home</a>
           </li>
-          <li
+          <!-- <li
             routerLinkActive="active"
             [routerLinkActiveOptions]="{ exact: true }"
           >
             <a routerLink="/about-us">About us</a>
-          </li>
+          </li> -->
           <li
             routerLinkActive="active"
             [routerLinkActiveOptions]="{ exact: true }"
           >
             <a routerLink="/jobs">Job List</a>
           </li>
-          <li
+          <!-- <li
             routerLinkActive="active"
             [routerLinkActiveOptions]="{ exact: true }"
           >
             <a routerLink="/contact-us">Contact Us</a>
-          </li>
+          </li> -->
           <!-- <li><a href="contact-us.html">Contact</a></li> -->
 
           <!-- Two Big Button -->
@@ -54,7 +54,7 @@
             <a routerLink="/dashboard/jobs/create">Post a job</a>
           </li>
           <li class="jobseeker" *ngIf="userService.isRole('company')">
-            <a routerLink="/dashboard/company/cv">View CV</a>
+            <a routerLink="/dashboard/account">View CV</a>
           </li>
 
           <li class="postjob" *ngIf="userService.isRole('admin')">
@@ -62,7 +62,7 @@
           </li>
 
           <li class="postjob" *ngIf="userService.isRole('seeker')">
-            <a routerLink="/dashboard/account">Write CV</a>
+            <a routerLink="/dashboard/seeker">My Profile</a>
           </li>
 
           <li class="postjob" *ngIf="!userService.isUser()">
@@ -79,18 +79,14 @@
           >
             <a href="/backend"
               ><img
-                [src]="
-                  userService.user?.avatar ??
-                  'assets/frontend/images/candidates/01.jpg'
-                "
+                [src]="imageService.checkNullAvatar(userService.user!)"
                 alt=""
                 class="userimg"
             /></a>
             <ul class="dropdown-menu">
               <li>
                 <a href="/dashboard/account"
-                  ><i class="fa fa-pencil" aria-hidden="true"></i> My
-                  Account</a
+                  ><i class="fa fa-pencil" aria-hidden="true"></i> My Account</a
                 >
               </li>
               <li role="separator" class="divider"></li>
@@ -107,10 +103,7 @@
             <li class="dropdown userbtn" *ngIf="userService.isUser()">
               <a href="/dashboard/account"
                 ><img
-                  [src]="
-                    userService.user?.avatar ??
-                    'assets/frontend/images/candidates/01.jpg'
-                  "
+                  [src]="imageService.checkNullAvatar(userService.user!)"
                   alt=""
                   class="userimg"
               /></a>
@@ -119,12 +112,6 @@
                   <a routerLink="/dashboard/account"
                     ><i class="fa fa-pencil" aria-hidden="true"></i> My
                     Account</a
-                  >
-                </li>
-                <li routerLinkActive="active">
-                  <a routerLink="/dashboard/jobs"
-                    ><i class="fa fa-briefcase" aria-hidden="true"></i> My
-                    Jobs</a
                   >
                 </li>
                 <li role="separator" class="divider"></li>

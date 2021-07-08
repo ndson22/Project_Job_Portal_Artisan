@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Traits\ImageTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -11,6 +12,8 @@ use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
+    use ImageTrait;
+
     public function show($id = null)
     {
         $user = User::withRelationships($id);
@@ -19,7 +22,6 @@ class UserController extends Controller
 
     public function updateInfo(Request $request)
     {
-
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|between:2,100',
             'email' => 'required|string|email|max:100|unique:users,email,' . auth()->user()->id,
@@ -52,5 +54,18 @@ class UserController extends Controller
         $user->password = bcrypt($request->password);
         $user->update();
         return response()->json(User::withRelationships());
+    }
+
+    public function uploadImage(Request $request, User $user)
+    {
+        if (!$request->has('file')) {
+            return response()->json($request, 400);
+        }
+
+        $this->storeImageZorro($request, $user, 'file', 'user');
+        $user->update();
+        $user = $user->withRelationships($user->id);
+
+        return response()->json($user);
     }
 }

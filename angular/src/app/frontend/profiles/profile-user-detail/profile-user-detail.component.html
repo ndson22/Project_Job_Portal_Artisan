@@ -1,28 +1,81 @@
 <div class="col-12">
   <div class="userccount">
     <!-- Change Avatar -->
+
     <div>
       <h5>Account General Information</h5>
       <hr />
-      <div [nzGutter]="24" nz-row nzAlign="middle">
-        <div [nzSpan]="6" nz-col>
-          <nz-avatar [nzSize]="150" [nzSrc]="
-              this.user.avatar ?? 'assets/frontend/images/candidates/01.jpg'
-            " nzIcon="user"></nz-avatar>
+      <nz-descriptions>
+        <nz-descriptions-item nzTitle="Username" [nzSpan]="1">{{
+          user.name
+        }}</nz-descriptions-item>
+        <nz-descriptions-item nzTitle="Role" [nzSpan]="1">{{
+          user.role.name
+        }}</nz-descriptions-item>
+        <nz-descriptions-item nzTitle="Email" [nzSpan]="1">{{
+          user.email
+        }}</nz-descriptions-item>
+        <nz-descriptions-item nzTitle="Created">{{
+          user.created_at | timeago: false
+        }}</nz-descriptions-item>
+        <nz-descriptions-item nzTitle="Updated">{{
+          user.updated_at | timeago: false
+        }}</nz-descriptions-item>
+        <nz-descriptions-item nzTitle="Email verified">{{
+          user.email_verified_at | timeago: false
+        }}</nz-descriptions-item>
+      </nz-descriptions>
+
+      <br />
+      <br />
+
+      <h5>Avatar</h5>
+      <hr />
+      <div [nzGutter]="24" nz-row>
+        <div class="super-center" [nzSpan]="7" nz-col>
+          <nz-avatar
+            [nzSize]="170"
+            [nzSrc]="imageService.checkNullAvatar(user)"
+            style="vertical-align: middle"
+          ></nz-avatar>
         </div>
-        <div [nzSpan]="6" nz-col>
-          <button nz-button nzType="primary" [nzSize]="'large'" nzShape="round">
-            <i nz-icon nzType="cloud-download"></i>
-          </button>
+        <div class="super-center" [nzSpan]="5" nz-col>
+          <nz-upload
+            [nzAction]="frontendUrl + user.id + '/image'"
+            [nzFileType]="'image/png,image/jpeg,image/jpg,image/gif,image/bmp'"
+            [nzLimit]="1"
+            [nzSize]="1000"
+            [nzWithCredentials]="true"
+            (nzChange)="handleChange($event)"
+            style="overflow: hidden"
+          >
+            <button nz-button="">
+              <i nz-icon nzType="upload"></i>Upload Image
+            </button>
+          </nz-upload>
         </div>
       </div>
+
+      <br />
+      <br />
+      <br />
+      <br />
+
+      <h5>Change Information</h5>
+      <hr />
       <!-- Account Basic Information Form -->
-      <form [formGroup]="generalInfoForm" (ngSubmit)="onSubmitGeneralInfo()" nz-form nzLayout="vertical">
-        <hr />
+      <form
+        [formGroup]="generalInfoForm"
+        (ngSubmit)="onSubmitGeneralInfo()"
+        nz-form
+        nzLayout="vertical"
+      >
         <div [nzGutter]="24" nz-row>
           <div [nzSpan]="12" nz-col>
             <nz-form-item>
-              <nz-form-label [nzSpan]="24">Username</nz-form-label>
+              <nz-form-label [nzSpan]="24"
+                >Username<span class="text-danger">(*)</span></nz-form-label
+              >
               <nz-form-control nzHasFeedback nzErrorTip="Input is required">
                 <nz-input-group nzPrefixIcon="user">
                   <input type="text" nz-input formControlName="name" />
@@ -32,19 +85,9 @@
           </div>
           <div [nzSpan]="12" nz-col>
             <nz-form-item>
-              <nz-form-label [nzSpan]="24">User role</nz-form-label>
-              <nz-form-control nzHasFeedback nzErrorTip="Input is required">
-                <nz-input-group nzPrefixIcon="user">
-                  <input [value]="this.user.role?.name" type="text" nz-input disabled />
-                </nz-input-group>
-              </nz-form-control>
-            </nz-form-item>
-          </div>
-        </div>
-        <div [nzGutter]="24" nz-row>
-          <div [nzSpan]="12" nz-col>
-            <nz-form-item>
-              <nz-form-label [nzSpan]="24">Email</nz-form-label>
+              <nz-form-label [nzSpan]="24"
+                >Email<span class="text-danger">(*)</span></nz-form-label
+              >
               <nz-form-control nzHasFeedback nzErrorTip="Input is required">
                 <nz-input-group nzPrefixIcon="mail">
                   <input type="email" nz-input formControlName="email" />
@@ -52,48 +95,21 @@
               </nz-form-control>
             </nz-form-item>
           </div>
-          <div [nzSpan]="12" nz-col>
-            <nz-form-item>
-              <nz-form-label [nzSpan]="24">Email verified</nz-form-label>
-              <nz-form-control nzHasFeedback nzErrorTip="Input is required">
-                <nz-input-group nzPrefixIcon="mail">
-                  <input [value]="
-                      (this.user.email_verified_at | timeago:false) ??
-                      'Please verify your email'
-                    " type="text" nz-input disabled />
-                </nz-input-group>
-              </nz-form-control>
-            </nz-form-item>
-          </div>
         </div>
         <div [nzGutter]="24" nz-row>
-          <div [nzSpan]="12" nz-col>
-            <nz-form-item>
-              <nz-form-label [nzSpan]="24">Created</nz-form-label>
-              <nz-form-control nzHasFeedback nzErrorTip="Input is required">
-                <nz-input-group nzPrefixIcon="calendar">
-                  <input [value]="this.user.created_at | timeago:false" type="email" nz-input disabled />
-                </nz-input-group>
-
-              </nz-form-control>
-            </nz-form-item>
-          </div>
-          <div [nzSpan]="12" nz-col>
-            <nz-form-item>
-              <nz-form-label [nzSpan]="24">Updated</nz-form-label>
-              <nz-form-control nzHasFeedback nzErrorTip="Input is required">
-                <nz-input-group nzPrefixIcon="calendar">
-                  <input [value]="this.user.updated_at | timeago:false" type="text" nz-input disabled />
-                </nz-input-group>
-              </nz-form-control>
-            </nz-form-item>
-          </div>
+          <div [nzSpan]="12" nz-col></div>
+          <div [nzSpan]="12" nz-col></div>
         </div>
         <nz-form-item style="text-align: right">
           <nz-form-control>
-            <button [disabled]="
+            <button
+              [disabled]="
                 generalInfoForm.invalid || isLoading || !generalInfoForm.dirty
-              " type="submit" nz-button nzType="primary">
+              "
+              type="submit"
+              nz-button
+              nzType="primary"
+            >
               Update and Save
             </button>
           </nz-form-control>
@@ -101,16 +117,29 @@
       </form>
 
       <!-- Change Password Form -->
-      <form [formGroup]="changePasswordForm" (ngSubmit)="onSubmitPassword()" nz-form nzLayout="vertical">
+      <form
+        [formGroup]="changePasswordForm"
+        (ngSubmit)="onSubmitPassword()"
+        nz-form
+        nzLayout="vertical"
+      >
         <h5>Change Password</h5>
         <hr />
         <div [nzGutter]="24" nz-row>
           <div [nzSpan]="12" nz-col>
             <nz-form-item>
-              <nz-form-label [nzSpan]="24">Current password</nz-form-label>
+              <nz-form-label [nzSpan]="24"
+                >Current password<span class="text-danger"
+                  >(*)</span
+                ></nz-form-label
+              >
               <nz-form-control nzHasFeedback nzErrorTip="Input is required">
                 <nz-input-group nzPrefixIcon="lock">
-                  <input type="password" nz-input formControlName="current_password" />
+                  <input
+                    type="password"
+                    nz-input
+                    formControlName="current_password"
+                  />
                 </nz-input-group>
               </nz-form-control>
             </nz-form-item>
@@ -119,7 +148,9 @@
         <div [nzGutter]="24" nz-row>
           <div [nzSpan]="12" nz-col>
             <nz-form-item>
-              <nz-form-label [nzSpan]="24">New password</nz-form-label>
+              <nz-form-label [nzSpan]="24"
+                >New password<span class="text-danger">(*)</span></nz-form-label
+              >
               <nz-form-control nzHasFeedback nzErrorTip="Input is required">
                 <nz-input-group nzPrefixIcon="lock">
                   <input type="password" nz-input formControlName="password" />
@@ -129,10 +160,18 @@
           </div>
           <div [nzSpan]="12" nz-col>
             <nz-form-item>
-              <nz-form-label [nzSpan]="24">New password confirmation</nz-form-label>
+              <nz-form-label [nzSpan]="24"
+                >New password confirmation<span class="text-danger"
+                  >(*)</span
+                ></nz-form-label
+              >
               <nz-form-control nzHasFeedback nzErrorTip="Input is required">
                 <nz-input-group nzPrefixIcon="lock">
-                  <input type="password" nz-input formControlName="password_confirmation" />
+                  <input
+                    type="password"
+                    nz-input
+                    formControlName="password_confirmation"
+                  />
                 </nz-input-group>
               </nz-form-control>
             </nz-form-item>
@@ -140,11 +179,16 @@
         </div>
         <nz-form-item style="text-align: right">
           <nz-form-control>
-            <button [disabled]="
+            <button
+              [disabled]="
                 changePasswordForm.invalid ||
                 isLoading ||
                 !changePasswordForm.dirty
-              " type="submit" nz-button nzType="primary">
+              "
+              type="submit"
+              nz-button
+              nzType="primary"
+            >
               Update and Save
             </button>
           </nz-form-control>

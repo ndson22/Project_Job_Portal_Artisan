@@ -9,7 +9,7 @@ export class User {
     public email: string,
     public email_verified_at: boolean,
     public role_id: number,
-    public avatar: string,
+    public image: string,
     public created_at: string,
     public updated_at: string,
     public role: Role,

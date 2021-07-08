@@ -1,5 +1,3 @@
-import { Seeker } from './seeker';
-import { User } from './user';
 import { Company } from './company';
 import { Gender } from './gender';
 export class Contact {

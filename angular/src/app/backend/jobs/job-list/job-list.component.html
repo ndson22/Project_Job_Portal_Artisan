@@ -1,21 +1,29 @@
-<nz-table #rowSelectionTable nzShowSizeChanger [nzData]="jobs">
+<nz-table
+  #rowSelectionTable
+  nzShowSizeChanger
+  [nzData]="jobs"
+  nzTableLayout="fixed"
+>
   <thead>
     <tr>
-      <th [nzAlign]="'center'" *ngFor="
+      <th [nzAlign]="'center'" nzWidth="5%">ID</th>
+      <th [nzAlign]="'center'" nzWidth="20%">Title</th>
+      <th
+        [nzAlign]="'center'"
+        *ngFor="
           let fieldName of [
-            'ID',
-            'Title',
             'Employers',
-            'Experience',
+            'Experience (year)',
             'Expire',
             'Active',
             'Promotion',
             'Created at',
-            'Update at',
+            'Update at'
           ]
-        ">
+        "
+      >
         {{ fieldName }}
-    </th>
+      </th>
     </tr>
   </thead>
   <tbody>
@@ -26,17 +34,29 @@
       <td [nzAlign]="'center'">{{ job.experience }}</td>
       <td [nzAlign]="'center'">{{ job.expire | date }}</td>
       <td [nzAlign]="'center'">
-        <nz-switch [ngModel]="job.is_active" [nzControl]="true" nz-popconfirm
-          nzPopconfirmTitle="Are you sure to change this job's active status?" (nzOnConfirm)="onActive(job)"
-          nzPopconfirmPlacement="bottom" nzOkText="Change"></nz-switch>
+        <nz-switch
+          [ngModel]="job.is_active"
+          [nzControl]="true"
+          nz-popconfirm
+          nzPopconfirmTitle="Are you sure to change this job's active status?"
+          (nzOnConfirm)="onActive(job)"
+          nzPopconfirmPlacement="bottom"
+          nzOkText="Change"
+        ></nz-switch>
       </td>
       <td [nzAlign]="'center'">
-        <nz-switch [ngModel]="job.promoted_at" [nzControl]="true" nz-popconfirm
-          nzPopconfirmTitle="Are you sure to set this job's promoted?" (nzOnConfirm)="onPromote(job)"
-          nzPopconfirmPlacement="bottom" nzOkText="Change"></nz-switch>
+        <nz-switch
+          [ngModel]="job.promoted_at"
+          [nzControl]="true"
+          nz-popconfirm
+          nzPopconfirmTitle="Are you sure to set this job's promoted?"
+          (nzOnConfirm)="onPromote(job)"
+          nzPopconfirmPlacement="bottom"
+          nzOkText="Change"
+        ></nz-switch>
       </td>
-      <td [nzAlign]="'center'">{{ job.created_at | timeago:false }}</td>
-      <td [nzAlign]="'center'">{{ job.updated_at | timeago:false }}</td>
+      <td [nzAlign]="'center'">{{ job.created_at | timeago: false }}</td>
+      <td [nzAlign]="'center'">{{ job.updated_at | timeago: false }}</td>
     </tr>
   </tbody>
 </nz-table>

@@ -20,7 +20,7 @@ class VerifyCompany extends Mailable
 
     public function build()
     {
-        $subject = $this->company->verified_at ? "[Artisans] Your company's profile is verified" : "[Artisans] Your company's profile is unverified";
+        $subject = $this->company->locked_at ? "[Artisans] Your company's profile is locked" : "[Artisans] Your company's profile is unlocked";
         return $this->subject($subject)->view('emails.verify-company-light');
     }
 }
