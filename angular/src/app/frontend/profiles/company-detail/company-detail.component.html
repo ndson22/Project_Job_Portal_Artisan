@@ -1,0 +1,279 @@
+<div class="col-12">
+  <div class="userccount">
+    <!-- Change Avatar -->
+    <div>
+      <h5>Company Information</h5>
+      <hr />
+      <form
+        [formGroup]="companyForm"
+        (ngSubmit)="onSubmit()"
+        nz-form
+        nzLayout="vertical"
+      >
+        <div [nzGutter]="24" nz-row>
+          <div [nzSpan]="12" nz-col>
+            <div nz-row="">
+              <nz-form-item [nzSpan]="24" nz-col>
+                <nz-form-label nzFor="name"
+                  >Name<span class="text-danger">(*)</span></nz-form-label
+                >
+                <nz-form-control nzHasFeedback nzErrorTip="Input has errors">
+                  <nz-input-group nzPrefixIcon="idcard">
+                    <input
+                      id="name"
+                      type="text"
+                      nz-input
+                      formControlName="name"
+                    />
+                  </nz-input-group>
+                </nz-form-control>
+              </nz-form-item>
+            </div>
+            <div nz-row="">
+              <nz-form-item [nzSpan]="24" nz-col>
+                <nz-form-label nzFor="short_name"
+                  >Short name<span class="text-danger">(*)</span></nz-form-label
+                >
+                <nz-form-control nzHasFeedback nzErrorTip="Input has errors">
+                  <nz-input-group nzPrefixIcon="idcard">
+                    <input
+                      maxlength="5"
+                      id="short_name"
+                      type="text"
+                      nz-input
+                      formControlName="short_name"
+                    />
+                  </nz-input-group>
+                </nz-form-control>
+              </nz-form-item>
+            </div>
+            <div nz-row="">
+              <nz-form-item [nzSpan]="24" nz-col>
+                <nz-form-label nzFor="email"
+                  >Email<span class="text-danger">(*)</span></nz-form-label
+                >
+                <nz-form-control nzHasFeedback nzErrorTip="Input has errors">
+                  <nz-input-group nzPrefixIcon="mail">
+                    <input
+                      id="email"
+                      type="email"
+                      nz-input
+                      formControlName="email"
+                    />
+                  </nz-input-group>
+                </nz-form-control>
+              </nz-form-item>
+            </div>
+          </div>
+          <div class="super-center" [nzSpan]="6" nz-col>
+            <nz-avatar
+              [nzSize]="150"
+              [nzSrc]="imageService.checkNullCompanyAvatar(company)"
+              style="vertical-align: middle"
+            ></nz-avatar>
+          </div>
+          <div class="super-center" [nzSpan]="6" nz-col>
+            <nz-upload
+              [nzAction]="frontendUrl + company.id + '/image'"
+              [nzFileType]="
+                'image/png,image/jpeg,image/jpg,image/gif,image/bmp'
+              "
+              [nzLimit]="1"
+              [nzSize]="1000"
+              [nzWithCredentials]="true"
+              (nzChange)="handleChange($event)"
+              style="overflow: hidden"
+            >
+              <button nz-button="">
+                <i nz-icon nzType="upload"></i>Upload Image
+              </button>
+            </nz-upload>
+          </div>
+        </div>
+        <div [nzGutter]="24" nz-row>
+          <div [nzSpan]="12" nz-col>
+            <nz-form-item>
+              <nz-form-label nzFor="address"
+                >Address<span class="text-danger">(*)</span></nz-form-label
+              >
+              <nz-form-control nzHasFeedback nzErrorTip="Input has errors">
+                <nz-input-group nzPrefixIcon="apartment">
+                  <input
+                    id="address"
+                    type="text"
+                    nz-input
+                    formControlName="address"
+                  />
+                </nz-input-group>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+          <div [nzSpan]="12" nz-col>
+            <nz-form-item>
+              <nz-form-label nzFor="province_id"
+                >Province<span class="text-danger">(*)</span></nz-form-label
+              >
+              <nz-form-control nzHasFeedback nzErrorTip="Input has errors">
+                <nz-select
+                  id="province_id"
+                  formControlName="province_id"
+                  nzPlaceHolder="No Select"
+                >
+                  <nz-option
+                    [nzLabel]="province.name"
+                    [nzValue]="province.id"
+                    *ngFor="let province of provinces"
+                  ></nz-option>
+                </nz-select>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+        </div>
+        <div [nzGutter]="24" nz-row>
+          <div [nzSpan]="12" nz-col>
+            <nz-form-item>
+              <nz-form-label nzFor="phone_number">Phone number</nz-form-label>
+              <nz-form-control nzHasFeedback nzErrorTip="Input has errors">
+                <nz-input-group nzPrefixIcon="phone">
+                  <input
+                    id="phone_number"
+                    type="number"
+                    maxlength="10"
+                    nz-input
+                    formControlName="phone_number"
+                  />
+                </nz-input-group>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+          <div [nzSpan]="12" nz-col>
+            <nz-form-item>
+              <nz-form-label nzFor="scale">Scale (employee)</nz-form-label>
+              <nz-form-control nzHasFeedback nzErrorTip="Input has errors">
+                <nz-input-group nzPrefixIcon="usergroup-add">
+                  <input
+                    id="scale"
+                    type="number"
+                    nz-input
+                    formControlName="scale"
+                  />
+                </nz-input-group>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+        </div>
+        <div [nzGutter]="24" nz-row>
+          <div [nzSpan]="12" nz-col>
+            <nz-form-item>
+              <nz-form-label nzFor="branch">Branch</nz-form-label>
+              <nz-form-control nzHasFeedback nzErrorTip="Input has errors">
+                <nz-input-group nzPrefixIcon="branches">
+                  <input
+                    id="branch"
+                    type="text"
+                    nz-input
+                    formControlName="branch"
+                  />
+                </nz-input-group>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+          <div [nzSpan]="12" nz-col>
+            <nz-form-item>
+              <nz-form-label nzFor="map_link">Google Map Link</nz-form-label>
+              <nz-form-control nzHasFeedback nzErrorTip="Input has errors">
+                <nz-input-group nzPrefixIcon="google">
+                  <input
+                    id="map_link"
+                    type="text"
+                    nz-input
+                    formControlName="map_link"
+                  />
+                </nz-input-group>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+        </div>
+        <div [nzGutter]="24" nz-row>
+          <div [nzSpan]="12" nz-col>
+            <nz-form-item>
+              <nz-form-label nzFor="website">Website Link</nz-form-label>
+              <nz-form-control nzHasFeedback nzErrorTip="Input has errors">
+                <nz-input-group nzPrefixIcon="global">
+                  <input
+                    id="website"
+                    type="text"
+                    nz-input
+                    formControlName="website"
+                  />
+                </nz-input-group>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+          <div [nzSpan]="12" nz-col>
+            <nz-form-item>
+              <nz-form-label nzFor="facebook">Facebook Link</nz-form-label>
+              <nz-form-control nzHasFeedback nzErrorTip="Input has errors">
+                <nz-input-group nzPrefixIcon="facebook">
+                  <input
+                    id="facebook"
+                    type="text"
+                    nz-input
+                    formControlName="facebook"
+                  />
+                </nz-input-group>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+        </div>
+        <div [nzGutter]="24" nz-row>
+          <div [nzSpan]="24" nz-col>
+            <nz-form-item>
+              <nz-form-label nzFor="website">Description</nz-form-label>
+              <nz-form-control nzHasFeedback nzErrorTip="Input has errors">
+                <nz-textarea-count [nzMaxCharacterCount]="1000">
+                  <textarea
+                    rows="5"
+                    formControlName="description"
+                    nz-input
+                  ></textarea>
+                </nz-textarea-count>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+        </div>
+        <br />
+        <div [nzGutter]="24" nz-row>
+          <div [nzSpan]="24" nz-col style="text-align: right">
+            <nz-form-item>
+              <nz-form-control [nzOffset]="12" [nzSpan]="24">
+                <button
+                  [disabled]="!companyForm.dirty"
+                  [hidden]="companyFormStatus.loading"
+                  (click)="resetForm()"
+                  type="button"
+                  nz-button
+                  style="margin-right: 10px"
+                >
+                  Reset
+                </button>
+                <button
+                  [disabled]="
+                    companyForm.invalid ||
+                    companyFormStatus.loading ||
+                    !companyForm.dirty
+                  "
+                  type="submit"
+                  nz-button
+                  nzType="primary"
+                >
+                  Update and Save
+                </button>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
