@@ -24,9 +24,9 @@ class JobController extends Controller
     {
         $companyIds = Company::select('id')->whereNull('verified_at')->orWhereNotNull('locked_at')->get();
         $jobPosts = JobPost::where('is_active', 1)
-                    ->whereNotIn('company_id', $companyIds)
-                    ->latest()
-                    ->get();
+            ->whereNotIn('company_id', $companyIds)
+            ->latest()
+            ->get();
 
         foreach ($jobPosts as $key => $jobPost) {
             $jobPost->name = $jobPost->company->name;
@@ -195,8 +195,8 @@ class JobController extends Controller
             $maxSalary
         ) {
             $query->where(function ($query) use ($title) {
-                for ($i = 0; $i < count($title); $i++) {
-                    $query->orWhere('title', 'like',  '%' . $title[$i] . '%');
+                foreach ($title as $value){
+                    $query->orWhere('title', 'like',  '%' . $value . '%');
                 }
             })
                 ->when($experience, function ($query,  $experience) {
