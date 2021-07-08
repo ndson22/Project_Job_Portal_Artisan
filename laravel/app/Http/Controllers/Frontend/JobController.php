@@ -184,4 +184,10 @@ class JobController extends Controller
         $jobPosts = JobPost::where('company_id', $companyId)->latest()->get();
         return response()->json($jobPosts);
     }
+
+    public function getJobSider()
+    {
+        $jobSider = JobPost::with('company')->orderBy('promoted_at', 'DESC')->take(3)->get();
+        return response()->json($jobSider);
+    }
 }

@@ -34,13 +34,17 @@ Route::prefix('backend')->group(function () {
 Route::prefix('/jobs')->group(function () {
     Route::get('', [Frontend\JobController::class, 'getAll'])->name('jobs.list');
     Route::get('/info', [Frontend\JobController::class, 'getJobInfo'])->name('jobs.getJobInfo');
+    Route::get('/jobsider', [Frontend\JobController::class, 'getJobSider']);
     Route::post('/store', [Frontend\JobController::class, 'store'])->name('jobs.store')->middleware('auth:sanctum');
     Route::put('/edit/{id}', [Frontend\JobController::class, 'edit'])->middleware('auth:sanctum');
     Route::delete('/delete/{id}', [Frontend\JobController::class, 'delete'])->middleware('auth:sanctum');
     Route::post('/search', [Frontend\JobController::class, 'search'])->name('jobs.search');
     Route::get('/types', [Frontend\JobTypeController::class, 'getJobTypes']);
     Route::get('/provinces', [Frontend\ProvinceController::class, 'index']);
+    Route::get('/search-provinces', [Frontend\ProvinceController::class, 'getProvin']);
+
     Route::get('/{id}', [Frontend\JobController::class, 'getDetail'])->name('jobs.get');
+
 });
 
 Route::prefix('/contact')->group(function (){

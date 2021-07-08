@@ -77,6 +77,7 @@ import { ContactUsComponent } from './_layouts/contact-us/contact-us.component';
 import { CompanyDetailComponent } from './profiles/company-detail/company-detail.component';
 import { SeekerDetailComponent } from './profiles/seeker-detail/seeker-detail.component';
 import { HomeSuccessStoriesComponent } from './home/home-success-stories/home-success-stories.component';
+import { PopularSearchComponent } from './home/popular-search/popular-search.component';
 
 @NgModule({
   declarations: [
@@ -110,6 +111,7 @@ import { HomeSuccessStoriesComponent } from './home/home-success-stories/home-su
     CompanyDetailComponent,
     SeekerDetailComponent,
     HomeSuccessStoriesComponent,
+    PopularSearchComponent,
   ],
   imports: [
     NgxPaginationModule,

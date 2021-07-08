@@ -1,3 +1,5 @@
+import { Company } from "./company";
+
 export class Job {
   constructor(
     public name: string,
@@ -23,5 +25,7 @@ export class Job {
     public companyImg: string,
     public sponsored: Date,
     public promoted_at: Date,
+    public company: Company,
+
   ) {}
 }
