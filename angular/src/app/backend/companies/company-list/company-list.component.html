@@ -1,0 +1,413 @@
+<nz-table #companyTable nzShowSizeChanger [nzData]="listOfDisplayData">
+  <thead>
+    <tr>
+      <th [nzAlign]="'center'">ID</th>
+      <th [nzAlign]="'center'">
+        Company Name
+        <nz-filter-trigger
+          [(nzVisible)]="searchVisible"
+          [nzActive]="searchValue.length > 0"
+          [nzDropdownMenu]="menu"
+        >
+          <i nz-icon nzType="search"></i>
+        </nz-filter-trigger>
+      </th>
+      <th
+        [nzAlign]="'center'"
+        [nzSortOrder]="listOfSorts.province.sortOrder"
+        [nzSortFn]="listOfSorts.province.sortFn"
+        [nzSortDirections]="listOfSorts.province.sortDirections"
+      >
+        Province
+      </th>
+      <th
+        [nzAlign]="'center'"
+        *ngFor="
+          let fieldName of [
+            'Registered',
+            'Email verified',
+            'Verify',
+            'Lock',
+            'Sponsored'
+          ]
+        "
+      >
+        {{ fieldName }}
+      </th>
+      <th [nzAlign]="'center'">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let company of companyTable.data">
+      <td [nzAlign]="'center'">{{ company.id }}</td>
+      <td [nzAlign]="'center'">{{ company.name }}</td>
+      <td [nzAlign]="'center'">{{ company.province?.name }}</td>
+      <td [nzAlign]="'center'">{{ company.created_at | timeago: false }}</td>
+      <td [nzAlign]="'center'">
+        <i
+          *ngIf="company.user?.email_verified_at; else notVerified"
+          nz-icon
+          [nzType]="'check-circle'"
+          [nzTheme]="'twotone'"
+          [nzTwotoneColor]="'#52c41a'"
+        ></i>
+        <ng-template #notVerified>
+          <i
+            nz-icon
+            [nzType]="'close-circle'"
+            [nzTheme]="'twotone'"
+            [nzTwotoneColor]="'#eb2f96'"
+          ></i>
+        </ng-template>
+      </td>
+      <td [nzAlign]="'center'">
+        <nz-switch
+          [nzLoading]="company.verifyLoading"
+          [ngModel]="company.verified_at"
+          [nzControl]="true"
+          nz-popconfirm
+          [nzPopconfirmTrigger]="company.verifyLoading ? null : 'click'"
+          nzPopconfirmTitle="Are you sure to change this company's active status?"
+          (nzOnConfirm)="onVerify(company)"
+          nzPopconfirmPlacement="bottom"
+          nzOkText="Change"
+        ></nz-switch>
+      </td>
+      <td [nzAlign]="'center'">
+        <nz-switch
+          [nzLoading]="company.lockLoading"
+          [ngModel]="company.locked_at"
+          [nzControl]="true"
+          nz-popconfirm
+          [nzPopconfirmTrigger]="company.lockLoading ? null : 'click'"
+          nzPopconfirmTitle="Are you sure to change this company's active status?"
+          (nzOnConfirm)="onLock(company)"
+          nzPopconfirmPlacement="bottom"
+          nzOkText="Change"
+        ></nz-switch>
+      </td>
+      <td [nzAlign]="'center'">
+        <nz-switch
+          [nzLoading]="company.sponsorLoading"
+          [ngModel]="company.sponsored_at"
+          [nzControl]="true"
+          nz-popconfirm
+          [nzPopconfirmTrigger]="company.sponsorLoading ? null : 'click'"
+          nzPopconfirmTitle="Are you sure to change this company's active status?"
+          (nzOnConfirm)="onSponsor(company)"
+          nzPopconfirmPlacement="bottom"
+          nzOkText="Change"
+        ></nz-switch>
+      </td>
+      <td [nzAlign]="'center'">
+        <button
+          nz-button
+          nzType="primary"
+          nzSize="default"
+          nzShape="round"
+          (click)="showEditModal(company)"
+        >
+          Edit
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</nz-table>
+<nz-dropdown-menu #menu="nzDropdownMenu">
+  <div class="ant-table-filter-dropdown">
+    <div class="search-box">
+      <input
+        type="text"
+        nz-input
+        placeholder="Search name"
+        [(ngModel)]="searchValue"
+      />
+      <button
+        nz-button
+        nzSize="small"
+        nzType="primary"
+        (click)="search()"
+        class="search-button"
+      >
+        Search
+      </button>
+      <button nz-button nzSize="small" (click)="reset()">Reset</button>
+    </div>
+  </div>
+</nz-dropdown-menu>
+
+<!-- Edit Form Modal -->
+<nz-modal
+  [(nzVisible)]="companyFormStatus.visible"
+  nzTitle="Edit Company Form"
+  (nzOnCancel)="handleCancel()"
+  nzWidth="900px"
+  nzCentered
+>
+  <div *nzModalContent>
+    <form nz-form nzLayout="vertical" [formGroup]="companyForm">
+      <div [nzGutter]="24" nz-row>
+        <div [nzSpan]="12" nz-col>
+          <div nz-row>
+            <nz-form-item [nzSpan]="24" nz-col>
+              <nz-form-label nzFor="name"
+                >Name<span class="text-danger">(*)</span></nz-form-label
+              >
+              <nz-form-control nzHasFeedback nzErrorTip="Input has errors">
+                <nz-input-group>
+                  <input
+                    nz-input
+                    formControlName="name"
+                    type="text"
+                    id="name"
+                  />
+                </nz-input-group>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+          <div nz-row>
+            <nz-form-item [nzSpan]="24" nz-col>
+              <nz-form-label nzFor="email"
+                >Email<span class="text-danger">(*)</span></nz-form-label
+              >
+              <nz-form-control nzHasFeedback nzErrorTip="Input has errors">
+                <nz-input-group>
+                  <input
+                    nz-input
+                    formControlName="email"
+                    type="email"
+                    id="email"
+                  />
+                </nz-input-group>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+          <div nz-row>
+            <nz-form-item [nzSpan]="24" nz-col>
+              <nz-form-label nzFor="short_name"
+                >Short name<span class="text-danger">(*)</span></nz-form-label
+              >
+              <nz-form-control nzHasFeedback nzErrorTip="Input has errors">
+                <nz-input-group>
+                  <input
+                    nz-input
+                    formControlName="short_name"
+                    type="text"
+                    id="short_name"
+                  />
+                </nz-input-group>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+        </div>
+        <div
+          [nzSpan]="7"
+          nz-col
+          class="d-flex flex-row justify-content-center align-items-center"
+        >
+          <nz-avatar
+            [nzSrc]="
+              editedCompany.image
+                ? storageUrl + editedCompany.image
+                : 'assets/frontend/images/candidates/01.jpg'
+            "
+            [nzSize]="170"
+            style="vertical-align: middle"
+          ></nz-avatar>
+        </div>
+        <div
+          [nzSpan]="5"
+          nz-col
+          class="d-flex flex-row justify-content-start align-items-center"
+        >
+          <nz-upload
+            [nzFileType]="'image/png,image/jpeg,image/jpg,image/gif,image/bmp'"
+            [nzLimit]="1"
+            [nzSize]="1000"
+            (nzChange)="handleChange($event)"
+            [nzWithCredentials]="true"
+            [nzAction]="frontendUrl + editedCompany.id + '/image'"
+          >
+            <button nz-button>
+              <i nz-icon nzType="upload"></i>Select File
+            </button>
+          </nz-upload>
+        </div>
+      </div>
+      <div [nzGutter]="24" nz-row>
+        <div [nzSpan]="12" nz-col>
+          <nz-form-item>
+            <nz-form-label nzFor="address"
+              >Address<span class="text-danger">(*)</span></nz-form-label
+            >
+            <nz-form-control nzHasFeedback nzErrorTip="Input has errors">
+              <nz-input-group>
+                <input
+                  nz-input
+                  formControlName="address"
+                  type="text"
+                  id="address"
+                />
+              </nz-input-group>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div [nzSpan]="12" nz-col>
+          <nz-form-item>
+            <nz-form-label nzFor="province_id"
+              >Province<span class="text-danger">(*)</span></nz-form-label
+            >
+            <nz-form-control nzHasFeedback nzErrorTip="Input has errors">
+              <nz-select
+                id="province_id"
+                formControlName="province_id"
+                nzPlaceHolder="No Select"
+              >
+                <nz-option
+                  *ngFor="let province of provinces"
+                  [nzValue]="province.id"
+                  [nzLabel]="province.name"
+                ></nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+      <div [nzGutter]="24" nz-row>
+        <div [nzSpan]="12" nz-col>
+          <nz-form-item>
+            <nz-form-label nzFor="phone_number">Phone number</nz-form-label>
+            <nz-form-control nzHasFeedback nzErrorTip="Input has errors">
+              <nz-input-group>
+                <input
+                  minlength="10"
+                  maxlength="10"
+                  nz-input
+                  formControlName="phone_number"
+                  type="number"
+                  id="phone_number"
+                />
+              </nz-input-group>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div [nzSpan]="12" nz-col>
+          <nz-form-item>
+            <nz-form-label nzFor="scale">Scale (employee)</nz-form-label>
+            <nz-form-control nzHasFeedback nzErrorTip="Input has errors">
+              <nz-input-group>
+                <input
+                  nz-input
+                  formControlName="scale"
+                  type="number"
+                  id="scale"
+                />
+              </nz-input-group>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+      <div [nzGutter]="24" nz-row>
+        <div [nzSpan]="12" nz-col>
+          <nz-form-item>
+            <nz-form-label nzFor="branch">Branch</nz-form-label>
+            <nz-form-control nzHasFeedback nzErrorTip="Input has errors">
+              <nz-input-group>
+                <input
+                  nz-input
+                  formControlName="branch"
+                  type="text"
+                  id="branch"
+                />
+              </nz-input-group>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div [nzSpan]="12" nz-col>
+          <nz-form-item>
+            <nz-form-label nzFor="map_link">Google Map Link</nz-form-label>
+            <nz-form-control nzHasFeedback nzErrorTip="Input has errors">
+              <nz-input-group>
+                <input
+                  nz-input
+                  formControlName="map_link"
+                  type="text"
+                  id="map_link"
+                />
+              </nz-input-group>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+      <div [nzGutter]="24" nz-row>
+        <div [nzSpan]="12" nz-col>
+          <nz-form-item>
+            <nz-form-label nzFor="website">Website Link</nz-form-label>
+            <nz-form-control nzHasFeedback nzErrorTip="Input has errors">
+              <nz-input-group>
+                <input
+                  nz-input
+                  formControlName="website"
+                  type="text"
+                  id="website"
+                />
+              </nz-input-group>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div [nzSpan]="12" nz-col>
+          <nz-form-item>
+            <nz-form-label nzFor="facebook">Facebook Link</nz-form-label>
+            <nz-form-control nzHasFeedback nzErrorTip="Input has errors">
+              <nz-input-group>
+                <input
+                  nz-input
+                  formControlName="facebook"
+                  type="text"
+                  id="facebook"
+                />
+              </nz-input-group>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+      <div [nzGutter]="24" nz-row>
+        <div [nzSpan]="24" nz-col>
+          <nz-form-item>
+            <nz-form-label nzFor="website">Description</nz-form-label>
+            <nz-form-control nzHasFeedback nzErrorTip="Input has errors">
+              <nz-textarea-count [nzMaxCharacterCount]="1000">
+                <textarea
+                  rows="5"
+                  formControlName="description"
+                  nz-input
+                ></textarea>
+              </nz-textarea-count>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div *nzModalFooter>
+    <button
+      nz-button
+      nzType="default"
+      (click)="handleCancel()"
+      [hidden]="companyFormStatus.loading"
+    >
+      Cancel
+    </button>
+    <button
+      nz-button
+      nzType="primary"
+      (click)="handleOk()"
+      [nzLoading]="companyFormStatus.loading"
+      [disabled]="
+        companyForm.invalid || companyFormStatus.loading || !companyForm.dirty
+      "
+    >
+      Submit
+    </button>
+  </div>
+</nz-modal>
