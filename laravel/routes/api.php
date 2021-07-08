@@ -64,6 +64,8 @@ Route::prefix('companies')->middleware('auth:sanctum')->group(function () {
     Route::post('/{company}/image', [Frontend\CompanyController::class, 'uploadImage']);
 });
 
+Route::get('/companies/top', [Frontend\CompanyController::class, 'getCompany']);
+
 Route::apiResource('company-contacts', Frontend\CompanyCvController::class)->middleware('auth:sanctum');
 Route::post('/company-contacts/contacts/{company}/store/{seeker}', [Frontend\CompanyCvController::class, 'storeSeekerContact'])->middleware('auth:sanctum');
 Route::get('/company-contacts/contacts/{company}', [Frontend\CompanyCvController::class, 'getContactByCompany'])->middleware('auth:sanctum');

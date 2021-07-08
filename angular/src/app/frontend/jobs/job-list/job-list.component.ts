@@ -6,6 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { jobTypes } from 'src/app/shared/models/jobType';
 import { JobProvinces } from 'src/app/shared/models/jobProvince';
+import { environment } from 'src/environments/environment.prod';
 
 
 
@@ -19,6 +20,7 @@ export class JobListComponent implements OnInit, OnDestroy {
   jobs!: Job[];
   jobTypes!: jobTypes[];
   jobProvinces!: JobProvinces[];
+  storageUrl = environment.storageUrl;
 
   page = 1;
   count = 0;

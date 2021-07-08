@@ -12,7 +12,7 @@
     <div class="jobint">
       <div class="row" style="height: 100px;">
         <div class="col-md-2 col-sm-2">
-          <img src="assets/frontend/images/employers/emplogo1.jpg" alt="Job Name" />
+          <img [src]="jobPost.company.image ? (storageUrl + jobPost.company.image) : 'assets/frontend/images/employers/emplogo1.jpg'" alt="Job Name" />
         </div>
         <div class="col-md-7 col-sm-7">
           <h4><a [routerLink]="['/jobs', jobPost.id]">{{ jobPost?.title }}</a></h4>
@@ -35,7 +35,7 @@
 <!--Featured Job end-->
 
 <!--button start-->
-<div class="viewallbtn">
+<!-- <div class="viewallbtn">
   <a [routerLink]="['/jobs']">View All Featured Jobs</a>
-</div>
+</div> -->
 <!--button end-->

@@ -1,0 +1,39 @@
+<div class="searchwrap">
+    <div class="container">
+      <h3>One million success stories. <span>Start yours today.</span></h3>
+      <form [formGroup]="searchForm" (ngSubmit)="search()">
+      <div class="searchbar row">
+        <div class="col-md-5">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Enter Skills or job title"
+            formControlName="search"
+          />
+        </div>
+        <div class="col-md-3">
+          <select class="form-control" formControlName="job_type_id">
+            <option value="" >Select Categories</option>
+            <option *ngFor="let jobType of jobTypes" value="{{ jobType.id }}">{{ jobType.name }}</option>
+          </select>
+        </div>
+        <div class="col-md-2">
+          <select class="form-control" formControlName="province_id">
+            <option value="">Select province</option>
+            <option *ngFor="let jobProvince of jobProvinces" value="{{ jobProvince.id }}">{{ jobProvince.name_with_type }}</option>
+          </select>
+        </div>
+        <div class="col-md-2">
+          <input type="submit" class="btn" value="Search Job" />
+        </div>
+      </div>
+    </form>
+      <!-- button start -->
+      <div class="getstarted">
+        <a href="#."
+          ><i class="fa fa-user" aria-hidden="true"></i> Get Started Now</a
+        >
+      </div>
+      <!-- button end -->
+    </div>
+  </div>

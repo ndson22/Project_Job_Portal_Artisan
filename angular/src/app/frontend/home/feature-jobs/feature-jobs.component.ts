@@ -1,6 +1,7 @@
 import { Job } from './../../../shared/models/job';
 import { JobService } from './../../../shared/services/job.service';
 import { Component, OnInit } from '@angular/core';
+import { environment } from 'src/environments/environment.prod';
 
 @Component({
   selector: 'app-feature-jobs',
@@ -9,6 +10,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FeatureJobsComponent implements OnInit {
   jobPosts!: Job[];
+  storageUrl = environment.storageUrl;
   constructor(
     private jobService: JobService,
   ) { }

@@ -79,6 +79,8 @@ import { CompanyDetailComponent } from './profiles/company-detail/company-detail
 import { SeekerDetailComponent } from './profiles/seeker-detail/seeker-detail.component';
 import { HomeSuccessStoriesComponent } from './home/home-success-stories/home-success-stories.component';
 import { CompanyCvComponent } from './profiles/company-cv/company-cv.component';
+import { TopEmployersComponent } from './home/top-employers/top-employers.component';
+import { SearchComponent } from './home/search/search.component';
 
 @NgModule({
   declarations: [
@@ -113,6 +115,8 @@ import { CompanyCvComponent } from './profiles/company-cv/company-cv.component';
     SeekerDetailComponent,
     HomeSuccessStoriesComponent,
     CompanyCvComponent,
+    TopEmployersComponent,
+    SearchComponent,
   ],
   imports: [
     NgxPaginationModule,
