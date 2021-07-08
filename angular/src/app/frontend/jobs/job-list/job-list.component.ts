@@ -1,4 +1,4 @@
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import  { Job } from "../../../shared/models/job";
 import  { JobService } from "../../../shared/services/job.service";
@@ -6,7 +6,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { jobTypes } from 'src/app/shared/models/jobType';
 import { JobProvinces } from 'src/app/shared/models/jobProvince';
-import { environment } from 'src/environments/environment.prod';
+import { UserService } from 'src/app/shared/services/user.service';
+
 
 
 
@@ -20,28 +21,36 @@ export class JobListComponent implements OnInit, OnDestroy {
   jobs!: Job[];
   jobTypes!: jobTypes[];
   jobProvinces!: JobProvinces[];
-  storageUrl = environment.storageUrl;
-
-  page = 1;
-  count = 0;
-  pageSize = 5;
+  jobSalary! : Job[];
 
   searchForm = this.formBuilder.group({
     search: [''],
     job_type_id: [null],
     province_id: [null],
+    from_salary: [''],
+    to_salary: [''],
+    experience: ['']
   });
+
+  searchFormFilter = this.formBuilder.group({
+    search: [''],
+    experience: ['']
+  });
+
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    public jobService: JobService,
-    private formBuilder: FormBuilder
+    private jobService: JobService,
+    private formBuilder: FormBuilder,
+    public userService: UserService
   ) { }
 
   ngOnInit(): void {
+
     this.getJobTypes();
     this.getJobProvince();
+    this.getMinSalary();
     if (this.jobService.flag) {
       this.jobs = this.jobService.jobPosts;
       this.searchForm.controls['search']?.setValue(this.jobService.searching);
@@ -52,6 +61,8 @@ export class JobListComponent implements OnInit, OnDestroy {
     }
     this.jobService.flag = false;
   }
+
+
 
   getAllPost() {
    this.subscription = this.jobService.getAll().subscribe({
@@ -80,22 +91,50 @@ export class JobListComponent implements OnInit, OnDestroy {
     })
   };
 
-  toContact()
-  {
-    document.getElementById("apply_scroll")?.scrollIntoView({
-      behavior:"smooth"
+  getMinSalary(){
+    this.jobService.getMinSalary().subscribe({
+      next:(res: any) => {
+        this.jobSalary = res;
+      }
     });
+   }
+
+  search()
+  {
+    this.jobService.search(this.searchForm.value).subscribe(
+      (res) => {
+        this.jobService.jobPosts = res.jobPosts;
+        this.jobService.searching = res.search;
+        this.jobService.jobTypeId = res.jobTypeId;
+        this.jobService.provinceId = res.provinceId;
+        this.jobs = res.jobPosts;
+      },
+      (error) => {
+      }
+    );
+  }
+
+  searchFilter()
+  {
+    console.log(this.searchFormFilter.value)
+    this.jobService.searchFilter(this.searchFormFilter.value).subscribe(
+      (res) => {
+        console.log(res)
+        this.jobService.searching = res.search;
+        this.jobService.jobPosts = res.jobPosts;
+        this.jobs = res.jobPosts;
+        console.log(this.jobs)
+      },
+      (error) => {
+      }
+    );
+
   }
 
   ngOnDestroy() {
     if (this.subscription) {
       this.subscription.unsubscribe();
     }
-  }
-
-  onTableDataChange(e:any){
-    this.page = e;
-    console.log(e);
   }
 
 }

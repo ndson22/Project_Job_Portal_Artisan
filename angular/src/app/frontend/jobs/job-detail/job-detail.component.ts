@@ -24,10 +24,10 @@ export class JobDetailComponent implements OnInit {
   contact!: Contact;
 
   createForm = this.formBuilder.group({
-    name: [''],
-    email: [''],
-    phone: [''],
-    message: [''],
+    name: ['', [Validators.required, Validators.maxLength(255)]],
+    email: ['', [Validators.required, Validators.email, Validators.maxLength(255)]],
+    phone_number: ['', [Validators.required, Validators.maxLength(10)]],
+    message: ['', [Validators.required, Validators.maxLength(1000)]],
   });
 
   forwardToEmailForm!: FormGroup;
@@ -40,7 +40,7 @@ export class JobDetailComponent implements OnInit {
     private toastr: ToastrService,
     private contactService: ContactService,
     private formBuilder: FormBuilder,
-    public userService: UserService,
+    public userService: UserService
   ) {}
 
   ngOnInit(): void {
@@ -91,6 +91,7 @@ export class JobDetailComponent implements OnInit {
         this.toastr.error('You have applied to this job');
       }
     );
+  }
 
   showForwardToEmailModal(): void {
     this.forwardToEmailForm = this.formBuilder.group({

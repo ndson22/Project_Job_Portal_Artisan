@@ -50,6 +50,11 @@ export class JobService {
     return this.http.post<Job[]>(`${baseUrl}/search`, data);
   }
 
+  searchFilter(data: any): Observable<any> {
+    this.flag = true;
+    return this.http.post<Job[]>(`${baseUrl}/search-filter`, data);
+  }
+
   getJobType(): Observable<jobTypes> {
     return this.http.get<jobTypes>(`${baseUrl}/types`);
   }
@@ -64,5 +69,9 @@ export class JobService {
 
   changeActive(id: number): Observable<any> {
     return this.http.put<any>(`${baseDashboardUrl}/jobs/active`, {id: id});
+  }
+
+  getMinSalary(): Observable<Job> {
+    return this.http.get<Job>(`${baseUrl}/salary`);
   }
 }

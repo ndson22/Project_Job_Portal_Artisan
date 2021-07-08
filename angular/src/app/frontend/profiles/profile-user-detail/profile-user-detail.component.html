@@ -32,14 +32,14 @@
       <h5>Avatar</h5>
       <hr />
       <div [nzGutter]="24" nz-row>
-        <div class="super-center" [nzSpan]="7" nz-col>
+        <div class="super-center" [nzSpan]="6" nz-col>
           <nz-avatar
-            [nzSize]="170"
+            [nzSize]="150"
             [nzSrc]="imageService.checkNullAvatar(user)"
             style="vertical-align: middle"
           ></nz-avatar>
         </div>
-        <div class="super-center" [nzSpan]="5" nz-col>
+        <div class="super-center" [nzSpan]="6" nz-col>
           <nz-upload
             [nzAction]="frontendUrl + user.id + '/image'"
             [nzFileType]="'image/png,image/jpeg,image/jpg,image/gif,image/bmp'"

@@ -177,18 +177,18 @@
           <h3>Contact</h3>
           <div class="formpanel">
             <div class="formrow">
-              <input type="text" class="form-control" placeholder="Your Name" formControlName="name" />
+              <input maxlength="255" type="text" class="form-control" placeholder="Your Name" formControlName="name" />
             </div>
             <div class="formrow">
-              <input type="email" class="form-control" placeholder="Your Email" formControlName="email" />
+              <input maxlength="255" type="email" class="form-control" placeholder="Your Email" formControlName="email" />
             </div>
             <div class="formrow">
-              <input type="number" class="form-control" placeholder="Phone" formControlName="phone" />
+              <input maxlength="10" type="number" class="form-control" placeholder="Phone" formControlName="phone_number" />
             </div>
             <div class="formrow">
-              <textarea class="form-control" placeholder="Message" formControlName="message"></textarea>
+              <textarea maxlength="1000" class="form-control" placeholder="Message" formControlName="message"></textarea>
             </div>
-            <input type="submit" class="btn" value="Submit" />
+            <input type="submit" class="btn" value="Submit" [disabled]="createForm.invalid" />
           </div>
         </div>
       </div>

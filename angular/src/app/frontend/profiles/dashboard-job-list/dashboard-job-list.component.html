@@ -35,7 +35,7 @@
   </tbody>
 </nz-table>
 <nz-modal [(nzVisible)]="isVisible" [nzWidth]="1000" [nzTitle]="modalTitle" [nzContent]="modalContent" nzOkText="Edit"
-  [nzOkDisabled]="updateForm.invalid" (nzOnOk)="handleOk()" (nzOnCancel)="handleCancel()">
+  [nzOkDisabled]="updateForm.invalid" (nzOnOk)="handleOk()" (nzOnCancel)="handleCancel()" nzCentered>
   <ng-template #modalTitle>Job Information</ng-template>
 
   <ng-template #modalContent>
@@ -183,9 +183,9 @@
             <nz-form-control nzHasFeedback [nzErrorTip]="description">
               <editor formControlName="description" apiKey="kwzv7sdzx3mxt9miqs949uzirazxaljvelvgncytz7h8exuf"
                     [init]="{
-                    height: 350,
+                    height: 210,
                     menubar: false,
-                    content_style: 'body {font-size: 12pt;}',
+                    content_style: 'body {font-size: 11pt;}',
                     plugins: [
                       'advlist autolink lists link image charmap print preview anchor',
                       'searchreplace visualblocks code fullscreen',

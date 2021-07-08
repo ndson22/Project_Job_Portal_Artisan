@@ -65,14 +65,14 @@
               </nz-form-item>
             </div>
           </div>
-          <div class="super-center" [nzSpan]="7" nz-col>
+          <div class="super-center" [nzSpan]="6" nz-col>
             <nz-avatar
-              [nzSize]="170"
+              [nzSize]="150"
               [nzSrc]="imageService.checkNullCompanyAvatar(company)"
               style="vertical-align: middle"
             ></nz-avatar>
           </div>
-          <div class="super-center" [nzSpan]="5" nz-col>
+          <div class="super-center" [nzSpan]="6" nz-col>
             <nz-upload
               [nzAction]="frontendUrl + company.id + '/image'"
               [nzFileType]="
