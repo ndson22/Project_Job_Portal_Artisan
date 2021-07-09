@@ -2,8 +2,15 @@
 
 namespace App\Exceptions;
 
-use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
+use ErrorException;
+use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\Cookie;
+use Illuminate\Validation\UnauthorizedException;
+use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
+use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 
 class Handler extends ExceptionHandler
 {
@@ -36,6 +43,18 @@ class Handler extends ExceptionHandler
     {
         $this->reportable(function (Throwable $e) {
             //
+        });
+        $this->renderable(function (NotFoundHttpException $e, $request) {
+            return response()->json('Not Found', 404);
+        });
+        $this->renderable(function (MethodNotAllowedHttpException $e, $request) {
+            return response()->json($e->getMessage(), 405);
+        });
+        $this->renderable(function (ErrorException $e, $request) {
+            return response()->json($e->getMessage(), 404);
+        });
+        $this->renderable(function (QueryException $e, $request) {
+            return response()->json($e->getMessage(), 404);
         });
     }
 }

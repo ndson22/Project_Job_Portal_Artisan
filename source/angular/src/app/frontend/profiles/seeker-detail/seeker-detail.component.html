@@ -1,0 +1,158 @@
+<div class="col-12">
+  <div class="userccount">
+    <!-- Change Avatar -->
+    <div>
+      <h5>Working Experience</h5>
+      <hr />
+      <div [nzGutter]="24" nz-row nzAlign="middle">
+        <div [nzSpan]="6" nz-col>
+          <nz-avatar [nzSize]="150" [nzSrc]="avatar" nzIcon="user"></nz-avatar>
+        </div>
+        <div [nzSpan]="6" nz-col>
+          <div id="hide">
+            <label>
+              <input type="file" (change)="changeAvatar($event)" />
+              <span><i nz-icon nzType="camera" nzTheme="fill" style="font-size: 36px" nz-popover
+                  nzPopoverContent="Change image"></i></span>
+            </label>
+          </div>
+        </div>
+      </div>
+      <!-- Seeker Basic Information Form -->
+      <form [formGroup]="seekerForm" (ngSubmit)="onSubmitSeeker()" nz-form nzLayout="vertical">
+        <hr />
+        <div [nzGutter]="24" nz-row>
+          <div [nzSpan]="12" nz-col>
+            <nz-form-item>
+              <nz-form-label [nzSpan]="24">Full Name</nz-form-label>
+              <nz-form-control nzHasFeedback nzErrorTip="Input is required">
+                <nz-input-group nzPrefixIcon="user">
+                  <input type="text" nz-input formControlName="name" />
+                </nz-input-group>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+          <div [nzSpan]="12" nz-col>
+            <nz-form-item>
+              <nz-form-label [nzSpan]="24">Gender</nz-form-label>
+              <nz-form-control nzHasFeedback nzErrorTip="Input is required">
+                <select class="form-control" formControlName="gender_id">
+                  <option *ngFor="let gender of genders" value="{{ gender.id }}">{{ gender.name }}</option>
+                </select>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+        </div>
+        <div [nzGutter]="24" nz-row>
+          <div [nzSpan]="12" nz-col>
+            <nz-form-item>
+              <nz-form-label [nzSpan]="24">Email</nz-form-label>
+              <nz-form-control nzHasFeedback nzErrorTip="Input is required">
+                <nz-input-group nzPrefixIcon="mail">
+                  <input type="email" nz-input formControlName="email" />
+                </nz-input-group>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+          <div [nzSpan]="12" nz-col>
+            <nz-form-item>
+              <nz-form-label [nzSpan]="24">Birthday</nz-form-label>
+              <nz-form-control [nzSpan]="24" nzHasFeedback nzErrorTip="Input is required">
+                <nz-date-picker [nzFormat]="dateFormat" formControlName="birthday" style="width: 100%;">
+                </nz-date-picker>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+        </div>
+        <div [nzGutter]="24" nz-row>
+          <div [nzSpan]="12" nz-col>
+            <nz-form-item>
+              <nz-form-label [nzSpan]="24">Phone number</nz-form-label>
+              <nz-form-control nzHasFeedback [nzErrorTip]="phone_number">
+                <nz-input-group nzPrefixIcon="phone">
+                  <input type="number" nz-input formControlName="phone_number" />
+                  <ng-template #phone_number let-control>
+                    <ng-container *ngIf="control.hasError('pattern')">Phone number invalid</ng-container>
+                    <ng-container *ngIf="control.hasError('required')">Phone number is required</ng-container>
+                  </ng-template>
+                </nz-input-group>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+          <div [nzSpan]="12" nz-col>
+            <nz-form-item>
+              <nz-form-label [nzSpan]="24">Facebook</nz-form-label>
+              <nz-form-control nzHasFeedback nzErrorTip="Input is required">
+                <nz-input-group nzPrefixIcon="facebook">
+                  <input type="text" nz-input formControlName="facebook" />
+                </nz-input-group>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+        </div>
+        <div [nzGutter]="24" nz-row>
+          <div [nzSpan]="24" nz-col>
+            <nz-form-item>
+              <nz-form-label [nzSpan]="24">Address</nz-form-label>
+              <nz-form-control nzHasFeedback nzErrorTip="Input is required">
+                <nz-input-group nzPrefixIcon="global">
+                  <input type="text" nz-input formControlName="address" />
+                </nz-input-group>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+        </div>
+        <nz-form-item style="text-align: right">
+          <nz-form-control>
+            <button [disabled]="
+                seekerForm.invalid || isLoading || !seekerForm.dirty
+              " type="submit" nz-button nzType="primary" [nzLoading]="isLoading">
+              Update and Save
+            </button>
+          </nz-form-control>
+        </nz-form-item>
+      </form>
+      <hr />
+      <!-- Seeker Experience Form -->
+      <form [formGroup]="seekerExperienceForm" (ngSubmit)="onSubmitSeekerExperience()" nz-form nzLayout="vertical">
+        <h5>Change Experience</h5>
+        <ng-template #description let-control>
+          <ng-container *ngIf="control.hasError('required')">Experience is required</ng-container>
+        </ng-template>
+        <div nz-row>
+          <div nz-col [nzSpan]="24">
+            <nz-form-item>
+              <nz-form-control nzHasFeedback [nzErrorTip]="description">
+                <editor formControlName="description" apiKey="kwzv7sdzx3mxt9miqs949uzirazxaljvelvgncytz7h8exuf" [init]="{
+                      height: 350,
+                      menubar: false,
+                      content_style: 'body {font-size: 12pt;}',
+                      plugins: [
+                        'advlist autolink lists link image charmap print preview anchor',
+                        'searchreplace visualblocks code fullscreen',
+                        'insertdatetime media table paste code help wordcount'
+                      ],
+                      toolbar:
+                        'undo redo | fontsizeselect | formatselect | bold italic backcolor | \
+                        alignleft aligncenter alignright alignjustify | \
+                        bullist numlist outdent indent | removeformat | help'
+                    }"></editor>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+        </div>
+        <nz-form-item style="text-align: right">
+          <nz-form-control>
+            <button [disabled]="
+              seekerExperienceForm.invalid ||
+                isLoading ||
+                !seekerExperienceForm.dirty
+              " type="submit" nz-button nzType="primary" [nzLoading]="isLoading">
+              Update and Save
+            </button>
+          </nz-form-control>
+        </nz-form-item>
+      </form>
+    </div>
+  </div>
+</div>

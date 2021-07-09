@@ -14,7 +14,9 @@ class EmployeePositionSeeder extends Seeder
      */
     public function run()
     {
-        $employeePositions = ['Employee', 'Manager'];
+        $employeePositions = ['Director and above', 'Manager', 'Intern/Student', 'Fresher/Entry-level', 'Experienced (non-manager)'];
+        sort($employeePositions);
+
         foreach ($employeePositions as $employeePosition) {
             EmployeePosition::create([
                 'name' => $employeePosition,

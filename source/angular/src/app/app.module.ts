@@ -1,12 +1,18 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
-import { AppRoutingModule } from './app-routing.module';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+//
 import { AppComponent } from './app.component';
+import { AppRoutingModule } from './app-routing.module';
+import { ErrorInterceptor } from './shared/interceptors/error.interceptor';
+import { HttpConfigInterceptor } from './shared/interceptors/http-config.interceptor';
 
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+// Extra
 import { ToastrModule } from 'ngx-toastr';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { NZ_I18N, en_US } from 'ng-zorro-antd/i18n';
 
 @NgModule({
   declarations: [AppComponent],
@@ -14,12 +20,24 @@ import { ToastrModule } from 'ngx-toastr';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    NgbModule,
+    BrowserAnimationsModule,
+    NgxSpinnerModule,
     ToastrModule.forRoot({
       preventDuplicates: false,
+      maxOpened: 3,
+      autoDismiss: true,
+      positionClass: 'toast-top-right'
     }),
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpConfigInterceptor,
+      multi: true,
+    },
+    // { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    { provide: NZ_I18N, useValue: en_US },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

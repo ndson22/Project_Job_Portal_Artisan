@@ -14,7 +14,9 @@ class JobTypeSeeder extends Seeder
      */
     public function run()
     {
-        $jobTypes = ['IT', 'Marketing', 'Business'];
+        $jobTypes = ['Accounting / Auditing', 'WareHouse', 'Printing', 'Education/Training', 'Insurance', 'Real Estate', 'Sales', 'Auto/Automotive', 'Civil/Construction', 'Export/Import', 'Freight/Logistics', 'Geology/Mineral', 'Banking', 'Fashion/Lifestyle', 'Finance/Investment', 'IT', 'Marketing', 'Business', 'Marketing', 'Oil/Gas'];
+        sort($jobTypes);
+
         foreach ($jobTypes as $jobType) {
             JobType::create([
                 'name' => $jobType,

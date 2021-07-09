@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\JobAddress;
+use App\Models\JobLocation;
 use App\Models\JobType;
 use App\Models\EmployeePosition;
 use App\Models\TypeOfEmployment;
@@ -23,9 +23,9 @@ class JobPost extends Model
         'description', 'employee_quantity', 'gender_id',
     ];
 
-    public function jobAddress()
+    public function company()
     {
-        return $this->hasOne(JobAddress::class);
+        return $this->belongsTo(Company::class);
     }
 
     public function jobType()
@@ -46,5 +46,10 @@ class JobPost extends Model
     public function gender()
     {
         return $this->belongsTo(Gender::class);
+    }
+
+    public static function withRelationships($id)
+    {
+        return self::with(['company', 'jobType', 'employeePosition', 'typeOfEmployment', 'gender'])->findOrFail($id);
     }
 }

@@ -14,7 +14,8 @@ class TypeOfEmploymentSeeder extends Seeder
      */
     public function run()
     {
-        $typeOfEmployments = ['Full time', 'Part time'];
+        $typeOfEmployments = ['Full-time', 'Part-time'];
+
         foreach ($typeOfEmployments as $typeOfEmployment) {
             TypeOfEmployment::create([
                 'name' => $typeOfEmployment,

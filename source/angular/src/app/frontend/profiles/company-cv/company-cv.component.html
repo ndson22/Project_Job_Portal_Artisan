@@ -1,0 +1,68 @@
+<nz-table #basicTable [nzData]="contact" [nzPageSize]=20 nzTableLayout="fixed">
+  <thead>
+    <tr>
+      <th [nzAlign]="'center'" nzWidth="30%">Name</th>
+      <th [nzAlign]="'center'">Email</th>
+      <th [nzAlign]="'center'">Phone_number</th>
+      <th [nzAlign]="'center'">Apply at</th>
+      <th [nzAlign]="'center'">User</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of basicTable.data; index as i">
+      <td [nzAlign]="'center'" *ngIf="data.user_id; else anonymous"><a (click)="showSeekerModal(data.id)">{{ data.name }}</a></td>
+      <ng-template #anonymous>
+        <td [nzAlign]="'center'"><a (click)="showAnonymousModal(data.id)">{{ data.name }}</a></td>
+      </ng-template>
+      <td [nzAlign]="'center'">{{ data.email }}</td>
+      <td [nzAlign]="'center'">{{ '0' + data.phone_number }}</td>
+      <td [nzAlign]="'center'" timeago [date]="data.created_at" [live]="false"></td>
+      <td [nzAlign]="'center'" *ngIf="data.user_id; else elseBlock">User</td>
+      <ng-template #elseBlock>
+        <td [nzAlign]="'center'">Anonymous</td>
+      </ng-template>
+    </tr>
+  </tbody>
+</nz-table>
+<nz-modal [(nzVisible)]="isVisibleSeekerModal" [nzWidth]="650" [nzCancelText]="null" [nzCentered]="true"
+  (nzOnOk)="handleSeekerModalOk()" (nzOnCancel)="handleSeekerModalOk()">
+  <ng-container>
+    <p class="title" style=" margin-bottom: 24px;">User Profile</p>
+    <nz-avatar [nzSrc]="
+              seeker?.image
+                  ? storageUrl + seeker?.image
+                  : 'assets/frontend/images/candidates/01.jpg'
+              " [nzSize]="140" style="vertical-align: middle"></nz-avatar>
+    <nz-divider></nz-divider>
+    <nz-descriptions [nzColumn]="2" nzTitle="Personal">
+      <nz-descriptions-item nzTitle="Full Name" [nzSpan]="1">{{ seeker?.name }}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="Birthday" [nzSpan]="1">{{ seeker?.birthday | date }}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="Gender" [nzSpan]="1">{{ seeker?.gender?.name }}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="Address" [nzSpan]="1">{{ seeker?.address }}</nz-descriptions-item>
+    </nz-descriptions>
+    <nz-divider></nz-divider>
+    <nz-descriptions [nzColumn]="2" nzTitle="Experiences">
+      <nz-descriptions-item nzTitle="Skills" [nzSpan]="2"><p [innerHTML]="seeker?.seeker_experience?.description"></p></nz-descriptions-item>
+    </nz-descriptions>
+    <nz-divider></nz-divider>
+    <nz-descriptions [nzColumn]="2" nzTitle="Contacts">
+      <nz-descriptions-item nzTitle="Email" [nzSpan]="1">{{ seeker?.email }}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="Phone Number" [nzSpan]="1">{{ seeker?.phone_number }}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="Facebook" [nzSpan]="2">
+        <a [href]="'http://' + seeker?.facebook" target="_blank">{{ seeker?.facebook }}</a>
+      </nz-descriptions-item>
+    </nz-descriptions>
+  </ng-container>
+</nz-modal>
+<nz-modal [(nzVisible)]="isVisibleAnonymousModal" [nzWidth]="650" [nzCancelText]="null" [nzCentered]="true"
+  (nzOnOk)="handleAnonymousModalOk()" (nzOnCancel)="handleSeekerModalOk()">
+  <ng-container>
+    <p class="title" style=" margin-bottom: 24px;">User Profile</p>
+    <nz-descriptions [nzColumn]="2" nzTitle="Personal">
+      <nz-descriptions-item nzTitle="Full Name" [nzSpan]="1">{{ anonymous?.name }}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="Email" [nzSpan]="1">{{ anonymous?.email }}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="Phone number" [nzSpan]="1">{{ anonymous?.phone_number }}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="Message" [nzSpan]="2">{{ anonymous?.message }}</nz-descriptions-item>
+    </nz-descriptions>
+  </ng-container>
+</nz-modal>

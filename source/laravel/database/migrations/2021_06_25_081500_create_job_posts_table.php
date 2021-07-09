@@ -16,7 +16,6 @@ class CreateJobPostsTable extends Migration
         Schema::create('job_posts', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('company_id');
             $table->unsignedBigInteger('job_type_id');
             $table->string('from_salary');
@@ -27,8 +26,9 @@ class CreateJobPostsTable extends Migration
             $table->date('expire');
             $table->longText('description');
             $table->integer('employee_quantity');
-            $table->unsignedBigInteger('gender_id')->nullable();
+            $table->unsignedBigInteger('gender_id');
             $table->boolean('is_active')->default(1);
+            $table->timestamp('promoted_at')->nullable();
             $table->string('job_code');
             $table->timestamps();
 
@@ -36,6 +36,7 @@ class CreateJobPostsTable extends Migration
             $table->foreign('employee_position_id')->references('id')->on('employee_positions');
             $table->foreign('type_of_employment_id')->references('id')->on('type_of_employments');
             $table->foreign('gender_id')->references('id')->on('genders');
+            $table->foreign('company_id')->references('id')->on('companies');
         });
     }
 
