@@ -44,7 +44,8 @@ php artisan hcvn:install
 Installed packages:
 + https://github.com/vanthao03596/laravel-hanhchinhvn
 
-Hướng dẫn migrate
+Hướng dẫn migrate:
 + https://www.youtube.com/watch?v=kXcBuJdp6UM
-Demo code dự án
+
+Demo code dự án:
 + https://www.youtube.com/watch?v=A8iQ1bnFT4s
