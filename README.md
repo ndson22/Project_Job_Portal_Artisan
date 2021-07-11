@@ -1,48 +1,13 @@
-# Git
-```
-git checkout <branch-name>
-git clone -b dev https://github.com/ndson22/Project_Job_Portal_Artisan.git
-git fetch origin dev:dev
-```
-```
-git init -b <branch-name> // Bản cũ ko chạy được
-git init
-git checkout -b <branch-name>
-git add .
-git commit -m "First commit"
-git remote add origin https://github.com/ndson22/Project_Job_Portal_Artisan.git
-git remote -v
-git push origin <branch-name>
-git merge <branch-name> --allow-unrelated-histories
-```
+# Demo dự án
++ https://www.youtube.com/watch?v=A8iQ1bnFT4s
 
-# Angular
-```
-npm install
+# Khởi động Angular
+1. Chạy lệnh ```npm i```
+2. Chạy lệnh ```npm s -o``` để khởi động server
 
-Tạo component: ng g c frontend/<component-group>/<specific-component-name>
-Tạo service: ng g s shared/services/<service-name>
-Tạo model: ng g class shared/models/<model-name>
-Tạo guard: ng g guard shared/resolvers/<resolver-name>
-Tạo resolve: ng g resolver shared/resolvers/<resolver-name>
-```
-Installed packages:
-+ https://www.npmjs.com/package/ngx-toastr
-+ https://www.npmjs.com/package/@ng-bootstrap/ng-bootstrap
-+ https://www.npmjs.com/package/ngx-validators
-+ https://www.npmjs.com/package/ngx-timeago
-
-# Laravel
-```
-composer install
-cp .env.example .env \\ Database nen dat ten la codegym_jobportal
-php artisan key:generate
-php artisan migrate:fresh --seed
-php artisan storage:link
-php artisan hcvn:install
-```
-Installed packages:
-+ https://github.com/vanthao03596/laravel-hanhchinhvn
-
-Hướng dẫn migrate
-+ https://www.youtube.com/watch?v=kXcBuJdp6UM
+# Khởi động Laravel
+1. Gõ lệnh ```npm i```
+2. cp .env.example .env
+3. Đổi DB_USERNAME và DB_PASSWORD trong file .env
+4. import file ```job_portal_2021_06_28.sql``` vào database
+5. Chạy lệch ``php artisan serve`` để khởi động server
