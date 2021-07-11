@@ -6,7 +6,7 @@
 2. Chạy lệnh ```npm s -o``` để khởi động server
 
 # Khởi động Laravel
-1. Chạy lệnh ```npm i```
+1. Chạy lệnh ```composer i```
 2. Chạy lệnh ```cp .env.example .env``` để tạo file ```.env``` mới
 3. Đổi DB_USERNAME và DB_PASSWORD trong file ```.env```
 4. Import file ```job_portal_2021_06_28.sql``` vào database
